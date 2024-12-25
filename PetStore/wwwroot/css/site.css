@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.text-light-blue {
+    color: #8d9ee7 !important;
+}
