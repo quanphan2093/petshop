@@ -19,7 +19,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Home");
+    return Task.CompletedTask;
+});
 app.MapRazorPages();
 
 app.Run();
