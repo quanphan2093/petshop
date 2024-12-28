@@ -9,6 +9,7 @@ namespace PetStore.Models
         public int? ForumId { get; set; }
         public int? ParentCommentId { get; set; }
         public string? Content { get; set; }
+        public DateTime? CreateAt { get; set; }
         public int? AccountId { get; set; }
 
         public virtual Account? Account { get; set; }

@@ -12,6 +12,5 @@ namespace PetStore.Models
         public DateTime? SentTime { get; set; }
 
         public virtual Account? Account { get; set; }
-        public virtual staff? Staff { get; set; }
     }
 }
