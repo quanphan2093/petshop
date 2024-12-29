@@ -74,11 +74,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="/Home" class="nav-item nav-link active">Home</a>
-                    <a href="/About" class="nav-item nav-link">About</a>
-                    <a href="/Service" class="nav-item nav-link">Service</a>
-                    <a href="/Product" class="nav-item nav-link">Product</a>
-                    <a href="/Blog" class="nav-item nav-link">Blog</a>
+                    <a href="/Home" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Home"? "active" : "")">Home</a>
+                    <a href="/About" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/About"? "active" : "")">About</a>
+                    <a href="/Service" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Service"? "active" : "")">Service</a>
+                    <a href="/Product" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Product"? "active" : "")">Product</a>
+                    <a href="/Blog" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Customer/Blog" || ViewContext.RouteData.Values["page"].ToString() == "/Customer/BlogDetail")? "active" : "")">Blog</a>
 @*                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
