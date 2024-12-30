@@ -25,10 +25,13 @@
     <link href="~/tpl/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="~/tpl/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/tpl/css/bootstrap.min.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="~/tpl/css/style.css" rel="stylesheet">
+    <link href="~/tpl/css/style.css?v=@DateTime.Now.Ticks" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link href="~/css/site.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -36,7 +39,7 @@
             <div class="row gx-0">
                 <div class="col-lg-4 text-center py-2">
                     <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
+                        <i class="bi bi-geo-alt text-primary fs-1 me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Our Office</h6>
                             <span>123 Street, New York, USA</span>
@@ -54,7 +57,7 @@
                 </div>
                 <div class="col-lg-4 text-center py-2">
                     <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
+                        <i class="bi bi-phone-vibrate text-primary fs-1 me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Call Us</h6>
                             <span>+012 345 6789</span>
@@ -88,15 +91,15 @@
                         <a href="/Profile" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Profile" )? "active" : "")">Hello @Context.Session.GetString("email")</a>
                     }
 
-@*                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="price.html" class="dropdown-item">Pricing Plan</a>
-                            <a href="team.html" class="dropdown-item">The Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="/Blog" class="dropdown-item">Blog Grid</a>
-                            <a href="/Blog/BlogDetail" class="dropdown-item">Blog Detail</a>
-                        </div>
+                    @*                    <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu m-0">
+                    <a href="price.html" class="dropdown-item">Pricing Plan</a>
+                    <a href="team.html" class="dropdown-item">The Team</a>
+                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                    <a href="/Blog" class="dropdown-item">Blog Grid</a>
+                    <a href="/Blog/BlogDetail" class="dropdown-item">Blog Detail</a>
+                    </div>
                     </div>*@
                     <a href="/Contact" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Contact <i class="bi bi-arrow-right"></i></a>
                 </div>
