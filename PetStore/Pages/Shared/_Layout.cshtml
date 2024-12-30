@@ -79,6 +79,15 @@
                     <a href="/Service" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Service"? "active" : "")">Service</a>
                     <a href="/Product" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Product"? "active" : "")">Product</a>
                     <a href="/Blog" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Customer/Blog" || ViewContext.RouteData.Values["page"].ToString() == "/Customer/BlogDetail")? "active" : "")">Blog</a>
+                    @if (Context.Session.GetInt32("acc") == null)
+                    {
+                        <a href="/Login" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Login" )? "active" : "")">Login</a>
+                    }
+                    else
+                    {
+                        <a href="/Profile" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Profile" )? "active" : "")">Hello @Context.Session.GetString("email")</a>
+                    }
+
 @*                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
