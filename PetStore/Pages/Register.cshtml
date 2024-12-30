@@ -1,8 +1,9 @@
 ﻿@page
-@model PetStore.Pages.LoginModel
+@model PetStore.Pages.RegisterModel
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +46,9 @@
 						<i class="zmdi zmdi-font"></i>
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c" >
+					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c" style="margin-bottom:20px;">
 						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Email" ></span>
+						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password" style="margin-bottom:20px;">
@@ -57,30 +58,34 @@
 						<input class="input100" type="password" name="pass">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
-					@if (ViewData["error"] != null)
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password" style="margin-bottom:20px;">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="comfirm">
+						<span class="focus-input100" data-placeholder="Comfirm Password"></span>
+					</div>
+					@if (ViewData["message"] != null)
 					{
-						<p class="text-danger">@ViewData["error"]</p>
+						<p class="text-danger">@ViewData["message"]</p>
 					}
-					@if (TempData["success"] != null)
-					{
-						<p class="text-danger">@ViewData["success"]</p>
-					}
-					<div class="container-login100-form-btn" >
-						<div class="wrap-login100-form-btn" >
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn" style="background:#8d9ee7">
-								Login
+								Register
 							</button>
 						</div>
 					</div>
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							Don’t have an account?
+							Have an account?
 						</span>
 
-						<a class="txt2" href="Register">
-							Register
+						<a class="txt2" href="/Login">
+							Login
 						</a>
 					</div>
 				</form>
