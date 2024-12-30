@@ -2368,11 +2368,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\Desktop\\test\\PetStore\\PetStore.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Desktop\\merge\\PetStore\\PetStore.csproj",
       "projectName": "PetStore",
-      "projectPath": "C:\\Users\\admin\\Desktop\\test\\PetStore\\PetStore.csproj",
+      "projectPath": "C:\\Users\\admin\\Desktop\\merge\\PetStore\\PetStore.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Desktop\\test\\PetStore\\obj\\",
+      "outputPath": "C:\\Users\\admin\\Desktop\\merge\\PetStore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
