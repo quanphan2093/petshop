@@ -25,10 +25,13 @@
     <link href="~/tpl/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="~/tpl/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/tpl/css/bootstrap.min.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="~/tpl/css/style.css" rel="stylesheet">
+    <link href="~/tpl/css/style.css?v=@DateTime.Now.Ticks" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link href="~/css/site.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -36,7 +39,7 @@
             <div class="row gx-0">
                 <div class="col-lg-4 text-center py-2">
                     <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
+                        <i class="bi bi-geo-alt text-primary fs-1 me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Our Office</h6>
                             <span>123 Street, New York, USA</span>
@@ -54,7 +57,7 @@
                 </div>
                 <div class="col-lg-4 text-center py-2">
                     <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
+                        <i class="bi bi-phone-vibrate text-primary fs-1 me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Call Us</h6>
                             <span>+012 345 6789</span>
@@ -74,11 +77,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="/Home" class="nav-item nav-link active">Home</a>
-                    <a href="/About" class="nav-item nav-link">About</a>
-                    <a href="/Service" class="nav-item nav-link">Service</a>
-                    <a href="/Product" class="nav-item nav-link">Product</a>
-                    <a href="/Blog" class="nav-item nav-link">Blog</a>
+                    <a href="/Home" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Home"? "active" : "")">Home</a>
+                    <a href="/About" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/About"? "active" : "")">About</a>
+                    <a href="/Service" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Service"? "active" : "")">Service</a>
+                    <a href="/Product" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Product"? "active" : "")">Product</a>
+                    <a href="/Blog" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Customer/Blog" || ViewContext.RouteData.Values["page"].ToString() == "/Customer/BlogDetail")? "active" : "")">Blog</a>
 @*                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
