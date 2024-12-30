@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #7AB730;
+    --primary: #8d9ee7 !important;
     --secondary: #FFD33C;
     --light: #F3F3F3;
     --dark: #212121;
@@ -12,6 +12,14 @@
 [class*=" flaticon-"]:after {
     font-size: inherit;
     margin-left: 0;
+}
+
+.text-light-blue {
+    color: #8d9ee7 !important;
+}
+
+.bg-light-blue {
+    background-color: #8d9ee7 !important;
 }
 
 .btn {
