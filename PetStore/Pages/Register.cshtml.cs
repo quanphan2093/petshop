@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
 using PetStore.Pages.Common;
@@ -31,20 +31,44 @@ namespace PetStore.Pages
 			}
 			if (string.IsNullOrEmpty(pass))
 			{
-				ViewData["message"] = "Password is not null";
+				ViewData["message"] = "Password cannot be null";
 				return Page();
 			}
 			var account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(email)).FirstOrDefault();
-			if(account != null)
+			if (account != null)
 			{
 				ViewData["message"] = "Email existed";
 				return Page();
 			}
-			if (!pass.Equals(comfirm))
+			if (!pass.Trim().Equals(comfirm.Trim()))
 			{
-				ViewData["message"] = "Comfirm password is not correct";
+				ViewData["message"] = "Confirm password does not match.";
 				return Page();
 			}
+			if (!Regex.IsMatch(pass, "(?=.*[A-Z])"))
+			{
+				ViewData["message"] = "The password must contain at least 1 uppercase letter.";
+				return Page();
+			}
+
+			if (!Regex.IsMatch(pass, "(?=.*[a-z])"))
+			{
+				ViewData["message"] = "The password must contain at least 1 lowercase letter.";
+				return Page();
+			}
+
+			if (!Regex.IsMatch(pass, "(?=.*[\\W_])"))
+			{
+				ViewData["message"] = "The password must contain at least 1 special character.";
+				return Page();
+			}
+
+			if (pass.Length < 8)
+			{
+				ViewData["message"] = "The password must be at least 8 characters long.";
+				return Page();
+			}
+			
 			string hash = BCrypt.Net.BCrypt.HashPassword(pass);
 			var acc = new Account();
 			acc.Email = email;
