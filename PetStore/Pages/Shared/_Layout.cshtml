@@ -84,7 +84,7 @@
                     <a href="/Blog" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Customer/Blog" || ViewContext.RouteData.Values["page"].ToString() == "/Customer/BlogDetail")? "active" : "")">Blog</a>
                     @if (Context.Session.GetInt32("acc") == null)
                     {
-                        <a href="/Login" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Login" )? "active" : "")">Login</a>
+                        <a href="/Login" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Common/Login" )? "active" : "")">Login</a>
                     }
                     else
                     {

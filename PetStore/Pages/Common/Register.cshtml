@@ -1,8 +1,9 @@
-﻿@page
-@model PetStore.Pages.LoginModel
+﻿@page "/Register"
+@model PetStore.Pages.Common.RegisterModel
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,38 +46,47 @@
 						<i class="zmdi zmdi-font"></i>
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Email" ></span>
+					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c" style="margin-bottom:20px;">
+						<input class="input100" type="text" name="email" id="email">
+						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password" style="margin-bottom:20px;">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="pass" id="password" oninput="validatePassword()">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
-					@if (ViewData["error"] != null)
+					<div id="password-feedback" style="color: red; margin-top: 10px; font-size:13px;"></div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password" style="margin-bottom:20px;">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="comfirm">
+						<span class="focus-input100" data-placeholder="Comfirm Password"></span>
+					</div>
+
+					@if (ViewData["messageErrorRegister"] != null)
 					{
-						<p class="text-danger">@ViewData["error"]</p>
+						<p class="text-danger">@ViewData["messageErrorRegister"]</p>
 					}
-					<div class="container-login100-form-btn" >
-						<div class="wrap-login100-form-btn" >
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn" style="background:#8d9ee7">
-								Login
+								Register
 							</button>
 						</div>
 					</div>
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							Don’t have an account?
+							Have an account?
 						</span>
-
-						<a class="txt2" href="#">
-							Sign Up
+						<a class="txt2" href="/Login">
+							Login
 						</a>
 					</div>
 				</form>
@@ -103,6 +113,30 @@
 	<script src="~/login/vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
 	<script src="~/login/js/main.js"></script>
+	<script>
+		function validatePassword() {
+			const password = document.getElementById("password").value;
+			const feedback = document.getElementById("password-feedback");
+			let messages = [];
 
+			if (!/[A-Z]/.test(password)) {
+				messages.push("The password must contain at least 1 uppercase letter.");
+			}
+			if (!/[a-z]/.test(password)) {
+				messages.push("The password must contain at least 1 lowercase letter.");
+			}
+			if (!/[\W_]/.test(password)) {
+				messages.push("The password must contain at least 1 special character.");
+			}
+			if (password.length < 8) {
+				messages.push("The password must be at least 8 characters long.");
+			}
+
+			feedback.innerHTML = messages.join("<br>");
+			return messages.length === 0;
+		}
+
+
+	</script>
 </body>
 </html>
