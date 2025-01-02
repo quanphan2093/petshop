@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+MPtM8ySm0arrVEfub7QY8sScHGJK82LyVZK8FSv/ic=",
+  "Hash": "lPon5tI0wgnKdqgDNt+F9+EFK+T3A+5z7HnIQWh7PS8=",
   "Source": "PetStore",
   "BasePath": "_content/PetStore",
   "Mode": "Default",
@@ -91,25 +91,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\New folder\\petshop\\PetStore\\wwwroot\\Images\\Images_Profile\\9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg",
-      "SourceId": "PetStore",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\DELL\\OneDrive\\Desktop\\New folder\\petshop\\PetStore\\wwwroot\\",
-      "BasePath": "_content/PetStore",
-      "RelativePath": "Images/Images_Profile/9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\Images_Profile\\9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg"
     },
     {
       "Identity": "C:\\Users\\DELL\\OneDrive\\Desktop\\New folder\\petshop\\PetStore\\wwwroot\\js\\site.js",
