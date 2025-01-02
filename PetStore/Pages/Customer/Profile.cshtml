@@ -1,8 +1,7 @@
 ﻿@page
 @model PetStore.Pages.Customer.ProfileModel
 @{
-    var errorMessage = TempData["errorMessage"] as string;
-    var successMessage = TempData["successMessage"] as string;
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -60,103 +59,210 @@
     <div class="container-xxl bg-white p-0 profile-page">
 
         <div class="container profile-container">
-            <h1>Profile User</h1>
-
-            <div class="profile-header">
-                <!-- Ảnh đại diện bên phải -->
-                <img src="@Model.Account.Image" alt="Profile Picture">
-                @if (Model.Account != null)
-                {
-                    <!-- Thông tin hồ sơ bên trái -->
-                    <div class="profile-info">
-                        <p><span>Full Name:</span> @Model.Account.Fullname </p>
-                        <p><span>Email:</span> @Model.Account.Account.Email</p>
-                        <p><span>Phone Number:</span> @Model.Account.Phone</p>
-                        <p><span>Gender:</span> @Model.Account.Gender</p>
-                        <p><span>Address:</span> @Model.Account.Address</p>
-                    </div>
-                }
-                else
-                {
-                    <p>Account information not found.</p>
-                }
-                @if (Model.successMessage != null){
-                    <div>
-                        <span style="color: forestgreen">
-                            @Model.successMessage
-                        </span>
-                    </div>
-                }
-            </div>
-            <div style="text-align: right;">
-                <button id="updateProfileCloseBtn" class="btn btn-primary py-2 px-4">Update Profile</button>
-            </div>
-
-            <!-- Hidden Update Form -->
-            <div id="updateProfileForm" style="display:none;">
-                <div class="container border p-4 rounded shadow-lg bg-white" style="max-width: 900px; opacity: 0.9;">
-                    <div class="row justify-content-center">
-                        <div class="container">
-                            <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-4">Update Your Profile</h5>
-                            <form method="post" asp-action="Profile" enctype="multipart/form-data">
-                                <div class="row">
-                                    <!-- Cột trái -->
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="FullName" class="form-label fw-bold">Full Name</label>
-                                            <input type="text" class="form-control" id="Fullname" name="fullname" value="@Model.Account.Fullname" required>
-                                            <small id="fullnameError" style="color: red; display: none;">Full name cannot contain numbers or special characters and must be at least 11 characters.</small>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="Phone" class="form-label fw-bold">Phone</label>
-                                            <input type="text" class="form-control" id="Phone" name="phone" value="@Model.Account.Phone" required>
-                                            <small id="phoneError" style="color: red; display: none;">Phone number must have 10 digits and start with 09, 08, 03, 07, or 05.</small>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-bold">Gender</label>
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-3">
-                                                    <input type="radio" id="genderMale" name="gender" value="Male"
-                                                    @if (Model.Account.Gender == "Male")
-                                                    {
-                                                        <text>checked</text>
-                                                    } required>
-                                                    <label for="genderMale">Male</label>
-                                                </div>
-                                                <div>
-                                                    <input type="radio" id="genderFemale" name="gender" value="Female"
-                                                    @if (Model.Account.Gender == "Female")
-                                                    {
-                                                        <text>checked</text>
-                                                    } required>
-                                                    <label for="genderFemale">Female</label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <!-- Cột phải -->
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="Address" class="form-label fw-bold">Address</label>
-                                            <input type="text" class="form-control" id="Address" name="address" value="@Model.Account.Address" required>
-                                            <small id="addressError" style="color: red; display: none;">Address must be longer than 20 characters and cannot contain special characters.</small>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="Image" class="form-label fw-bold">Image</label>
-                                            <input type="file" class="form-control" id="Image" name="image" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button type="submit" class="btn btn-primary py-2 px-4" id="updateProfileBtn">Update Profile</button>
-                                </div>
-                            </form>
+            <h1>Hồ sơ người dùng</h1>
+            @if (Model.InformationUser != null)
+            {
+                <div class="profile-header">
+                    <!-- Ảnh đại diện bên phải -->
+                    @if (Model.InformationUser.Image != null)
+                    {
+                        <img src="@Model.InformationUser.Image" alt="Profile Picture">
+                    }
+                    else
+                    {
+                        @if (Model.InformationUser.Gender == "Male")
+                        {
+                            <img src="https://vietnampfa.com/wp-content/uploads/2024/10/avatar-mac-dinh-30xJKPDu.jpg" alt="Profile Picture">
+                        }
+                        else
+                        {
+                            <img src="https://seoweb.danang.vn/wp-content/uploads/2023/06/avatar-mac-dinh-facebook-nu.jpg" alt="Profile Picture">
+                        }
+                    }
+                    @if (Model.InformationUser != null)
+                    {
+                        <!-- Thông tin hồ sơ bên trái -->
+                        <div class="profile-info">
+                            <p><span>Họ và tên:</span> @Model.InformationUser.Fullname </p>
+                            <p><span>Email:</span> @Model.InformationUser.Account.Email</p>
+                            <p><span>Số điện thoại:</span> @Model.InformationUser.Phone</p>
+                            <p><span>Giới tính:</span> @Model.InformationUser.Gender</p>
+                            <p><span>Địa chỉ:</span> @Model.InformationUser.Address</p>
                         </div>
+                    }
+                    else
+                    {
+                        <p>Không tìm thấy thông tin tài khoản.</p>
+                    }
+                    @if (Model.notificationMessage != null)
+                    {
+                        <div>
+                            <span style="color: forestgreen">
+                                @Model.notificationMessage
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="profile-header">
+                    <!-- Ảnh đại diện bên phải -->
+                    <img src="https://vietnampfa.com/wp-content/uploads/2024/10/avatar-mac-dinh-30xJKPDu.jpg" alt="Profile Picture">
+                    @if (Model.InformationUser == null)
+                    {
+                        <!-- Thông tin hồ sơ bên trái -->
+                        <div class="profile-info">
+                            <p><span>Họ và tên:</span></p>
+                            <p><span>Email:</span> @Model.UserAdditionInfo.Email</p>
+                            <p><span>Số điện thoại:</span> </p>
+                            <p><span>Giới tính:</span></p>
+                            <p><span>Địa chỉ:</span></p>
+                        </div>
+                    }
+                    @if (Model.notificationMessage != null)
+                    {
+                        <div>
+                            <span style="color: forestgreen">
+                                @Model.notificationMessage
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+            
+            <div style="text-align: right;">
+                <button id="updateProfileCloseBtn" class="btn btn-primary py-2 px-4">Cập nhật</button>
+            </div>
 
+            @if (Model.InformationUser != null)
+            {
+                <!-- Hidden Update Form -->
+                <div id="updateProfileForm" style="display:none;">
+                    <div class="container border p-4 rounded shadow-lg bg-white" style="max-width: 900px; opacity: 0.9;">
+                        <div class="row justify-content-center">
+                            <div class="container">
+                                <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-4">Cập nhật thông tin của bạn</h5>
+                                <form method="post" asp-action="Profile" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <!-- Cột trái -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
+                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="@Model.InformationUser.Fullname" required>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
+                                                <input type="text" class="form-control" id="Phone" name="phone" value="@Model.InformationUser.Phone" required>
+                                                <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Giới tính</label>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3">
+                                                        <input type="radio" id="genderMale" name="gender" value="Male"
+                                                        @if (Model.InformationUser.Gender == "Male")
+                                                        {
+                                                            <text>checked</text>
+                                                        } required>
+                                                        <label for="genderMale">Male</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="genderFemale" name="gender" value="Female"
+                                                        @if (Model.InformationUser.Gender == "Female")
+                                                        {
+                                                            <text>checked</text>
+                                                        } required>
+                                                        <label for="genderFemale">Female</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Cột phải -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="Address" class="form-label fw-bold">Địa chỉ</label>
+                                                <input type="text" class="form-control" id="Address" name="address" value="@Model.InformationUser.Address" required>
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
+                                                <input type="file" class="form-control" id="Image" name="image" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-primary py-2 px-4" id="updateProfileBtn">Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <!-- Hidden Update Form -->
+                <div id="updateProfileForm" style="display:none;">
+                    <div class="container border p-4 rounded shadow-lg bg-white" style="max-width: 900px; opacity: 0.9;">
+                        <div class="row justify-content-center">
+                            <div class="container">
+                                <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-4">Cập nhật thông tin của bạn</h5>
+                                <form method="post" asp-action="Profile" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <!-- Cột trái -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
+                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="" required>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
+                                                <input type="text" class="form-control" id="Phone" name="phone" value="" required>
+                                                <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Giới tính</label>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3">
+                                                        <input type="radio" id="genderMale" name="gender" value="Male" checked/>
+                                                        <label for="genderMale">Male</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="genderFemale" name="gender" value="Female" />
+                                                        <label for="genderFemale">Female</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Cột phải -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="Address" class="form-label fw-bold">Địa chỉ</label>
+                                                <input type="text" class="form-control" id="Address" name="address" value="" required>
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
+                                                <input type="file" class="form-control" id="Image" name="image" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-primary py-2 px-4" id="updateProfileBtn">Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 
@@ -223,27 +329,13 @@
 
             if (form.style.display === "none" || form.style.display === "") {
                 form.style.display = "block";
-                button.innerText = "Close Tab";
+                button.innerText = "Đóng cập nhật";
             } else {
                 form.style.display = "none";
-                button.innerText = "Update Profile";
+                button.innerText = "Cập nhật";
             }
         });
     </script>
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <div>
-            <div id="toastNotification" class="toast align-items-center text-bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050; border-radius: 10px; overflow: hidden; width: 350px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                <div class="d-flex">
-                    <div class="toast-body p-3" style="font-size: 16px; line-height: 1.4; color: #666565;">
-                        @errorMessage
-                    </div>
-                </div>
-                <!-- Progress bar for countdown -->
-                <div class="toast-progress-bar" style="height: 5px; background-color: rgba(255, 255, 255, 0.3);"></div>
-            </div>
-        </div>
-    }
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var toastElement = document.getElementById("toastNotification");

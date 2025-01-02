@@ -22,15 +22,6 @@ namespace PetStore.Pages.Customer
                 Credentials = new NetworkCredential(smtpSettings["Username"], smtpSettings["Password"]),
                 EnableSsl = bool.Parse(smtpSettings["UseSSL"]),
             };
-
-            //var mailMessage = new MailMessage
-            //{
-            //    From = new MailAddress(smtpSettings["SenderEmail"], smtpSettings["SenderName"]),
-            //    Subject = "Verify Profile Update",
-            //    Body = $"You have successfully updated your account information on {DateTime.Now:dddd, MMMM dd, yyyy hh:mm tt}.",
-            //    IsBodyHtml = true,
-            //};
-
             var mailMessage = new MailMessage
             {
                 From = new MailAddress(smtpSettings["SenderEmail"], smtpSettings["SenderName"]),
@@ -49,7 +40,7 @@ namespace PetStore.Pages.Customer
             </pre>
         </body>
     </html>",
-                IsBodyHtml = true // Đảm bảo email được gửi dưới dạng HTML.
+                IsBodyHtml = true
             };
 
 

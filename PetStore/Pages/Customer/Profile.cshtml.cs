@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,22 +15,25 @@ namespace PetStore.Pages.Customer
         {
             _emailService = emailService;
         }
-        public Infor Account { get; set; }
+        public Infor InformationUser { get; set; }
+        public Account UserAdditionInfo { get; set; }   
         public IActionResult OnGet()
         {
-            //string accId = HttpContext.Session.GetString("accId");
-            string accId = "1";
+            int? accId = HttpContext.Session.GetInt32("acc");
             if (accId != null)
             {
-                Account = PetStoreContext.Ins.Infors.
+                InformationUser = PetStoreContext.Ins.Infors.
                     Include(x => x.Account).
-                    Where(x => x.AccountId == int.Parse(accId)).
+                    Where(x => x.AccountId == accId).
+                    FirstOrDefault();
+                UserAdditionInfo = PetStoreContext.Ins.Accounts.
+                    Where(x => x.AccountId == accId).
                     FirstOrDefault();
                 return Page();
             }
             else
             {
-                return RedirectToPage("/Guest/Restoran_Login/Login");
+                return RedirectToPage("/Common/Login");
             }
         }
         private string Fullname { get; set; } = "";
@@ -38,13 +41,14 @@ namespace PetStore.Pages.Customer
         private string Address { get; set; } = "";
         private string Gender { get; set; } = "";
         private IFormFile imageFile { get; set; }
-        public string errorMessage { get; set; } = "";
-        public string successMessage { get; set; } = "";
-        //private String file { get; set; } = ""; 
+        public string notificationMessage { get; set; } = "";
         public async Task<IActionResult> OnPost(string? fullname, string? phone, string? gender, string? address, IFormFile? image)
         {
-            //string? accId = HttpContext.Session.GetString("accId");
-            string accId = "1";
+            int? accId = HttpContext.Session.GetInt32("acc");
+            InformationUser = PetStoreContext.Ins.Infors.
+                   Include(x => x.Account).
+                   Where(x => x.AccountId == accId).
+                   FirstOrDefault();
             if (accId != null)
             {
                 Fullname = fullname;
@@ -52,40 +56,71 @@ namespace PetStore.Pages.Customer
                 Gender = gender;
                 Address = address;
                 imageFile = image;
-                var Infors = PetStoreContext.Ins.Infors.Include(x => x.Account).
-                    Where(x => x.AccountId == int.Parse(accId)).
-                    FirstOrDefault();
-                if (imageFile != null)
+                if (InformationUser != null)
                 {
-                    string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");
-                    if (!Directory.Exists(uploadFolder))
-                    {
-                        Directory.CreateDirectory(uploadFolder);
-                    }
-                    string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        imageFile.CopyTo(fileStream);
-                    }
-                    Infors.Image = $"/Images/{uniqueFileName}";
-                }
-                Infors.Fullname = Fullname;
-                Infors.Phone = Phone;
-                Infors.Address = Address;
-                Infors.Gender = Gender;
-                PetStoreContext.Ins.Infors.Update(Infors);
-                PetStoreContext.Ins.SaveChanges();
-                await _emailService.SendVerificationEmailAsync(Infors.Account.Email);
-                Account = PetStoreContext.Ins.Infors.
-                    Include(x => x.Account).
-                    Where(x => x.AccountId == int.Parse(accId)).
+                    var Infors = PetStoreContext.Ins.Infors.Include(x => x.Account).
+                    Where(x => x.AccountId == accId).
                     FirstOrDefault();
-                successMessage = "Update successfully!";
-            }
-            else
-            {
-                errorMessage = "Data not found!";
+                    if (imageFile != null)
+                    {
+                        string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Images_Profile");
+                        if (!Directory.Exists(uploadFolder))
+                        {
+                            Directory.CreateDirectory(uploadFolder);
+                        }
+                        string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
+                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            imageFile.CopyTo(fileStream);
+                        }
+                        Infors.Image = $"/Images/Images_Profile/{uniqueFileName}";
+                    }
+                    Infors.Fullname = Fullname;
+                    Infors.Phone = Phone;
+                    Infors.Address = Address;
+                    Infors.Gender = Gender;
+                    PetStoreContext.Ins.Infors.Update(Infors);
+                    PetStoreContext.Ins.SaveChanges();
+                    await _emailService.SendVerificationEmailAsync(Infors.Account.Email);
+                }
+                else
+                {
+                    var Infors = new Infor();
+                    if (imageFile != null)
+                    {
+                        string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Images_Profile");
+                        if (!Directory.Exists(uploadFolder))
+                        {
+                            Directory.CreateDirectory(uploadFolder);
+                        }
+                        string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
+                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            imageFile.CopyTo(fileStream);
+                        }
+                        Infors.Image = $"/Images/Images_Profile/{uniqueFileName}";
+                    }
+                    Infors.Fullname = Fullname;
+                    Infors.Phone = Phone;
+                    Infors.Address = Address;
+                    Infors.Gender = Gender;
+                    Infors.AccountId = accId;
+                    Infors.StateId = 1;
+                    PetStoreContext.Ins.Infors.Add(Infors);
+                    PetStoreContext.Ins.SaveChanges();
+                    UserAdditionInfo = PetStoreContext.Ins.Accounts.
+                    Where(x => x.AccountId == accId).
+                    FirstOrDefault();
+                    await _emailService.SendVerificationEmailAsync(UserAdditionInfo.Email);
+                }
+                
+                InformationUser = PetStoreContext.Ins.Infors.
+                    Include(x => x.Account).
+                    Where(x => x.AccountId == accId).
+                    FirstOrDefault();
+                notificationMessage = "Cập nhật thành công!";
             }
             return Page();
         }
