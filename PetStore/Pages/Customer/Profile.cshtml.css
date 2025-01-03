@@ -1,0 +1,76 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Căn giữa ảnh và thông tin */
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+    /* Ảnh đại diện */
+    .profile-header img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 100px;
+    }
+
+/* Thông tin hồ sơ lệch phải */
+.profile-info {
+    flex: 1;
+    max-width: 500px;
+    padding: 20px;
+    text-align: left;
+    margin-left: 150px; /* Lệch qua bên phải */
+}
+
+    .profile-info p {
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+        .profile-info p span {
+            font-weight: bold;
+            color: #555;
+        }
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .profile-header img {
+            margin: 10px 0;
+        }
+
+    .profile-info {
+        padding: 10px;
+        max-width: 100%;
+        margin-left: 0; /* Hủy bỏ margin khi màn hình nhỏ */
+    }
+}

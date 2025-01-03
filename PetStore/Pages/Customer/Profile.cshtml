@@ -1,0 +1,444 @@
+﻿@page
+@model PetStore.Pages.Customer.ProfileModel
+@{
+
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Restoran - Bootstrap Restaurant Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/counterup/counterup.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <div class="container-xxl bg-white p-0 profile-page">
+
+        <div class="container profile-container">
+            <h1>Hồ sơ người dùng</h1>
+            @if (Model.InformationUser != null)
+            {
+                <div class="profile-header">
+                    <!-- Ảnh đại diện bên phải -->
+                    @if (Model.InformationUser.Image != null)
+                    {
+                        <img src="@Model.InformationUser.Image" alt="Profile Picture">
+                    }
+                    else
+                    {
+                        @if (Model.InformationUser.Gender == "Male")
+                        {
+                            <img src="https://vietnampfa.com/wp-content/uploads/2024/10/avatar-mac-dinh-30xJKPDu.jpg" alt="Profile Picture">
+                        }
+                        else
+                        {
+                            <img src="https://seoweb.danang.vn/wp-content/uploads/2023/06/avatar-mac-dinh-facebook-nu.jpg" alt="Profile Picture">
+                        }
+                    }
+                    @if (Model.InformationUser != null)
+                    {
+                        <!-- Thông tin hồ sơ bên trái -->
+                        <div class="profile-info">
+                            <p><span>Họ và tên:</span> @Model.InformationUser.Fullname </p>
+                            <p><span>Email:</span> @Model.InformationUser.Account.Email</p>
+                            <p><span>Số điện thoại:</span> @Model.InformationUser.Phone</p>
+                            <p><span>Giới tính:</span> @Model.InformationUser.Gender</p>
+                            <p><span>Địa chỉ:</span> @Model.InformationUser.Address</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Không tìm thấy thông tin tài khoản.</p>
+                    }
+                    @if (Model.notificationMessage != null)
+                    {
+                        <div>
+                            <span style="color: forestgreen">
+                                @Model.notificationMessage
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="profile-header">
+                    <!-- Ảnh đại diện bên phải -->
+                    <img src="https://vietnampfa.com/wp-content/uploads/2024/10/avatar-mac-dinh-30xJKPDu.jpg" alt="Profile Picture">
+                    @if (Model.InformationUser == null)
+                    {
+                        <!-- Thông tin hồ sơ bên trái -->
+                        <div class="profile-info">
+                            <p><span>Họ và tên:</span></p>
+                            <p><span>Email:</span> @Model.UserAdditionInfo.Email</p>
+                            <p><span>Số điện thoại:</span> </p>
+                            <p><span>Giới tính:</span></p>
+                            <p><span>Địa chỉ:</span></p>
+                        </div>
+                    }
+                    @if (Model.notificationMessage != null)
+                    {
+                        <div>
+                            <span style="color: forestgreen">
+                                @Model.notificationMessage
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+            
+            <div style="text-align: right;">
+                <button id="updateProfileCloseBtn" class="btn btn-primary py-2 px-4">Cập nhật</button>
+            </div>
+
+            @if (Model.InformationUser != null)
+            {
+                <!-- Hidden Update Form -->
+                <div id="updateProfileForm" style="display:none;">
+                    <div class="container border p-4 rounded shadow-lg bg-white" style="max-width: 900px; opacity: 0.9;">
+                        <div class="row justify-content-center">
+                            <div class="container">
+                                <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-4">Cập nhật thông tin của bạn</h5>
+                                <form method="post" asp-action="Profile" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <!-- Cột trái -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
+                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="@Model.InformationUser.Fullname" required>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
+                                                <input type="text" class="form-control" id="Phone" name="phone" value="@Model.InformationUser.Phone" required>
+                                                <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Giới tính</label>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3">
+                                                        <input type="radio" id="genderMale" name="gender" value="Male"
+                                                        @if (Model.InformationUser.Gender == "Male")
+                                                        {
+                                                            <text>checked</text>
+                                                        } required>
+                                                        <label for="genderMale">Male</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="genderFemale" name="gender" value="Female"
+                                                        @if (Model.InformationUser.Gender == "Female")
+                                                        {
+                                                            <text>checked</text>
+                                                        } required>
+                                                        <label for="genderFemale">Female</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Cột phải -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="Address" class="form-label fw-bold">Địa chỉ</label>
+                                                <input type="text" class="form-control" id="Address" name="address" value="@Model.InformationUser.Address" required>
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
+                                                <input type="file" class="form-control" id="Image" name="image" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-primary py-2 px-4" id="updateProfileBtn">Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Hidden Update Form -->
+                <div id="updateProfileForm" style="display:none;">
+                    <div class="container border p-4 rounded shadow-lg bg-white" style="max-width: 900px; opacity: 0.9;">
+                        <div class="row justify-content-center">
+                            <div class="container">
+                                <h5 class="section-title ff-secondary text-center text-primary fw-normal mb-4">Cập nhật thông tin của bạn</h5>
+                                <form method="post" asp-action="Profile" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <!-- Cột trái -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
+                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="" required>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
+                                                <input type="text" class="form-control" id="Phone" name="phone" value="" required>
+                                                <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Giới tính</label>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3">
+                                                        <input type="radio" id="genderMale" name="gender" value="Male" checked/>
+                                                        <label for="genderMale">Male</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="genderFemale" name="gender" value="Female" />
+                                                        <label for="genderFemale">Female</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Cột phải -->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="Address" class="form-label fw-bold">Địa chỉ</label>
+                                                <input type="text" class="form-control" id="Address" name="address" value="" required>
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
+                                                <input type="file" class="form-control" id="Image" name="image" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button type="submit" class="btn btn-primary py-2 px-4" id="updateProfileBtn">Cập nhật</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <style>
+        /* Scoped to Profile Page */
+        .profile-page .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .profile-page h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-page .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Center-align image and profile info */
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+            /* Profile Picture */
+            .profile-page .profile-header img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-left: 100px;
+            }
+
+        /* Profile Info */
+        .profile-page .profile-info {
+            flex: 1;
+            max-width: 500px;
+            padding: 20px;
+            text-align: left;
+            margin-left: 150px; /* Shift to the right */
+        }
+
+            .profile-page .profile-info p {
+                font-size: 16px;
+                margin: 8px 0;
+            }
+
+                .profile-page .profile-info p span {
+                    font-weight: bold;
+                    color: #555;
+                }
+    </style>
+
+    <script>
+        document.getElementById("updateProfileCloseBtn").addEventListener("click", function () {
+            var form = document.getElementById("updateProfileForm");
+            var button = document.getElementById("updateProfileCloseBtn");
+
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                button.innerText = "Đóng cập nhật";
+            } else {
+                form.style.display = "none";
+                button.innerText = "Cập nhật";
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var toastElement = document.getElementById("toastNotification");
+            var progressBar = document.createElement('div');
+            progressBar.classList.add("toast-progress-bar");
+            progressBar.style = "position: absolute; bottom: 0; left: 0; height: 5px; background-color: orange;";
+            toastElement.appendChild(progressBar);
+
+            var duration = 4000;
+            var startTime = Date.now();
+
+            if (toastElement) {
+                var interval = setInterval(function () {
+                    var elapsedTime = Date.now() - startTime;
+                    var progress = (elapsedTime / duration) * 100;
+
+                    progressBar.style.width = progress + "%";
+
+                    if (elapsedTime >= duration) {
+                        clearInterval(interval);
+                       var toast = new bootstrap.Toast(toastElement);
+                        toast.hide();
+                    }
+                }, 100);
+            }
+        });
+    </script>
+    
+    <script>
+        // Hàm kiểm tra tính hợp lệ của các trường và ẩn/hiện nút submit
+        function toggleSubmitButton() {
+            var fullnameInput = document.getElementById("Fullname");
+            var phoneInput = document.getElementById("Phone");
+            var addressInput = document.getElementById("Address");
+
+            var submitButton = document.getElementById("updateProfileBtn");
+
+            // Kiểm tra điều kiện hợp lệ của các trường
+            var isValidFullname = fullnameInput.value.length > 10 && /^[a-zA-Zàáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s-]+$/.test(fullnameInput.value);
+            var isValidPhone = phoneInput.value.length == 10 && /^(09|08|03|07|05)\d{8}$/.test(phoneInput.value);
+            var isValidAddress = addressInput.value.length > 20 && /^[a-zA-Z0-9àáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s\-\(\)_\+=\[\]\{\};:,\./|]+$/.test(addressInput.value);
+
+            // Ẩn/hiện nút submit dựa trên tính hợp lệ của các trường
+            if (isValidFullname && isValidPhone && isValidAddress) {
+                submitButton.style.display = "inline-block"; // Hiển thị nút submit khi tất cả đều hợp lệ
+            } else {
+                submitButton.style.display = "none"; // Ẩn nút submit nếu có lỗi
+            }
+        }
+
+        // Gắn các sự kiện cho các input
+        document.getElementById("Fullname").addEventListener("input", function () {
+            var input = this.value;
+            var error = document.getElementById("fullnameError");
+
+            var validNamePattern = /^[a-zA-Zàáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s-]+$/;
+
+            if (input.length <= 10 || !validNamePattern.test(input)) {
+                error.style.display = "block"; // Hiển thị lỗi
+                this.style.borderColor = "red"; // Đổi màu viền input
+            } else {
+                error.style.display = "none"; // Ẩn lỗi
+                this.style.borderColor = ""; // Reset màu viền
+            }
+            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
+        });
+
+        document.getElementById("Phone").addEventListener("input", function () {
+            var input = this.value;
+            var error = document.getElementById("phoneError");
+
+            var validPhonePattern = /^(09|08|03|07|05)\d{8}$/;
+
+            if (input.length != 10 || !validPhonePattern.test(input)) {
+                error.style.display = "block"; // Hiển thị lỗi
+                this.style.borderColor = "red"; // Đổi màu viền input
+            } else {
+                error.style.display = "none"; // Ẩn lỗi
+                this.style.borderColor = ""; // Reset màu viền
+            }
+            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
+        });
+
+        document.getElementById("Address").addEventListener("input", function () {
+            var input = this.value;
+            var error = document.getElementById("addressError");
+
+            var validAddressPattern = /^[a-zA-Z0-9àáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s\-\(\)_\+=\[\]\{\};:,\./|]+$/;
+
+            if (input.length <= 20 || !validAddressPattern.test(input)) {
+                error.style.display = "block"; // Hiển thị lỗi
+                this.style.borderColor = "red"; // Đổi màu viền input
+            } else {
+                error.style.display = "none"; // Ẩn lỗi
+                this.style.borderColor = ""; // Reset màu viền
+            }
+            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
+        });
+
+    </script>
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+</body>
+
+</html>
+
