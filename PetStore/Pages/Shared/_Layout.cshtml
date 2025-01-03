@@ -34,38 +34,7 @@
     <link href="~/css/site.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container-fluid border-bottom d-none d-lg-block">
-            <div class="row gx-0">
-                <div class="col-lg-4 text-center py-2">
-                    <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-geo-alt text-primary fs-1 me-3"></i>
-                        <div class="text-start">
-                            <h6 class="text-uppercase mb-1">Our Office</h6>
-                            <span>123 Street, New York, USA</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center border-start border-end py-2">
-                    <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-envelope-open fs-1 text-primary me-3"></i>
-                        <div class="text-start">
-                            <h6 class="text-uppercase mb-1">Email Us</h6>
-                            <span>info@example.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-center py-2">
-                    <div class="d-inline-flex align-items-center">
-                        <i class="bi bi-phone-vibrate text-primary fs-1 me-3"></i>
-                        <div class="text-start">
-                            <h6 class="text-uppercase mb-1">Call Us</h6>
-                            <span>+012 345 6789</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <header style="position: sticky; top: 0; right: 0; left: 0; z-index: 9999;">
         <!-- Topbar End -->
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
@@ -77,31 +46,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="/Home" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Home"? "active" : "")">Home</a>
-                    <a href="/About" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/About"? "active" : "")">About</a>
-                    <a href="/Service" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Service"? "active" : "")">Service</a>
-                    <a href="/Product" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Product"? "active" : "")">Product</a>
+                    <a href="/Home" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Home"? "active" : "")">Trang Chủ</a>
+                    <a href="/About" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/About"? "active" : "")">Giới thiệu</a>
+                    <a href="/Service" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Service"? "active" : "")">Dịch Vụ</a>
+                    <a href="/Product" class="nav-item nav-link @(ViewContext.RouteData.Values["page"].ToString() == "/Customer/Product"? "active" : "")">Sản Phẩm</a>
                     <a href="/Blog" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Customer/Blog" || ViewContext.RouteData.Values["page"].ToString() == "/Customer/BlogDetail")? "active" : "")">Blog</a>
                     @if (Context.Session.GetInt32("acc") == null)
                     {
-                        <a href="/Login" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Common/Login" )? "active" : "")">Login</a>
+                        <a href="/Login" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Common/Login" )? "active" : "")">Đăng nhập</a>
                     }
                     else
                     {
-                        <a href="/Profile" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Profile" )? "active" : "")">Hello @Context.Session.GetString("email")</a>
+                        <a href="/Profile" class="nav-item nav-link @((ViewContext.RouteData.Values["page"].ToString() == "/Profile" )? "active" : "")">Xin Chào @Context.Session.GetString("email")</a>
                     }
-
-                    @*                    <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu m-0">
-                    <a href="price.html" class="dropdown-item">Pricing Plan</a>
-                    <a href="team.html" class="dropdown-item">The Team</a>
-                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                    <a href="/Blog" class="dropdown-item">Blog Grid</a>
-                    <a href="/Blog/BlogDetail" class="dropdown-item">Blog Detail</a>
-                    </div>
-                    </div>*@
-                    <a href="/Contact" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Contact <i class="bi bi-arrow-right"></i></a>
+                    <a href="/Contact" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Liên Hệ <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </nav>
@@ -117,40 +75,34 @@
             <div class="container pt-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
-                        <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>
-                        <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p>
-                        <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+012 345 67890</p>
+                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Liên hệ</h5>
+                        <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>FPT University</p>
+                        @* <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p> *@
+                        <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>0396925536</p>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
+                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Liên kết nhanh</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-body mb-2" href="/Home"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                            <a class="text-body mb-2" href="/About"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                            <a class="text-body mb-2" href="/Service"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                            <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                            <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                            <a class="text-body" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                            <a class="text-body mb-2" href="/Home"><i class="bi bi-arrow-right text-primary me-2"></i>Trang Chủ</a>
+                            <a class="text-body mb-2" href="/About"><i class="bi bi-arrow-right text-primary me-2"></i>Giới thiệu</a>
+                            <a class="text-body mb-2" href="/Service"><i class="bi bi-arrow-right text-primary me-2"></i>Dịch vụ</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Popular Links</h5>
+                        <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Liên kết phổ biến</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-body mb-2" href="/Home"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                            <a class="text-body mb-2" href="/About"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                            <a class="text-body mb-2" href="/Service"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                            <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                            <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                            <a class="text-body" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                            <a class="text-body mb-2" href="/Home"><i class="bi bi-arrow-right text-primary me-2"></i>Trang Chủ</a>
+                            <a class="text-body mb-2" href="/About"><i class="bi bi-arrow-right text-primary me-2"></i>Giới thiệu</a>
+                            <a class="text-body mb-2" href="/Service"><i class="bi bi-arrow-right text-primary me-2"></i>Dịch vụ</a>
+                            <a class="text-body" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Liên hệ</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Newsletter</h5>
-                        <form action="">
+                        <form action="/Home" method="post">
                             <div class="input-group">
-                                <input type="text" class="form-control p-3" placeholder="Your Email">
-                                <button class="btn btn-primary">Sign Up</button>
+                                <input type="text" class="form-control p-3" placeholder="Your Email" name="email">
+                                <button type="submit" class="btn btn-primary">Sign Up</button>
                             </div>
                         </form>
                         <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
@@ -160,31 +112,6 @@
                             <a class="btn btn-outline-primary btn-square me-2" href="#"><i class="bi bi-linkedin"></i></a>
                             <a class="btn btn-outline-primary btn-square" href="#"><i class="bi bi-instagram"></i></a>
                         </div>
-                    </div>
-                    <div class="col-12 text-center text-body">
-                        <a class="text-body" href="">Terms & Conditions</a>
-                        <span class="mx-1">|</span>
-                        <a class="text-body" href="">Privacy Policy</a>
-                        <span class="mx-1">|</span>
-                        <a class="text-body" href="">Customer Support</a>
-                        <span class="mx-1">|</span>
-                        <a class="text-body" href="">Payments</a>
-                        <span class="mx-1">|</span>
-                        <a class="text-body" href="">Help</a>
-                        <span class="mx-1">|</span>
-                        <a class="text-body" href="">FAQs</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid bg-dark text-white-50 py-4">
-            <div class="container">
-                <div class="row g-5">
-                    <div class="col-md-6 text-center text-md-start">
-                        <p class="mb-md-0">&copy; <a class="text-white" href="#">Your Site Name</a>. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <p class="mb-0">Designed by <a class="text-white" href="https://htmlcodex.com">HTML Codex</a></p>
                     </div>
                 </div>
             </div>
