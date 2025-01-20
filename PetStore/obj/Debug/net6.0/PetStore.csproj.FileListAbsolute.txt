@@ -332,3 +332,4 @@ C:\Users\admin\Desktop\forum\PetStore\obj\Debug\net6.0\refint\PetStore.dll
 C:\Users\admin\Desktop\forum\PetStore\obj\Debug\net6.0\PetStore.pdb
 C:\Users\admin\Desktop\forum\PetStore\obj\Debug\net6.0\PetStore.genruntimeconfig.cache
 C:\Users\admin\Desktop\forum\PetStore\obj\Debug\net6.0\ref\PetStore.dll
+C:\Users\admin\Desktop\test\PetStore\obj\Debug\net6.0\scopedcss\Pages\Customer\Profile.cshtml.rz.scp.css
