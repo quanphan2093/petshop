@@ -1,0 +1,265 @@
+﻿.text-blue {
+    color: #085998;
+}
+
+.product-container {
+    margin: 50px auto;
+}
+
+.product-image img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.product-options input[type="radio"] {
+    display: none;
+}
+
+.product-options label {
+    padding: 10px 20px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.product-options .btn-check:checked + label {
+    background-color: #085998;
+    color: white;
+    border-color: #085998;
+}
+
+.quantity-control input {
+    width: 60px;
+    text-align: center;
+}
+
+.btn-add-cart,
+.btn-buy-now {
+    margin-top: 20px;
+}
+
+.product-thumbnails img {
+    width: 20%;
+    height: auto;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .product-thumbnails img:hover {
+        border: 2px solid #085998;
+    }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ẩn spinner trên Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.btn-outline-dark:hover {
+    background-color: #726f6f;
+    border-color: #d0cfcf;
+}
+
+.btn-outline-dark {
+    border-color: #d0cfcf;
+}
+
+.border-dark-cus {
+    border-color: #d0cfcf;
+}
+
+.mb-7 {
+    margin-bottom: 4rem !important;
+}
+
+.w-cus {
+    width: inherit;
+}
+
+.h-fit {
+    height: fit-content;
+}
+
+.rounded-custom {
+    border-radius: 10px;
+}
+
+.btn-custom {
+    color: yellow;
+    background-color: #085998;
+}
+
+.btn-custom-info {
+    color: white;
+    background-color: #085998;
+}
+
+.btn-custom:hover {
+    color: white;
+    transition: color 0.5s ease, color 0.5s ease;
+}
+
+.ps-2rem {
+    padding-left: 2rem;
+}
+
+.pe-2rem {
+    padding-right: 2rem;
+}
+
+.fs-10px {
+    font-size: 10px;
+}
+
+#main-image {
+    transition: opacity 0.5s ease;
+}
+
+    #main-image.fade-out {
+        opacity: 0;
+    }
+
+.product-image {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+#main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.5s ease;
+}
+
+.product-thumbnails img.dimmed {
+    opacity: 0.4;
+    filter: grayscale(100%) brightness(50%);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+    .product-thumbnails img.dimmed:hover {
+        opacity: 0.6;
+        filter: grayscale(80%) brightness(60%);
+    }
+
+.ps-6 {
+    padding-left: 4rem;
+}
+
+.pe-6 {
+    padding-right: 4rem;
+}
+
+.btn-outline-custom {
+    background-color: #ffcd16;
+}
+
+.m-auto0 {
+    margin: auto 0;
+}
+
+.button-transparent {
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+}
+
+.btn-custom-comment {
+    color: white;
+    background-color: #085998;
+}
+
+.rounded-custom-5px {
+    border-radius: 5px;
+}
+
+.h-20rem {
+    height: 20rem;
+}
+
+.h-inherit {
+    height: inherit;
+}
+
+.rounded-15 {
+    border-radius: 15px !important;
+}
+
+.fs-7 {
+    font-size: 0.75rem;
+}
+
+.product-item {
+    height: 100%;
+}
+
+    .product-item img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .product-item h6 {
+        min-height: 40px;
+        line-height: 1;
+        white-space: wrap;
+    }
+
+    .product-item p {
+        min-height: 20px;
+        line-height: 1;
+        overflow: hidden;
+    }
+
+    .product-item h5 {
+        min-height: 30px;
+    }
+
+.product-carousel .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+}
+
+    .product-carousel .owl-nav .owl-prev,
+    .product-carousel .owl-nav .owl-next {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Nền đen mờ */
+        color: #636060cf;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        background-color: #7a787800;
+    }
+
+    .product-carousel .owl-nav .owl-prev {
+        position: absolute;
+        left: -40px;
+    }
+
+    .product-carousel .owl-nav .owl-next {
+        position: absolute;
+        right: -20px;
+    }
+
+.bi-chevron-right {
+    font-size: xxx-large;
+}
+
+.bi-chevron-left {
+    font-size: xxx-large;
+}

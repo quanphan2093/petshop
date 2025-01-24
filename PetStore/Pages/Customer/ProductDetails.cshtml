@@ -1,0 +1,221 @@
+﻿@page "/Product/ProductDetails"
+@model PetStore.Pages.Customer.ProductDetailsModel
+@{
+    var product = Model.product == null ? new Models.Product() : Model.product;
+}
+@using PetStore.Models
+<link href="~/css/productDetailStyle.css" rel="stylesheet">
+<div class="container product-container">
+    <h3 class="text-blue text-center mb-5">CHI TIẾT SẢN PHẨM</h3>
+    <div class="row mb-5">
+        <!-- Product Images -->
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            @if(Model.lsImage != null)
+            {
+                <div class="product-image">
+                    <img src="~/img/@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
+                </div>
+                <div class="product-thumbnails d-flex justify-content-center mt-3 gap-3">
+                    @foreach(var imgUrl in Model.lsImage)
+                    {
+                        <img src="~/img/@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
+                    }
+                </div>
+            }
+            
+        </div>
+        
+        <!-- Product Details -->
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            @if (product != null)
+            {
+                <h3 class="mb-4">@product.ProductName</h3>
+            }
+            <div class="row mb-4">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <p><b>Giá</b></p>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    @if (product != null)
+                    {
+                        @using System.Globalization
+                        <p class="fw-bold fs-4">@(((int)product.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</p>
+                    }
+                </div>
+
+            </div>
+
+            <div class="mb-4 row">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <p><b>Phân loại</b></p>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <div class="product-options d-flex justify-content-start gap-3 mt-2">
+                        <div class="row ms-0 w-100">
+                             @if (product != null)
+                            {
+                                <div class="form-check ps-0 col-6">
+                                    <input type="radio" class="btn-check" id="500g" name="size" checked>
+                                    <label class="btn btn-outline-primary rounded-0 border w-100" for="500g">@product.Category.CategoryName</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mb-5 row ms-0">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 ps-0">
+                    <p><b>Số lượng</b></p>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 ps-1">
+                    <div class="product-options d-flex justify-content-start gap-3 mt-2">
+                        <div class="row ms-0 w-100">
+                            <div class="col-6 d-flex ms-0 ps-0">
+                                <button id="decreaseBtn" class="btn btn-outline-dark overflow-hidden w-cus h-fit">-</button>
+                                <input type="number" id="quantityInput" class="form-control text-center border border-dark-cus h-fit" value="1" min="1">
+                                <button id="increaseBtn" class="btn btn-outline-dark overflow-hidden align-items-center w-cus h-fit">+</button>
+                            </div>
+                            <div class="col-6  d-flex ms-0 ps-0">
+                                @if (product != null)
+                                {
+                                    <p class="mt-2 text-muted fs-10px">@(product.UnitInStock == null ? 0 : product.UnitInStock) sản phẩm có sẵn</p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-primary btn-add-cart rounded-pill text-blue ps-4 pe-4 fs-6">
+                    Thêm vào giỏ
+                    hàng
+                </button>
+                <button class="btn btn-custom btn-buy-now rounded-pill ms-3 me-3 ps-2rem pe-2rem fs-6">Mua ngay</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <button id="toggleButton"
+                    class="btn btn-custom-info btn-add-cart rounded-pill text-blue ps-6 pe-6 fs-6 pt-2 pb-2">
+                Thông tin mô
+                tả
+            </button>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end">
+            <button class="btn btn-outline-custom btn-add-cart rounded-pill text-blue ps-6 pe-6 fs-6">
+                <i class="bi bi-chat me-2 fw-bold"></i>Chat ngay
+            </button>
+        </div>
+    </div>
+    <div class="row mb-4 ps-1 pe-1" id="infoContent" style="display:block;">
+        <div class="col-lg-12 col-md-12 col-sm-12 border rounded-custom p-5 border-dark">
+             @if (product != null)
+             {
+                <p class="text-dark fs-5"><b>@product.Details</b></p>
+             }
+        </div>
+    </div>
+    <div class="row mb-4 ps-1 pe-1 border-bottom border-dark">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div>
+                <h1>ĐÁNH GIÁ SẢN PHẨM</h1>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end">
+            <p class="fs-5 text-dark m-auto0">
+                <i class="bi bi-star-fill"></i> 5 <span class="fs-6">
+                    <b>
+                        (@(Model.lsfeedbacks == null? "0" : Model.lsfeedbacks.Count()) đánh
+                        giá)
+                    </b>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="row ps-1 pe-1 mb-4">
+        @if(Model.lsfeedbacks != null)
+        {
+            @foreach(var data in Model.lsfeedbacks)
+            {
+                string fullname = PetStoreContext.Ins.Infors.Where(a => a.AccountId == data.AccountId).Select(i => i.Fullname).ToString();
+                <div class="card mb-3 p-4 shadow-sm rounded-custom border-dark">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <div class="rounded-circle bg-secondary" style="width: 50px; height: 50px;"></div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1">@fullname</h5>
+                            <p class="mb-0">@data.Feedback1</p>
+                        </div>
+                        <div class="ms-3 d-flex align-items-center">
+                            <button class="text-danger me-2 border-0 button-transparent"><i class="bi bi-heart-fill"></i> @data.Love</button>
+                            <button class="text-dark me-2 button-transparent"><i class="bi bi-hand-thumbs-up"></i> @data.Like</button>
+                            <button class="text-dark border-0 button-transparent"><i class="bi bi-hand-thumbs-down"></i> @data.Dislike</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        }
+        
+        <div class="card p-3 mb-4 shadow-sm rounded-custom border-dark h-20rem">
+            <textarea class="form-control mb-3 border-0 border-bottom border-dark h-inherit" rows="4"
+                      placeholder="Để lại bình luận của bạn tại đây"></textarea>
+            <div class="d-flex align-items-center justify-content-between">
+                <!-- Gender Selection -->
+                <div class="d-flex align-items-center">
+                    <label class="me-3 text-dark">
+                        <input type="radio" name="gender" class="form-check-input me-1" checked> Anh
+                    </label>
+                    <label class="me-3 text-dark">
+                        <input type="radio" name="gender" class="form-check-input me-1"> Chị
+                    </label>
+                    <label class="me-3 text-dark">
+                        <input type="radio" name="gender" class="form-check-input me-1"> Bình luận ẩn danh
+                    </label>
+                    <button class="btn button-transparent text-dark border-0">
+                        <i class="bi bi-upload"></i> Tải ảnh và video lên
+                    </button>
+                </div>
+                <!-- Upload and Submit Buttons -->
+                <div class="d-flex align-items-center">
+
+                    <button class="btn btn-custom-comment rounded-custom-5px">Gửi thông tin</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4 border-bottom border-dark">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div>
+                    <h1>GỢI Ý SẢN PHẨM</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="owl-carousel product-carousel">
+                @if(Model.lsProduct != null)
+                {
+                    @foreach(var data in Model.lsProduct)
+                    {
+                        <div class="pb-5">
+                            <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
+                                <a href="/Product/ProductDetails?id=@data.ProductId">
+                                    <img class="img-fluid mb-4 rounded-15" src="~/img/@data.Image" alt="">
+                                    <h6 class="text-start m-0">@data.ProductName</h6>
+                                    <p class="text-muted text-start mb-2">Danh mục: <b>@data.Category.CategoryName</b></p>
+                                    @using System.Globalization
+                                    <h5 class="mb-0 text-start">@(((int)data.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h5>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/productDetailScript.js"></script>

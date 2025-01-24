@@ -1,0 +1,95 @@
+﻿.text-blue {
+    color: #085998;
+}
+
+.rounded-custom {
+    border-radius: 10px;
+}
+
+.h-5rem {
+    height: 5rem;
+    ;
+}
+
+.input-search {
+    font-size: 0.85rem;
+    border: 0;
+}
+
+.rounded-15 {
+    border-radius: 15px !important;
+}
+
+.icon-search-cus {
+    background-color: #085998;
+    z-index: 10;
+    margin-right: 1rem;
+    height: 3rem;
+}
+
+.color-yellow {
+    color: #ffcd16;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.postion-absolute {
+    position: absolute;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.z-index-10 {
+    z-index: 10 !important;
+}
+
+.form-check-input:checked {
+    background-color: #085998;
+    border-color: #085998;
+}
+
+.product-item {
+    padding: 15px;
+}
+
+
+.pagination .page-item .page-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+    .pagination .page-item .page-link:hover {
+        background-color: #f0f0f0;
+        text-decoration: none;
+    }
+
+.pagination .page-item.active .page-link {
+    background-color: #085998 !important;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.pagination .page-item .page-link.rounded-circle {
+    border-radius: 50%;
+}
+
+.pagination .page-item .page-link i {
+    font-size: 18px;
+}
+.product-item h6.text-start {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}

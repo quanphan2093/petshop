@@ -12,6 +12,9 @@ namespace PetStore.Models
         public string? Image { get; set; }
         public DateTime? CreateAt { get; set; }
         public DateTime? UpdateAt { get; set; }
+        public int? Love { get; set; }
+        public int? Like { get; set; }
+        public int? Dislike { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual Product? Product { get; set; }
