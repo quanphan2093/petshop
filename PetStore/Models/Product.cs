@@ -9,6 +9,7 @@ namespace PetStore.Models
         {
             Feedbacks = new HashSet<Feedback>();
             OrderDetails = new HashSet<OrderDetail>();
+            ProductImages = new HashSet<ProductImage>();
             ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
@@ -22,10 +23,13 @@ namespace PetStore.Models
         public DateTime? UpdateAt { get; set; }
         public string? Status { get; set; }
         public int? CategoryId { get; set; }
+        public int? UnitInStock { get; set; }
+        public int? UnitOrdered { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

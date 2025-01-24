@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace PetStore.Models
 {
     public partial class PetStoreContext : DbContext
-    {   
+    {
         public static PetStoreContext Ins = new PetStoreContext();
         public PetStoreContext()
         {
             if(Ins == null)
             {
                 Ins = this;
-            }
+        }
         }
 
         public PetStoreContext(DbContextOptions<PetStoreContext> options)
@@ -32,6 +32,7 @@ namespace PetStore.Models
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; } = null!;
         public virtual DbSet<StateInfor> StateInfors { get; set; } = null!;
@@ -133,7 +134,19 @@ namespace PetStore.Models
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
+                entity.Property(e => e.Dislike)
+                    .HasColumnName("dislike")
+                    .HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Feedback1).HasColumnName("Feedback");
+
+                entity.Property(e => e.Like)
+                    .HasColumnName("like")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Love)
+                    .HasColumnName("love")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
@@ -286,12 +299,41 @@ namespace PetStore.Models
 
                 entity.Property(e => e.Status).HasMaxLength(50);
 
+                entity.Property(e => e.UnitInStock).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.UnitOrdered).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.UpdateAt).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK__Product__Categor__2F10007B");
+            });
+
+            modelBuilder.Entity<ProductImage>(entity =>
+            {
+                entity.HasKey(e => e.ImgId)
+                    .HasName("PK__ProductI__352F54132F9D121A");
+
+                entity.ToTable("ProductImage");
+
+                entity.Property(e => e.ImgId).HasColumnName("ImgID");
+
+                entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
+                entity.Property(e => e.ImgUrl).IsUnicode(false);
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductImages)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__ProductIm__Produ__6FE99F9F");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -306,7 +348,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.HasKey(e => e.CartId)
-                    .HasName("PK__Shopping__51BCD7975F17B96C");
+                    .HasName("PK__Shopping__51BCD7977BBEC1A7");
 
                 entity.ToTable("ShoppingCart");
 
@@ -332,7 +374,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StateInfor>(entity =>
             {
                 entity.HasKey(e => e.StateId)
-                    .HasName("PK__StateInf__C3BA3B3A1135C9D4");
+                    .HasName("PK__StateInf__C3BA3B3A31C67B1E");
 
                 entity.ToTable("StateInfor");
 
@@ -342,7 +384,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__StatusOr__C8EE20432992D6EC");
+                    .HasName("PK__StatusOr__C8EE204392F1CF65");
 
                 entity.ToTable("StatusOrder");
 

@@ -59,7 +59,6 @@ CREATE TABLE Product (
     CategoryID INT FOREIGN KEY REFERENCES Category(CategoryID)
 );
 
-
 -- Table: Order
 CREATE TABLE [Order] (
     OrderID INT PRIMARY KEY IDENTITY(1,1),
@@ -151,3 +150,25 @@ CREATE TABLE Infor (
 	StateId INT FOREIGN KEY REFERENCES StateInfor(StateId)
 
 )
+
+CREATE TABLE ProductImage(
+	ImgID int primary key identity(1,1),
+	ImgUrl varchar(MAX),
+	CreateAt DateTime,
+	UpdateAt DateTime,
+    Status NVARCHAR(50),
+	ProductID INT FOREIGN KEY REFERENCES Product(ProductID),
+)
+
+ALTER TABLE Product
+ADD UnitOrdered INT DEFAULT 0;
+
+ALTER TABLE Product
+ADD UnitInStock INT DEFAULT 0;
+
+ALTER TABLE Feedback
+ADD love INT DEFAULT 0,
+    [like] INT DEFAULT 0,
+    dislike INT DEFAULT 0;
+
+
