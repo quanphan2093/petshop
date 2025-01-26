@@ -1,6 +1,5 @@
 
 Create database PetStore
-
 go
 
 use PetStore
