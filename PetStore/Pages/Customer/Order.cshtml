@@ -1,0 +1,192 @@
+﻿@page "/order"
+@model PetStore.Pages.Customer.OrderModel
+@{
+    Layout = "_Layout";
+}
+@using System.Globalization
+<style>
+    .header {
+        background-color: #085998;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+        .header div {
+            padding: 15px 4px;
+            position: relative;
+        }
+
+        .header a {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 10px 39px;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .header a.active::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 5px;
+                background-color: #ffd700;
+            }
+
+
+    .text-blue {
+        color: #085998;
+    }
+
+    .rounded-custom {
+        border-radius: 10px;
+    }
+
+    .h-5rem {
+        height: 5rem;
+    }
+
+    .input-search {
+        font-size: 1rem;
+        border: 0;
+    }
+
+    .rounded-15 {
+        border-radius: 15px !important;
+    }
+
+    .icon-search-cus {
+        background-color: #085998;
+        z-index: 10;
+        margin-right: 1rem;
+        height: 3rem;
+    }
+
+    .color-yellow {
+        color: #ffcd16;
+    }
+
+    .position-relative {
+        position: relative;
+    }
+
+    .postion-absolute {
+        position: absolute;
+    }
+
+    .right-0 {
+        right: 0;
+    }
+
+    .z-index-10 {
+        z-index: 10 !important;
+    }
+</style>
+<div class="container mt-4" style=" white-space: nowrap;">
+    <div class="header">
+        <div>
+            <a class="all @(Model.s==null? " active" : "" )" href="/order">Tất cả</a>
+        </div>
+        <div class="wait_payment">
+            <a class="  @(Model.s == "Chờ thanh toán" ? " active" : "" )"" href="/order?status=Chờ%20thanh%20toán">Chờ thanh toán</a>
+        </div>
+        <div>
+            <a class="ship @(Model.s == "Vận chuyển" ? " active" : "" )"" href="/order?status=Vận%20chuyển">Vận chuyển</a>
+        </div>
+        <div>
+            <a class="wait_ship @(Model.s=="Chờ giao hàng" ? " active" : "" )"" href="/order?status=Chờ%20giao%20hàng">Chờ giao hàng</a>
+        </div>
+        <div>
+            <a class="done @(Model.s=="Hoàn thành" ? " active" : "" )"" href="/order?status=Hoàn%20thành">Hoàn thành</a>
+        </div>
+        <div>
+            <a class="cancel @(Model.s=="Đã hủy" ? " active" : "" )"" href="/order?status=Đã%20hủy">Đã hủy</a>
+        </div>
+        <div>
+            <a class="refund @(Model.s=="Trả hàng/Hoàn tiền" ? " active" : "" )"" href="/order?status=Trả%20hàng%2FHoàn%20tiền">Trả hàng/ hoàn tiền</a>
+        </div>
+    </div>
+    <form method="get">
+        <div class="position-relative input-group shadow p-3 mb-5 bg-white rounded-custom h-5rem mt-4"
+             style="border-radius: 15px;">
+            <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
+            <button type="submit" class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24" viewBox="0 0 24 24"
+                     fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-search">
+                    <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
+                </svg>
+            </button>
+        </div>
+    </form>
+    <div>
+        <div>
+            @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
+                {
+            <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                    <p style="background-color: #ff7575; padding: 5px 10px; border-radius: 8px; color: #ffffff; margin: 0;">
+                        Yêu thích +
+                    </p>
+                    <p style="font-weight: bold; margin: 0;">PETSHOP</p>
+                    <button class="shadow"
+                            style="border: none; font-weight: bold; height: 30px; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 5px;">
+                        <img src="~/Images/Shopping bag.png" alt="Shopping bag" style="height: 20px;" />
+                            <a href="/product" style="color:black">Xem shop</a>
+                    </button>
+                </div>
+
+                <p style="color: #085998;">
+                    Đơn vị vận chuyển lấy hàng thành công | <span class="text-uppercase"
+                                                                  style="color: #ff9a9a;">
+                        @i.Status
+                    </span>
+                </p>
+            </div>
+            <div class="mt-3">
+                
+                    <div class="shadow" style="padding: 20px; display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 8px; ">
+                        <img src="@i.Image" alt="Product Image" style="width: 200px; height: 200px; border-radius: 8px; object-fit: cover;">
+                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; height: 200px;">
+                            <h6 style="font-size: 20px; margin: 0;">@i.ProductName</h6>
+                            <p style="margin: 5px 0; font-size: 14px; color: #555;">Type: <span style="font-weight: bold; color: #000;">@i.Quantity</span></p>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px;">
+                                <p style="margin: 0; font-size: 16px; color: #000;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) <span style="font-size: 14px;">VND</span></p>
+                                <p style="margin: 0; font-size: 16px; font-weight: bold; text-transform: uppercase; color: #000;">
+                                    Thành tiền:
+                                    <span style="color: #ff3d3d;">@(((int)i.Total).ToString("N0", CultureInfo.InvariantCulture))</span> VND
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3" style="display: flex; justify-content: flex-end; padding: 20px; background: #fff;">
+                        @if (i.Status.Equals("Hoàn Thành"))
+                        {
+                            <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                Đánh Giá
+                            </button>
+                            <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                Yêu cầu hoàn trả
+                            </button>
+                            <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                Mua lại
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                Liên Hệ Người Bán
+                            </button>
+                        }
+                    </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
