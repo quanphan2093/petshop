@@ -1,23 +1,4 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
-    const decreaseBtn = document.getElementById('decreaseBtn');
-    const increaseBtn = document.getElementById('increaseBtn');
-    const quantityInput = document.getElementById('quantityInput');
-
-    decreaseBtn.addEventListener('click', () => {
-        let currentValue = parseInt(quantityInput.value) || 1;
-        const minValue = parseInt(quantityInput.min) || 1;
-        if (currentValue > minValue) {
-            quantityInput.value = currentValue - 1;
-        }
-    });
-
-    increaseBtn.addEventListener('click', () => {
-        let currentValue = parseInt(quantityInput.value) || 1;
-        quantityInput.value = currentValue + 1;
-    });
-
-
-
     const thumbnails = document.querySelectorAll('.product-thumbnails img');
     const mainImage = document.getElementById('main-image');
 
