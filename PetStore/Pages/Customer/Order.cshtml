@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
 }
+@using System.Globalization
 <style>
     .header {
         background-color: #085998;
@@ -34,8 +35,6 @@
                 background-color: #ffd700;
             }
 
-        .header .wait_payment{
-        }
 
     .text-blue {
         color: #085998;
@@ -109,18 +108,20 @@
             <a class="refund @(Model.s=="Trả hàng/Hoàn tiền" ? " active" : "" )"" href="/order?status=Trả%20hàng%2FHoàn%20tiền">Trả hàng/ hoàn tiền</a>
         </div>
     </div>
-    <div class="position-relative input-group shadow p-3 mb-5 bg-white rounded-custom h-5rem mt-4"
-         style="border-radius: 15px;">
-        <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm">
-        <button type="submit" class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24" viewBox="0 0 24 24"
-                 fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="feather feather-search">
-                <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
-            </svg>
-        </button>
-    </div>
+    <form method="get">
+        <div class="position-relative input-group shadow p-3 mb-5 bg-white rounded-custom h-5rem mt-4"
+             style="border-radius: 15px;">
+            <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
+            <button type="submit" class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24" viewBox="0 0 24 24"
+                     fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-search">
+                    <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
+                </svg>
+            </button>
+        </div>
+    </form>
     <div>
         <div>
             @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
@@ -153,10 +154,10 @@
                             <h6 style="font-size: 20px; margin: 0;">@i.ProductName</h6>
                             <p style="margin: 5px 0; font-size: 14px; color: #555;">Type: <span style="font-weight: bold; color: #000;">@i.Quantity</span></p>
                             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px;">
-                                <p style="margin: 0; font-size: 16px; color: #000;">@i.Price <span style="font-size: 14px;">VND</span></p>
+                                <p style="margin: 0; font-size: 16px; color: #000;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) <span style="font-size: 14px;">VND</span></p>
                                 <p style="margin: 0; font-size: 16px; font-weight: bold; text-transform: uppercase; color: #000;">
                                     Thành tiền:
-                                    <span style="color: #ff3d3d;">@i.Total</span> VND
+                                    <span style="color: #ff3d3d;">@(((int)i.Total).ToString("N0", CultureInfo.InvariantCulture))</span> VND
                                 </p>
                             </div>
                         </div>
