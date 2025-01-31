@@ -1,0 +1,60 @@
+﻿.rounded-15 {
+    border-radius: 15px !important;
+}
+
+.cart-title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.total-price {
+    color: red;
+    font-size: 20px;
+}
+
+.checkout-btn {
+    background-color: #0056b3;
+    color: white;
+}
+
+    .checkout-btn:hover {
+        background-color: #003f7f;
+    }
+
+.cart-item img {
+    max-width: 200px;
+    height: 100%;
+}
+
+.quantity-control input {
+    width: 50px;
+}
+
+@media (max-width: 576px) {
+    .quantity-control input {
+        width: 40px;
+    }
+
+    .total-price {
+        font-size: 18px;
+    }
+
+    .checkout-btn {
+        font-size: 14px;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ẩn spinner trên Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+p {
+    color: black;
+}
