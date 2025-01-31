@@ -17,6 +17,9 @@ namespace PetStore.Models
         public DateTime? UpdateAt { get; set; }
         public string? Status { get; set; }
         public int? AccountId { get; set; }
+        public string? Image { get; set; }
+        public int? Age { get; set; }
+        public bool? Gene { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
