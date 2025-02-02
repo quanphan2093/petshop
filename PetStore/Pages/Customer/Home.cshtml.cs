@@ -12,8 +12,8 @@ namespace PetStore.Pages.Customer
         public List<Forum> forums { get; set; }= new List<Forum>();
         public void OnGet()
         {
-            products= PetStoreContext.Ins.Products.Include(x => x.Category).OrderByDescending(x => x.CreateAt).ToList();  
-            forums = PetStoreContext.Ins.Forums.OrderByDescending(x => x.CreateAt).ToList();
+            products= PetStoreContext.Ins.Products.Include(x => x.Category).Where(x => x.Status.Equals("Available")).OrderByDescending(x => x.CreateAt).ToList();  
+            forums = PetStoreContext.Ins.Forums.Where(x => x.Status.Equals("Available")).OrderByDescending(x => x.CreateAt).ToList();
         }
 	}
 }

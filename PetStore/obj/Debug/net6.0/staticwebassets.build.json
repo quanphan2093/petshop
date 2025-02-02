@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XhBuz/wLdElEPGAP3ylLmBBCgOIsdcTyu31sJ3zTHyk=",
+  "Hash": "UBjAAp4sGAZXzD+rR8jHR+EBI70n1EAh6OMgglvC1hg=",
   "Source": "PetStore",
   "BasePath": "_content/PetStore",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\cartStyle.css"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Desktop\\homepage\\PetStore\\wwwroot\\css\\home.css",
+      "SourceId": "PetStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Desktop\\homepage\\PetStore\\wwwroot\\",
+      "BasePath": "_content/PetStore",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "C:\\Users\\admin\\Desktop\\homepage\\PetStore\\wwwroot\\css\\productDetailStyle.css",

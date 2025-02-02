@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\css\\cartStyle.css"
     },
     {
+      "Id": "C:\\Users\\admin\\Desktop\\homepage\\PetStore\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "C:\\Users\\admin\\Desktop\\homepage\\PetStore\\wwwroot\\css\\productDetailStyle.css",
       "PackagePath": "staticwebassets\\css\\productDetailStyle.css"
     },
