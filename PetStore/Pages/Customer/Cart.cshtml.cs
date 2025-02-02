@@ -9,7 +9,10 @@ namespace PetStore.Pages.Customer
     {
         [BindProperty]
         public int proId { get; set; } = 0;
+        [BindProperty]
         public List<ShoppingCart> lsCart { get; set; } = new List<ShoppingCart>();
+        [BindProperty]
+        public int totalPro { get; set; } = 0;
         public void OnGet()
         {
             int? acc = HttpContext.Session.GetInt32("acc");
@@ -20,6 +23,10 @@ namespace PetStore.Pages.Customer
             }
             lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
                 .ThenInclude(p => p.Category).Where(c => c.AccountId == acc).ToList();
+            foreach (var p in lsCart)
+            {
+                totalPro = totalPro + (int)p.Quantity;
+            }
 
         }
         public JsonResult OnPost(int productId, int quantity)

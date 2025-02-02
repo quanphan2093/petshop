@@ -1,4 +1,4 @@
-
+﻿
 Create database PetStore
 go
 
@@ -177,3 +177,54 @@ ALTER TABLE Forum
 ADD [Image] NVARCHAR(255),
 	[Age] INT DEFAULT 0,
 	[GENE] BIT DEFAULT 0;
+
+CREATE TABLE PaymentMethod (
+	methodId int primary key identity(1,1),
+	methodName nvarchar(50),
+	createAt DateTime,
+	updateAt Datetime,
+	[status] nvarchar(10)
+)
+
+INSERT INTO PaymentMethod (methodName, createAt, updateAt, [status])  
+VALUES  
+(N'Chuyển khoản ngân hàng', GETDATE(), GETDATE(), N'active'),  
+(N'Thanh toán khi nhận hàng (COD)', GETDATE(), GETDATE(), N'active');
+ALTER TABLE [Order]
+ADD paymentMethodId INT;
+
+ALTER TABLE [Order]
+ADD CONSTRAINT FK_Order_PaymentMethod
+FOREIGN KEY (paymentMethodId)
+REFERENCES PaymentMethod(methodId);
+
+INSERT INTO Role (RoleName)
+VALUES 
+('Admin'),
+('Customer'),
+('Sales'),
+('Support'),
+('Manager');
+
+INSERT INTO Account (Email, Password, CreateAt, UpdateAt, [State], RoleID)
+VALUES 
+('admin@example.com', 'admin123', GETDATE(), GETDATE(), 'Active', 1),
+('sales@example.com', 'sales123', GETDATE(), GETDATE(), 'Active', 3),
+('support@example.com', 'support123', GETDATE(), GETDATE(), 'Inactive', 4),
+('manager@example.com', 'manager123', GETDATE(), GETDATE(), 'Active', 5);
+
+INSERT INTO StatusOrder (StatusName)
+VALUES 
+(N'Chờ thanh toán'),
+(N'Vận chuyển'),
+(N'Chờ giao hàng'),
+(N'Hoàn thành'),
+(N'Ðã hủy'),
+(N'Trả hàng/ hoàn tiền');
+
+INSERT INTO Category (CategoryName)
+VALUES 
+(N'Thời trang'),
+(N'Thức ăn'),
+(N'Đồ chơi'),
+(N'Vòng cổ');

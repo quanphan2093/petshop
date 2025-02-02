@@ -20,7 +20,7 @@
                 <h2>Giỏ hàng của bạn</h2>
             </div>
 
-            <p class="mt-3 fs-5">Bạn đang có <strong>@(Model.lsCart != null? Model.lsCart.Count() : "0") sản phẩm</strong> trong giỏ hàng</p>
+            <p class="mt-3 fs-5">Bạn đang có <strong>@(Model.totalPro != null ? Model.totalPro : "0") sản phẩm</strong> trong giỏ hàng</p>
 
             @if(Model.lsCart != null)
             {
@@ -68,7 +68,7 @@
                 @using System.Globalization
                 <p class="total-price mb-1 fw-bold">@(((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND</p>
             </div>
-            <button class="btn checkout-btn w-100 mt-4 py-2 rounded-pill">THANH TOÁN</button>
+            <a href="/Checkout" class="btn checkout-btn w-100 mt-4 py-2 rounded-pill">THANH TOÁN</a>
         </div>
     </div>
 </div>
