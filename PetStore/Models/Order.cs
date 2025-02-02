@@ -19,9 +19,11 @@ namespace PetStore.Models
         public int? AccountId { get; set; }
         public int? AddressId { get; set; }
         public int? StatusId { get; set; }
+        public int? PaymentMethodId { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual Address? Address { get; set; }
+        public virtual PaymentMethod? PaymentMethod { get; set; }
         public virtual StatusOrder? Status { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
