@@ -23,8 +23,9 @@ namespace PetStore.Models
         public DateTime? UpdateAt { get; set; }
         public string? Status { get; set; }
         public int? CategoryId { get; set; }
-        public int? UnitInStock { get; set; }
         public int? UnitOrdered { get; set; }
+        public int? UnitInStock { get; set; }
+        public int? Size { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }

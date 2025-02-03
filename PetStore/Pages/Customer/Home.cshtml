@@ -3,283 +3,183 @@
 @{
     Layout = "_Layout";
 }
-@if (TempData["error"] != null)
-{
-    <div class="alert alert-danger">@TempData["error"]</div>
-}
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success">@TempData["success"]</div>
-}
-<!-- Hero Start -->
-<div class="container-fluid bg-primary py-5 mb-5 hero-header">
-    <div class="container py-5">
-        <div class="row justify-content-start">
-            <div class="col-lg-8 text-center text-lg-start">
-                <h1 class="display-1 text-uppercase text-dark mb-lg-4">Pet Tracer</h1>
-                <h1 class="text-uppercase text-white mb-lg-4">Safety in Every Step</h1>
-                <p class="fs-4 text-white mb-lg-4">Cung cấp sản phẩm và dịch vụ cho thú cưng</p>
-                <div class="d-flex align-items-center justify-content-center justify-content-lg-start pt-5">
-                    <a href="/About" class="btn btn-outline-light border-2 py-md-3 px-md-5 me-5">Xem Thêm</a>
-                    <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                        <span></span>
-                    </button>
-                    <h5 class="font-weight-normal text-white m-0 ms-4 d-none d-sm-block">Xem Video</h5>
-                </div>
-            </div>
-        </div>
+@using System.Globalization
+<link href="~/css/home.css" rel="stylesheet" />
+<style>
+    .image-container {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+    .button-container {
+        position: absolute;
+        top: 82%;
+        left: 80%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        gap: 10px;
+    }
+
+        .button-container button {
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+    .btn-view-intro {
+        background-color: #ffcd16;
+        border: #085998 2px solid;
+        color: #085998;
+        text-wrap: nowrap;
+    }
+
+        .btn-view-intro a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn-view-intro i {
+            border-radius: 50%;
+            border: 1px solid #085998;
+            padding: 0 3px;
+        }
+
+    .btn-discover {
+        background-color: #085998;
+        color: #ffffff;
+        border: none;
+        text-wrap: nowrap;
+    }
+
+        .btn-discover a {
+            text-decoration: none;
+            color: inherit;
+        }
+</style>
+
+<div class="banner-container">
+    <div class="image-container">
+        <img src="~/Images/bannerHome.png" width="100%">
     </div>
 </div>
-<!-- Hero End -->
-<!-- Video Modal Start -->
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- 16:9 aspect ratio -->
-                <div class="ratio ratio-16x9">
-                    <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-                            allow="autoplay"></iframe>
-                </div>
-            </div>
+
+<div class="container mt-4">
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <p style="opacity: 0.6;margin: 0;">Có gì mới ?</p>
+            <h6 style="color: #085998; font-size: 20px; font-weight: 700;">Một Vài Em Pet Của Chúng Ta</h6>
         </div>
+        <button style="border: none; background-color: #085998;height: 40px; border-radius: 50px;">
+            <a style="color: #ffffff;padding: 2px 15px" href="/forum">
+                Diễn Đàn
+                <span style="margin-left: 5px; border-radius: 50%; border: 1px solid #ffffff; padding: 0 5px;">></span>
+            </a>
+        </button>
     </div>
-</div>
-<!-- Video Modal End -->
-<!-- About Start -->
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="row gx-5">
-            <div class="col-lg-5 mb-lg-0" style="min-height: 500px;">
-                <div class="position-relative h-100">
-                    <img class="position-absolute w-100 h-100 rounded" src="https://kienthucbonphuong.com/images/202006/pet-la-gi/pet-la-gi.jpg" style="object-fit: scale-down;">
-                </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="border-start border-5 border-primary ps-5 mb-3">
-                    <h6 class="text-primary text-uppercase">Giới Thiệu</h6>
-                    <h6 class="display-5 text-uppercase mb-0">Giữ cho thú cưng của bạn luôn vui vẻ</h6>
-                </div>
-                <h5 class="text-body mb-4">Tại PetShop, chúng tôi cam kết mang đến các sản phẩm chất lượng cao, từ thiết bị GPS đảm bảo an toàn, thức ăn bổ dưỡng, quần áo thời trang đến các vật dụng thiết yếu, giúp thú cưng của bạn luôn an toàn, thoải mái và hạnh phúc.</h5>
-                <div class="bg-light p-4">
-                    <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item w-50" role="presentation">
-                            <button class="nav-link text-uppercase w-100 active" id="pills-1-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1"
-                                    aria-selected="true">
-                                Sứ mệnh
-                            </button>
-                        </li>
-                        <li class="nav-item w-50" role="presentation">
-                            <button class="nav-link text-uppercase w-100" id="pills-2-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2"
-                                    aria-selected="false">
-                                Tầm nhìn
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
-                            <p class="mb-0">Sứ mệnh của chúng tôi là làm phong phú thêm cuộc sống của thú cưng và chủ của chúng bằng cách cung cấp các giải pháp sáng tạo, đáng tin cậy và giá cả phải chăng cho việc chăm sóc thú cưng. Cho dù đó là giữ cho thú cưng của bạn an toàn bằng công nghệ theo dõi tiên tiến của chúng tôi hay cải thiện cuộc sống hàng ngày của chúng bằng thức ăn và phụ kiện chất lượng cao, chúng tôi ở đây để hỗ trợ mối liên kết không thể phá vỡ mà bạn chia sẻ với những người bạn lông lá của mình.</p>
+    <div class="row">
+        @if(Model.forums != null)
+        {
+            @foreach (var i in Model.forums.Take(8))
+            {
+                <div class="col-md-6 col-lg-3 col-sm-12">
+                    <div class="shadow" style="border-radius: 12px; width: 95%; padding: 10px; text-align: center;">
+                        <div style="width: 200px; height: 200px; margin: 0 auto;">
+                            <img src="@i.Image"
+                                 style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; margin-top: 10px;" />
                         </div>
-                        <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab">
-                            <p class="mb-0">Chúng tôi hình dung một thế giới mà thú cưng luôn được an toàn, yêu thương và chăm sóc. Bằng cách kết hợp công nghệ hiện đại, thiết kế chu đáo và hiểu biết sâu sắc về nhu cầu của thú cưng, chúng tôi hướng đến mục tiêu thiết lập tiêu chuẩn trong việc chăm sóc thú cưng. Mục tiêu của chúng tôi là trở thành đối tác đáng tin cậy của bạn, cung cấp các giải pháp phù hợp với mọi giai đoạn cuộc sống của thú cưng và mọi cuộc phiêu lưu mà bạn cùng tham gia.</p>
-                        </div>
+                        <h5 class="text-center" style="margin-top: 10px;">@i.Content</h5>
+                        <p class="text-center" style="opacity: 0.6; padding-bottom: 10px;">
+                            Gene: <span style="font-weight: bold;">@(i.Gene == true ? "Male" : "Female")</span>
+                            <i class="bi bi-dot"></i>
+                            Age: <span style="font-weight: bold;">@i.Age months</span>
+                        </p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- About End -->
-<!-- Services Start -->
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-            <h6 class="text-primary text-uppercase">Dịch Vụ</h6>
-            <h1 class="display-5 text-uppercase mb-0">
-                Dịch vụ chăm sóc thú cưng tuyệt vời
-            </h1>
-        </div>
-        <div class="row g-5">
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-house display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Gửi thú cưng</h5>
-                        <p>Cung cấp dịch vụ chăm sóc thú cưng an toàn, thoải mái và được giám sát khi bạn vắng nhà.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-food display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Cho thú cưng ăn</h5>
-                        <p>Cung cấp dịch vụ ăn uống cho thú cưng, đảm bảo chế độ dinh dưỡng đầy đủ và hợp lý.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-grooming display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Chăm sóc thú cưng</h5>
-                        <p>Cung cấp dịch vụ chăm sóc thú cưng, bao gồm tắm rửa, cắt tỉa lông và vệ sinh.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-cat display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Huấn luyện thú cưng</h5>
-                        <p>Cung cấp các khóa huấn luyện chuyên nghiệp, giúp thú cưng của bạn học các kỹ năng cơ bản và cải thiện hành vi.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-dog display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Bài tập cho thú cưng</h5>
-                        <p>Cung cấp dịch vụ vận động cho thú cưng, giúp chúng duy trì sức khỏe, năng lượng và sự vui vẻ thông qua các hoạt động thể chất phù hợp.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="flaticon-vaccine display-1 text-primary me-4"></i>
-                    <div>
-                        <h5 class="text-uppercase mb-3">Điều trị thú cưng</h5>
-                        <p>Cung cấp dịch vụ chăm sóc y tế cho thú cưng, bao gồm điều trị bệnh tật, tiêm phòng và chăm sóc sức khỏe định kỳ, đảm bảo thú cưng luôn khỏe mạnh và hạnh phúc.</p>
-                        <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Services End -->
-<!-- Products Start -->
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-            <h6 class="text-primary text-uppercase">Sản Phẩm </h6>
-        </div>
-        <div class="owl-carousel product-carousel">
-            @foreach(var i in Model.products){
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <a href="#">
-                            <img class="img-fluid mb-4" src="@i.Image" alt="">
-                            <h6 class="text-uppercase">@i.ProductName</h6>
-                            <h5 class="text-primary mb-0">@i.Price</h5>
-                            <div class="btn-action d-flex justify-content-center">
-                                <a class="btn btn-primary rounded-pill py-2 px-3" href=""><i class="bi bi-cart"></i></a>
-                            </div>
-                        </a>
-                    </div>
+
                 </div>
             }
+        }
+    </div>
+    <div class="image-container">
+        <img src="~/Images/Slice .png" alt="Example Image" />
+        <div class="button-container">
+            <button class="btn-view-intro">
+                <a href="#">View Intro <i class="bi bi-caret-right-fill"></i></a>
+            </button>
+            <button class="btn-discover">
+                <a href="#">Khám Phá</a>
+            </button>
         </div>
     </div>
-</div>
-<!-- Products End -->
-<!-- Testimonial Start -->
-<div class="container-fluid bg-testimonial py-5" style="margin: 45px 0;">
-    <div class="container py-5">
-        <div class="row justify-content-end">
-            <div class="col-lg-7">
-                <div class="owl-carousel testimonial-carousel bg-white p-5">
-                    <div class="testimonial-item text-center">
-                        <div class="position-relative mb-4">
-                            <img class="img-fluid mx-auto" src="img/testimonial-1.jpg" alt="">
-                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
-                                <i class="bi bi-chat-square-quote text-primary"></i>
-                            </div>
-                        </div>
-                        <p>Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                        <hr class="w-25 mx-auto">
-                        <h5 class="text-uppercase">Client Name</h5>
-                        <span>Profession</span>
-                    </div>
-                    <div class="testimonial-item text-center">
-                        <div class="position-relative mb-4">
-                            <img class="img-fluid mx-auto" src="img/testimonial-2.jpg" alt="">
-                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
-                                <i class="bi bi-chat-square-quote text-primary"></i>
-                            </div>
-                        </div>
-                        <p>Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                        <hr class="w-25 mx-auto">
-                        <h5 class="text-uppercase">Client Name</h5>
-                        <span>Profession</span>
-                    </div>
-                </div>
+    <div class="row mt-4">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <div>
+                <p style="opacity: 0.6;margin: 0;">Hard to choose right products for pets?</p>
+                <h6 style="color: #085998; font-size: 22px; font-weight: 700;">Sản Phẩm Của Chúng Tôi</h6>
             </div>
+            <button style="border: none; background-color: #ffffff;height: 40px; border-radius: 50px; border: 2px solid #085998;">
+                <a style="color: #085998;padding: 2px 15px" href="/Product">
+                    Xem thêm
+                    <span style="margin-left: 5px; border-radius: 50%; border: 1px solid #085998; padding: 0 5px;">></span>
+                </a>
+            </button>
         </div>
+        @if(Model.products != null)
+        {
+            @foreach (var i in Model.products.Take(8))
+            {
+                <div class="col-md-6 col-lg-3 col-sm-12 text-center mt-3"
+                     style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                    <div class="shadow mt-3" style="border-radius: 12px; width: 92%; text-align: center; padding: 10px;">
+                        <a href="/Product/ProductDetails?id=@i.ProductId" style="text-decoration: none; color: inherit; display: block;">
+                            <div style="width: 200px; height: 200px; margin: 0 auto;">
+                                <img src="@i.Image"
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
+                            </div>
+                            <h6 class="text-start mt-4" style="margin-left: 10px; font-weight: bold;">
+                                @i.ProductName
+                            </h6>
+                            <p class="text-start" style="margin-left: 10px; font-size: 13px; color:black">
+                                Product: <span style="font-weight: bold;">@i.Category.CategoryName</span><br />
+                                Size: <span style="font-weight: bold;">@i.Size gam</span>
+                            </p>
+                            <h6 class="text-start" style="margin-left: 10px;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h6>
+                        </a>
+                        <button class="text-start"
+                                style="background-color: #fceed5; border: none; border-radius: 8px; width: 93%; margin-top: 10px;
+                   color: #085998; font-weight: bold; padding: 0 10px; margin-bottom: 10px;">
+                            <img src="~/Images/Frame.png" /><i class="bi bi-dot"></i> Free Toy & Free Shaker
+                        </button>
+                    </div>
+
+                </div>
+            }
+        }
     </div>
-</div>
-<!-- Testimonial End -->
-<!-- Blog Start -->
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-            <h6 class="text-primary text-uppercase">Blog mới nhất</h6>
-            <h1 class="display-5 text-uppercase mb-0">Những bài viết mới nhất</h1>
+    <div class="row mt-5">
+        <div class="col-5 col-md-5 text-center">
+            <img src="~/Images/31c10c20d326b9ab4937a675d0a9bcd6 1.png" width="90%" />
         </div>
-        <div class="row g-5">
-            <div class="col-lg-6">
-                <div class="blog-item">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="img/blog-1.jpg" style="object-fit: cover;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <div class="d-flex mb-3">
-                                    <small class="me-3"><i class="bi bi-bookmarks me-2"></i>Web Design</small>
-                                    <small><i class="bi bi-calendar-date me-2"></i>01 Jan, 2045</small>
-                                </div>
-                                <h5 class="text-uppercase mb-3">Dolor sit magna rebum clita rebum dolor</h5>
-                                <p>Ipsum sed lorem amet dolor amet duo ipsum amet et dolore est stet tempor eos dolor</p>
-                                <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="blog-item">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="img/blog-2.jpg" style="object-fit: cover;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <div class="d-flex mb-3">
-                                    <small class="me-3"><i class="bi bi-bookmarks me-2"></i>Web Design</small>
-                                    <small><i class="bi bi-calendar-date me-2"></i>01 Jan, 2045</small>
-                                </div>
-                                <h5 class="text-uppercase mb-3">Dolor sit magna rebum clita rebum dolor</h5>
-                                <p>Ipsum sed lorem amet dolor amet duo ipsum amet et dolore est stet tempor eos dolor</p>
-                                <a class="text-primary text-uppercase" href="">Xem Thêm<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-7 col-md-7" style="position: relative; padding-bottom: 50px;">
+            <h3 style="font-size: 40px; font-weight: bold; color: #085998;">Giới thiệu</h3>
+            <h4 style="margin: 25px 0; color: #085998; font-weight: bold;">Giữ thú cưng của bạn luôn vui vẻ</h4>
+            <p style="color: #085998; font-size: 18px;">
+                Having a pet means you have more joy, a new friend, a happy person who will always be with you to
+                have fun. We have 200+ different pets that can meet your needs! Having a pet means you have more
+                joy, a new friend, a happy person who will always be with you to have fun. We have 200+ different
+                pets that can meet your needs!
+            </p>
+            <button style="background-color: #085998; color: #ffffff; border-radius: 20px; padding: 8px 30px; border: none; position: absolute; bottom: 0; right: 0;">
+                Xem Thêm >
+            </button>
         </div>
     </div>
 </div>

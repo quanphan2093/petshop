@@ -10,10 +10,10 @@ namespace PetStore.Models
         public static PetStoreContext Ins = new PetStoreContext();
         public PetStoreContext()
         {
-            if(Ins == null)
+            if (Ins == null)
             {
                 Ins = this;
-        }
+            }
         }
 
         public PetStoreContext(DbContextOptions<PetStoreContext> options)
@@ -171,7 +171,15 @@ namespace PetStore.Models
 
                 entity.Property(e => e.AccountId).HasColumnName("AccountID");
 
+                entity.Property(e => e.Age).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Gene)
+                    .HasColumnName("GENE")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.Status).HasMaxLength(255);
 
@@ -297,6 +305,8 @@ namespace PetStore.Models
 
                 entity.Property(e => e.ProductName).HasMaxLength(255);
 
+                entity.Property(e => e.Size).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Status).HasMaxLength(50);
 
                 entity.Property(e => e.UnitInStock).HasDefaultValueSql("((0))");
@@ -314,7 +324,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasKey(e => e.ImgId)
-                    .HasName("PK__ProductI__352F54132F9D121A");
+                    .HasName("PK__ProductI__352F54133A678F04");
 
                 entity.ToTable("ProductImage");
 
@@ -333,7 +343,7 @@ namespace PetStore.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductImages)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__ProductIm__Produ__6FE99F9F");
+                    .HasConstraintName("FK__ProductIm__Produ__5165187F");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -348,7 +358,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.HasKey(e => e.CartId)
-                    .HasName("PK__Shopping__51BCD7977BBEC1A7");
+                    .HasName("PK__Shopping__51BCD7972446B70F");
 
                 entity.ToTable("ShoppingCart");
 
@@ -374,7 +384,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StateInfor>(entity =>
             {
                 entity.HasKey(e => e.StateId)
-                    .HasName("PK__StateInf__C3BA3B3A31C67B1E");
+                    .HasName("PK__StateInf__C3BA3B3A67866617");
 
                 entity.ToTable("StateInfor");
 
@@ -384,7 +394,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__StatusOr__C8EE204392F1CF65");
+                    .HasName("PK__StatusOr__C8EE204389CE2161");
 
                 entity.ToTable("StatusOrder");
 

@@ -1,0 +1,11 @@
+﻿@media (max-width: 768px) {
+    .button-container button {
+        display:none;
+    }
+}
+
+@media (max-width: 480px) {
+    .button-container button {
+        display: none;
+    }
+}
