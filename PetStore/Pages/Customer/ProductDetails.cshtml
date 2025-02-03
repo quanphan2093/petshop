@@ -13,12 +13,12 @@
             @if(Model.lsImage != null)
             {
                 <div class="product-image">
-                    <img src="~/img/@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
+                    <img src="@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
                 </div>
                 <div class="product-thumbnails d-flex justify-content-center mt-3 gap-3">
                     @foreach(var imgUrl in Model.lsImage)
                     {
-                        <img src="~/img/@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
+                        <img src="@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
                     }
                 </div>
             }
@@ -210,7 +210,7 @@
                         <div class="pb-5">
                             <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
                                 <a href="/Product/ProductDetails?id=@data.ProductId">
-                                    <img class="img-fluid mb-4 rounded-15" src="~/img/@data.Image" alt="">
+                                    <img class="img-fluid mb-4 rounded-15" src="@data.Image" alt="">
                                     <h6 class="text-start m-0">@data.ProductName</h6>
                                     <p class="text-muted text-start mb-2">Danh mục: <b>@data.Category.CategoryName</b></p>
                                     @using System.Globalization

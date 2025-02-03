@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\cart.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\cart.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -59,6 +63,23 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Product.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Product.cshtml",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Product.cshtml",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Product.cshtml",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Product.cshtml",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAUwJEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-03T15:34:00.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Cart.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Cart.cshtml.cs",
               "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Cart.cshtml.cs",
@@ -66,8 +87,7 @@
               "RelativeToolTip": "PetStore\\Pages\\Customer\\Cart.cshtml.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T15:26:00.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-03T15:26:00.95Z"
             },
             {
               "$type": "Document",
@@ -77,14 +97,14 @@
               "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\ProductDetails.cshtml",
               "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\ProductDetails.cshtml",
               "RelativeToolTip": "PetStore\\Pages\\Customer\\ProductDetails.cshtml",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAAAJUAAACAAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAUwNYAAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-03T14:40:38.194Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Checkout.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Checkout.cshtml.cs",
               "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Checkout.cshtml.cs",
@@ -92,12 +112,11 @@
               "RelativeToolTip": "PetStore\\Pages\\Customer\\Checkout.cshtml.cs",
               "ViewState": "AgIAACkAAAAAAAAAAAAkwL4AAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T14:32:57.399Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-03T14:32:57.399Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Checkout.cshtml",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Checkout.cshtml",
               "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Checkout.cshtml",
@@ -105,16 +124,11 @@
               "RelativeToolTip": "PetStore\\Pages\\Customer\\Checkout.cshtml",
               "ViewState": "AgIAAF0AAAAAAAAAAAAAAGkAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-03T14:32:56.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+              "WhenOpened": "2025-02-03T14:32:56.662Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Mail.cs",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Common\\Mail.cs",
               "RelativeDocumentMoniker": "PetStore\\Pages\\Common\\Mail.cs",
