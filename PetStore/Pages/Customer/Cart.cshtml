@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="quantity-control d-flex align-items-center mt-3 mt-md-0 ms-auto col-3">
                                         <button type="button" class="decreaseBtn btn btn-outline-dark btn-sm">-</button>
-                                        <input type="number" name="quantity" class="quantityInput form-control form-control-sm text-center border-dark mx-2" value="@c.Quantity">
+                                        <input oninput="this.value = Math.max(0, this.value)" type="number" name="quantity" class="quantityInput form-control form-control-sm text-center border-dark mx-2" value="@c.Quantity">
                                         <button type="button" class="increaseBtn btn btn-outline-dark btn-sm">+</button>
                                     </div>
                                 </div>

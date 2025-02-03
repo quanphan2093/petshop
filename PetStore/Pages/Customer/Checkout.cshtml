@@ -103,6 +103,7 @@
                     {
                         price = @p.Quantity * (int) @p.Product.Price;
                         total = total + price;
+                        <input type="hidden" name="dataPro" value="@p.ProductId-@p.Quantity"/>
                         <div class="cart-item py-3 d-flex align-items-center">
                             <img src="img/product-2.png" alt="Product Image" class="me-3 rounded-15" style="width: 100px; height: 100px; object-fit: cover;">
                             <div class="flex-grow-1">
