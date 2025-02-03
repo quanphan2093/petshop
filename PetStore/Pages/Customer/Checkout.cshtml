@@ -1,0 +1,168 @@
+﻿@page "/Checkout"
+@model PetStore.Pages.Customer.CheckoutModel
+@{
+    decimal? price = 0;
+    decimal? total = 0;
+}
+<link href="~/css/checkoutStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+<div class="container my-5">
+    <form method="post" asp-page="checkout" asp-page-handler="SubmitOrder">
+        <div class="row">
+            <!-- Thông tin nhận hàng -->
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ps-6 pe-6 align-items-center checkout-section">
+                <h4 class="mb-4">Thông tin nhận hàng</h4>
+                    <div class="row g-3">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input required name="email" type="email" class="form-control rounded-5" value="@((Model.lsCart != null && Model.lsCart.Count() != 0)? Model.lsCart[0].Account.Email : "")" placeholder="Email">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input required name="fullname" type="text" class="form-control rounded-5" placeholder="Họ Và Tên">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input required name="phone" type="text" class="form-control rounded-5" placeholder="Số Điện Thoại" id="phone" maxlength="11" oninput="validatePhoneNumber(this)">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input required name="address" type="text" class="form-control rounded-5" placeholder="Địa chỉ">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <select required name="city" id="provinceSelect" class="form-select form-select-lg form-select-sm rounded-5" style="font-size: 1rem;">
+                                <option value="">Chọn Tỉnh/Thành phố</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <select required name="district" id="districtSelect" class="form-select form-select-lg form-select-sm rounded-5" style="font-size: 1rem;">
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <select required name="ward" id="wardSelect" class="form-select form-select-lg form-select-sm rounded-5" style="font-size: 1rem;">
+                                <option value="">Chọn Phường/Xã</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <textarea name="note" class="form-control rounded-5" placeholder="Ghi chú (tùy chọn)" rows="3"></textarea>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Vận chuyển và Thanh toán -->
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ps-6 pe-6 checkout-section">
+                <h4 class="mb-4">Vận Chuyển</h4>
+                <input type="text" class="form-control mb-3" placeholder="Vui lòng nhập thông tin giao hàng">
+
+                <h4 class="mb-4">Thanh toán</h4>
+                @if(Model.lspayMethod != null && Model.lspayMethod.Count != 0)
+                {
+                    @for(int i=0; i < Model.lspayMethod.Count(); i++)
+                    {
+                        if (i == 0)
+                        {
+                            <div class="form-check border-top border-start border-end rounded-top m-0">
+                                <div class="p-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId" checked>
+                                    <label class="form-check-label" for="bank-transfer-2">@Model.lspayMethod[i].MethodName</label>
+                                </div>
+                            </div>
+                        }else if(i == Model.lspayMethod.Count() - 1)
+                        {
+                            <div class="form-check border rounded-bottom m-0">
+                                <div class="p-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId">
+                                    <label class="form-check-label" for="cod">@Model.lspayMethod[i].MethodName</label>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check border-top border-start border-end m-0">
+                                <div class="p-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId">
+                                    <label class="form-check-label" for="vietqr">@Model.lspayMethod[i].MethodName</label>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <div id="bankingQR" class="container align-content-center">
+                        <p class="fs-6 text-danger">Vui lòng chuyển khoản kèm nội dung: <strong>Họ và tên - Số điện thoại - Email</strong></p>
+                        <img src="~/Images/bankingQR/QR.jpg" alt="QR Code Chuyển khoản">
+                        <p style="font-size: 10px">Sau khi chuyển khoản, đơn hàng của bạn sẽ được nhân viên xác nhận trong vòng 12 tiếng</p>
+                    </div>
+                    
+                }
+            </div>
+        </div>
+
+        <div class="order-summary row">
+            <!-- Product Section -->
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex flex-column align-items-start ps-5 border-end">
+                <h6 class="fw-bold mb-4 fs-4">Đơn Hàng (@(Model.totalPro != null ? Model.totalPro : "0") sản phẩm)</h6>
+                @if(Model.lsCart != null && Model.lsCart.Count() != 0)
+                {
+                    @foreach(var p in Model.lsCart)
+                    {
+                        price = @p.Quantity * (int) @p.Product.Price;
+                        total = total + price;
+                        <input type="hidden" name="dataPro" value="@p.ProductId-@p.Quantity"/>
+                        <div class="cart-item py-3 d-flex align-items-center">
+                            <img src="img/product-2.png" alt="Product Image" class="me-3 rounded-15" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div class="flex-grow-1">
+                                <p class="mb-1 fw-bold fs-6">@p.Product.ProductName</p>
+                                <p class="mb-1 text-muted">Số lượng: @p.Quantity</p>
+                                 @using System.Globalization
+                                <p class="fw-bold fs-5 text-dark">@(((int)price).ToString("N0", CultureInfo.InvariantCulture)) VND</p>
+                            </div>
+                        </div>
+                    }
+                }
+            
+            </div>
+
+            <!-- Summary Section -->
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ps-6">
+                <div class="order-details">
+                    <p class="mb-1">Tạm tính: <span class="float-end">@(total == null ? "" : ((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND</span></p>
+                    <p class="mb-1">Phí vận chuyển: <span class="float-end">_ VND</span></p>
+                </div>
+                <div class="summary mt-2">
+                    <p class="total-price mb-3">Tổng cộng: <span class="float-end">@(total==null? "" :((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND</span></p>
+                    <div class="d-flex justify-content-between">
+                        <a href="/Cart" class="text-decoration-none go-back">&lt; Quay về giỏ hàng</a>
+                        <button type="submit" class="btn-order">ĐẶT HÀNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<script src="~/js/completeAddressScript.js?v=@DateTime.Now.Ticks"></script>
+<script>
+    function validatePhoneNumber(input) {
+        input.value = input.value.replace(/\D/g, '');
+        if (input.value.length < 10) {
+            input.setCustomValidity("Số điện thoại phải có ít nhất 10 chữ số.");
+        } else {
+            input.setCustomValidity("");
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const radioButtons = document.querySelectorAll('input[name="payment"]');
+        const qrImage = document.getElementById("bankingQR");
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener("change", function () {
+                // Kiểm tra xem radio được chọn có giá trị là "Chuyển khoản ngân hàng" hay không
+                if (this.nextElementSibling.textContent.trim() === "Chuyển khoản ngân hàng") {
+                    qrImage.style.display = "block";
+                } else {
+                    qrImage.style.display = "none";
+                }
+            });
+        });
+
+        // Gọi sự kiện change ban đầu để kiểm tra radio đã chọn sẵn
+        document.querySelector('input[name="payment"]:checked')?.dispatchEvent(new Event("change"));
+    });
+
+</script>

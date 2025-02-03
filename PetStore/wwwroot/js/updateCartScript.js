@@ -126,6 +126,56 @@ function updateEventListeners() {
             updateTotal(totalPriceElement);
         });
     });
+
+    const inputQuantity = document.querySelectorAll('.quantityInput');
+    for (let i = 0; i < inputQuantity.length; i++) {
+        inputQuantity[i].addEventListener("change", function (event) {
+            const form = document.getElementById("cart");
+            const cartIdElements = document.querySelectorAll("input[name='cartId']");
+            const quantityInputs = document.querySelectorAll("input[name='quantity']");
+
+            const formData = new FormData();
+            formData.append("__RequestVerificationToken", document.querySelector("input[name='__RequestVerificationToken']").value);
+            cartIdElements.forEach((cartElement, idx) => {
+                formData.append(`cartIds[${idx}]`, cartElement.value);
+            });
+
+            quantityInputs.forEach((quantityElement, idx) => {
+                formData.append(`quantities[${idx}]`, quantityElement.value);
+            });
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message === "Vui lòng login trước!") {
+                        console.log("login")
+                        window.location.href = "/login";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            updateTotal(totalPriceElement);
+            if (inputQuantity[i].value == 0) {
+                const cartItem = inputQuantity[i].closest('.cart-item');
+                if (cartItem) {
+                    cartItem.remove();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
+                }
+            }
+        });
+    };
 }
 
 updateEventListeners();
