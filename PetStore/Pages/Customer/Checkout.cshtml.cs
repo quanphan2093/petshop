@@ -21,7 +21,7 @@ namespace PetStore.Pages.Customer
         [BindProperty]
         public List<PaymentMethod> lspayMethod { get; set; } = new List<PaymentMethod>();
 
-        public void OnGet()
+        public void OnGet(int? productId = null, int? quantity = null)
         {
             int? acc = HttpContext.Session.GetInt32("acc");
             if (acc == null)
@@ -29,8 +29,24 @@ namespace PetStore.Pages.Customer
                 Response.Redirect("/login");
                 return;
             }
-            lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
+            if(productId != null && quantity != null)
+            {
+                ShoppingCart cart = new ShoppingCart();
+                cart.CreateAt = DateTime.Now;
+                cart.UpdateAt = DateTime.Now;
+                cart.AccountId = acc;
+                cart.Quantity = quantity;
+                cart.ProductId = productId;
+                cart.Product = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).Include(c => c.Category).FirstOrDefault();
+                cart.Account = PetStoreContext.Ins.Accounts.Where(a => a.AccountId == acc).FirstOrDefault();
+                lsCart.Add(cart);
+            }
+            else
+            {
+                lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
                 .ThenInclude(p => p.Category).Include(a => a.Account).Where(c => c.AccountId == acc).ToList();
+            }
+            
             if(lsCart == null || lsCart.Count == 0)
             {
                 Response.Redirect("/Cart");
@@ -42,13 +58,14 @@ namespace PetStore.Pages.Customer
                 totalPro = totalPro + (int)p.Quantity;
             }
         }
-        public async Task<IActionResult> OnPostSubmitOrder(string email, string fullname, string phone, string address, string city, string district, string ward, string note, int payment)
+        public async Task<IActionResult> OnPostSubmitOrder(string email, string fullname, string phone, string address, string city, string district, string ward, string note, int payment, List<string> dataPro)
         {
             int? acc = HttpContext.Session.GetInt32("acc");
             if (acc == null)
             {
                 return Redirect("/login");
             }
+            //get data address by fetch API
             using var client = new HttpClient();
             var responseCity = await client.GetStringAsync("https://provinces.open-api.vn/api/?depth=1");
             var cities = JsonSerializer.Deserialize<List<Province>>(responseCity);
@@ -68,24 +85,33 @@ namespace PetStore.Pages.Customer
             string wardName = selectedWards != null ? selectedWards.name : "null";
 
             string completeAddress = address + ", " + wardName + ", " + districtName + ", " + cityName;
+
+            //insert Address to database
             Address add = new Address();
             try
             {
-                    
+
                 add.FullNameCustomer = fullname;
                 add.Phone = phone;
                 add.Address1 = completeAddress;
                 add.Email = email;
                 PetStoreContext.Ins.Addresses.Add(add);
                 await PetStoreContext.Ins.SaveChangesAsync();
-                    
-            }catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+
+            //assign to sale
             Account sale = PetStoreContext.Ins.Accounts.FirstOrDefault(a => a.RoleId == 2);
+
+            //get first status of order
             StatusOrder stt = PetStoreContext.Ins.StatusOrders.First();
             Order od = new Order();
+
+            //insert order to database
             try
             {
                 od.CreateAt = DateTime.Now;
@@ -104,21 +130,25 @@ namespace PetStore.Pages.Customer
                 return Redirect("/Checkout");
             }
 
-            lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
-                    .ThenInclude(p => p.Category).Include(a => a.Account).Where(c => c.AccountId == acc).ToList();
+            //insert to order detail
             List<OrderDetail> orderDetails = new List<OrderDetail>();
             try
             {
-                foreach (var pro in lsCart)
+                foreach (var data in dataPro)
                 {
+                    int productId = int.Parse(data.Split("-")[0]);
+                    int quantity = int.Parse(data.Split("-")[1]);
+
+                    Product pro = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).FirstOrDefault();
+                    if(pro == null) return Redirect("/Home");
                     OrderDetail odd = new OrderDetail
                     {
                         CreateAt = DateTime.Now,
-                        Quantity = pro.Quantity,
-                        ProductId = pro.ProductId,
+                        Quantity = quantity,
+                        ProductId = productId,
                         OrderId = od.OrderId,
-                        UnitPrice = pro.Product.Price,
-                        Total = pro.Product.Price * pro.Quantity
+                        UnitPrice = pro.Price,
+                        Total = pro.Price * quantity
                     };
 
                     orderDetails.Add(odd);
@@ -134,18 +164,35 @@ namespace PetStore.Pages.Customer
                 return Redirect("/Checkout");
             }
 
+            //fetch data from cart of customer
+            lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
+                    .ThenInclude(p => p.Category).Include(a => a.Account).Where(c => c.AccountId == acc).ToList();
+
+            //delete product in cart if exist
             try
             {
-                PetStoreContext.Ins.ShoppingCarts.RemoveRange(lsCart);
-                await PetStoreContext.Ins.SaveChangesAsync();
+                List<ShoppingCart> cart = new List<ShoppingCart>();
+                foreach (var data in dataPro) {
+                    int productId = int.Parse(data.Split("-")[0]);
+                    int quantity = int.Parse(data.Split("-")[1]);
+                    ShoppingCart cartExist = lsCart.Where(c => c.ProductId == productId).FirstOrDefault();
+                    //if exist in cart
+                    if (cartExist != null) {
+                        //delete if quantity is the same or cart is smaller
+                        if (cartExist.Quantity <= quantity) {
+                            PetStoreContext.Ins.ShoppingCarts.Remove(cartExist);
+                            await PetStoreContext.Ins.SaveChangesAsync();
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return Redirect("/Checkout");
             }
-            string token = Guid.NewGuid().ToString();
 
+            //calculate total of order
             int totalPrice = 0;
             foreach (var p in orderDetails)
             {

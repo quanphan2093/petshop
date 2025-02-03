@@ -47,6 +47,11 @@ namespace PetStore.Pages.Customer
                     return new JsonResult(new { success = false, message = "Không tìm thấy sản phẩm!" });
                 }
 
+                if(product.UnitInStock < quantity || product.UnitInStock == null)
+                {
+                    return new JsonResult(new { success = false, message = "Không đủ sản phẩm trong kho!" });
+                }
+
                 ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.AccountId == acc && c.ProductId == productId).FirstOrDefault();
                 if (cart == null) {
                     cart = new ShoppingCart();
