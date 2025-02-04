@@ -61,7 +61,6 @@ function updateEventListeners() {
                 })
                 .then(data => {
                     if (data.message === "Vui lòng login trước!") {
-                        console.log("login")
                         window.location.href = "/login";
                     }
                 })
@@ -116,8 +115,11 @@ function updateEventListeners() {
                 })
                 .then(data => {
                     if (data.message === "Vui lòng login trước!") {
-                        console.log("login")
                         window.location.href = "/login";
+                    } else if (data.message === "Số lượng sản phẩm không đủ!") {
+                        quantityInputs[index].value = parseInt(currentValue);
+                        alert("Số lượng sản phẩm vượt quá trong kho!!");
+                        return;
                     }
                 })
                 .catch(error => {
@@ -157,8 +159,11 @@ function updateEventListeners() {
                 })
                 .then(data => {
                     if (data.message === "Vui lòng login trước!") {
-                        console.log("login")
                         window.location.href = "/login";
+                    } else if (data.message === "Số lượng sản phẩm không đủ!") {
+                        alert("Số lượng sản phẩm vượt quá trong kho!!");
+                        window.location.reload();
+                        return;
                     }
                 })
                 .catch(error => {

@@ -31,7 +31,7 @@
                         <input type="hidden" value="@c.CartId" name="cartId"/>
                         total += (@c.Quantity * c.Product.Price);
                         <a href="#" class="cart-item border-bottom py-3 d-flex flex-wrap align-items-center">
-                            <img src="~/img/@c.Product.Image" alt="Product Image" class="bg-light col-4 img-fluid me-3 rounded-15">
+                            <img src="@c.Product.Image" alt="Product Image" class="bg-light col-4 img-fluid me-3 rounded-15">
                             <div class="flex-grow-1 col-5">
                                 <p class="mb-1 fw-bold fs-5 mb-3 text-truncate">@c.Product.ProductName</p>
                                 <p class="mb-1 text-dark mb-4">Danh mục: @c.Product.Category.CategoryName</p>

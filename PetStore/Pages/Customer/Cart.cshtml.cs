@@ -88,25 +88,33 @@ namespace PetStore.Pages.Customer
             try
             {
                 for (int i=0; i < cartIds.Length; i++) {
-                    ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.CartId == cartIds[i]).FirstOrDefault();
+                    ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.CartId == cartIds[i]).Include(p => p.Product).FirstOrDefault();
                     if(cart != null)
                     {
-                        if(cart.Quantity != quantities[i])
+                        if(quantities[i] <= cart.Product.UnitInStock)
                         {
-                            if (quantities[i] != 0)
+                            if(cart.Quantity != quantities[i])
                             {
-                                cart.Quantity = quantities[i];
-                                cart.UpdateAt = DateTime.Now;
-                                PetStoreContext.Ins.ShoppingCarts.Update(cart);
-                                PetStoreContext.Ins.SaveChanges();
-                            }
-                            else if (quantities[i] == 0)
-                            {
-                                PetStoreContext.Ins.ShoppingCarts.Remove(cart);
-                                PetStoreContext.Ins.SaveChanges();
-                            }
+                                if (quantities[i] != 0)
+                                {
+                                    cart.Quantity = quantities[i];
+                                    cart.UpdateAt = DateTime.Now;
+                                    PetStoreContext.Ins.ShoppingCarts.Update(cart);
+                                    PetStoreContext.Ins.SaveChanges();
+                                }
+                                else if (quantities[i] == 0)
+                                {
+                                    PetStoreContext.Ins.ShoppingCarts.Remove(cart);
+                                    PetStoreContext.Ins.SaveChanges();
+                                }
                             
+                            }
                         }
+                        else
+                        {
+                            return new JsonResult(new { success = false, message = "Số lượng sản phẩm không đủ!" });
+                        }
+                        
                     }
                 }
                 return new JsonResult(new { success = true, message = "thành công!" });
