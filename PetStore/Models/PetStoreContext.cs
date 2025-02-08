@@ -27,10 +27,13 @@ namespace PetStore.Models
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Forum> Forums { get; set; } = null!;
+        public virtual DbSet<ForumType> ForumTypes { get; set; } = null!;
+        public virtual DbSet<Hashtag> Hashtags { get; set; } = null!;
         public virtual DbSet<Infor> Infors { get; set; } = null!;
         public virtual DbSet<Messenger> Messengers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public virtual DbSet<PostHashtag> PostHashtags { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
@@ -119,7 +122,7 @@ namespace PetStore.Models
                     .HasConstraintName("FK__Comment__Account__4222D4EF");
 
                 entity.HasOne(d => d.Forum)
-                    .WithMany(p => p.Comments)
+                    .WithMany(p => p.CommentsNavigation)
                     .HasForeignKey(d => d.ForumId)
                     .HasConstraintName("FK__Comment__ForumID__412EB0B6");
             });
@@ -173,6 +176,8 @@ namespace PetStore.Models
 
                 entity.Property(e => e.Age).HasDefaultValueSql("((0))");
 
+                entity.Property(e => e.Comments).HasColumnName("comments");
+
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
                 entity.Property(e => e.Gene)
@@ -181,14 +186,49 @@ namespace PetStore.Models
 
                 entity.Property(e => e.Image).HasMaxLength(255);
 
+                entity.Property(e => e.Likes).HasColumnName("likes");
+
                 entity.Property(e => e.Status).HasMaxLength(255);
 
+                entity.Property(e => e.Title)
+                    .HasMaxLength(255)
+                    .HasColumnName("title");
+
                 entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Views).HasColumnName("views");
 
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Forums)
                     .HasForeignKey(d => d.AccountId)
                     .HasConstraintName("FK__Forum__AccountID__3E52440B");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.Forums)
+                    .HasForeignKey(d => d.TypeId)
+                    .HasConstraintName("FK__Forum__TypeId__02FC7413");
+            });
+
+            modelBuilder.Entity<ForumType>(entity =>
+            {
+                entity.HasKey(e => e.TypeId)
+                    .HasName("PK__ForumTyp__516F03B5533A3D5D");
+
+                entity.ToTable("ForumType");
+
+                entity.Property(e => e.TypeName).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Hashtag>(entity =>
+            {
+                entity.HasIndex(e => e.Tag, "UQ__Hashtags__C451641313BF0AD0")
+                    .IsUnique();
+
+                entity.Property(e => e.HashtagId).HasColumnName("HashtagID");
+
+                entity.Property(e => e.Tag)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Infor>(entity =>
@@ -289,6 +329,28 @@ namespace PetStore.Models
                     .HasConstraintName("FK__OrderDeta__Produ__37A5467C");
             });
 
+            modelBuilder.Entity<PostHashtag>(entity =>
+            {
+                entity.HasKey(e => e.PostHashtagsId)
+                    .HasName("PK__PostHash__F25F49D92A6A2C70");
+
+                entity.Property(e => e.ForumId).HasColumnName("ForumID");
+
+                entity.Property(e => e.HashtagId).HasColumnName("HashtagID");
+
+                entity.HasOne(d => d.Forum)
+                    .WithMany(p => p.PostHashtags)
+                    .HasForeignKey(d => d.ForumId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostHasht__Forum__5EBF139D");
+
+                entity.HasOne(d => d.Hashtag)
+                    .WithMany(p => p.PostHashtags)
+                    .HasForeignKey(d => d.HashtagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostHasht__Hasht__5FB337D6");
+            });
+
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
@@ -324,7 +386,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasKey(e => e.ImgId)
-                    .HasName("PK__ProductI__352F54133A678F04");
+                    .HasName("PK__ProductI__352F5413C133FC94");
 
                 entity.ToTable("ProductImage");
 
@@ -358,7 +420,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.HasKey(e => e.CartId)
-                    .HasName("PK__Shopping__51BCD7972446B70F");
+                    .HasName("PK__Shopping__51BCD7974D03D238");
 
                 entity.ToTable("ShoppingCart");
 
@@ -384,7 +446,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StateInfor>(entity =>
             {
                 entity.HasKey(e => e.StateId)
-                    .HasName("PK__StateInf__C3BA3B3A67866617");
+                    .HasName("PK__StateInf__C3BA3B3AB8876DD0");
 
                 entity.ToTable("StateInfor");
 
@@ -394,7 +456,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__StatusOr__C8EE204389CE2161");
+                    .HasName("PK__StatusOr__C8EE2043C41213CF");
 
                 entity.ToTable("StatusOrder");
 

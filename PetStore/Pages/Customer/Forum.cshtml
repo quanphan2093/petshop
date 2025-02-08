@@ -14,7 +14,6 @@
 
     .h-5rem {
         height: 5rem;
-        ;
     }
 
     .input-search {
@@ -52,62 +51,67 @@
     .z-index-10 {
         z-index: 10 !important;
     }
+
+    .hidden {
+        display: none;
+    }
 </style>
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row text-center">
         <div class="col-md-3 text-center" style="display: flex; flex-direction: column; align-items: center; padding-left: 30px;">
-            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
-                <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm">
-                <button type="submit"
-                        class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24"
-                         viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                        <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
-                <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
-                     class="text-start p-2">
-                    <h6 style="font-size: 14px; color: #085998;">Mới nhất và gần đây</h6>
-                    <p style="margin: 0; font-size: 12px;">Find the latest update</p>
+            <form style="width:100%" method="get">
+                <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
+                    <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
+                    <button type="submit"
+                            class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24"
+                             viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                            <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
+                        </svg>
+                    </button>
                 </div>
-                <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
-                     class="text-start p-2">
-                    <h6 style="font-size: 14px; color: #085998;">Phổ biến trong ngày</h6>
-                    <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                </div>
-                <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
-                     class="text-start p-2">
-                    <h6 style="font-size: 14px; color: #085998;">
-                        Đang theo dõi <span style="background-color:#ff6934; color: #085998; font-size: 10px; padding: 4px;">24</span>
-                    </h6>
-                    <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                </div>
-            </div>
+                @if (Model.forumTypes.Count != 0)
+                {
+                    <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
+                        <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
+                             class="text-start p-2">
+                            <button style="font-size: 14px; color: #085998; background-color:#ffcd16; border:none; font-weight:bold"
+                                    name="type" value="All">
+                                Tất cả
+                            </button>
+                        </div>
+                        @foreach (var i in Model.forumTypes)
+                        {
+                            <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
+                                 class="text-start p-2">
+                                <button style="font-size: 14px; color: #085998; background-color:#ffcd16; border:none; font-weight:bold"
+                                        name="type" value="@i.TypeId">
+                                    @i.TypeName
+                                </button>
+                            </div>
+                        }
+                    </div>
+                }
+            </form>
+
             <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
                 <div style="margin: 5px 0 20px;">
                     <h6 class="text-start" style="margin-bottom: 20px;  color: #085998;">Tags phổ biến</h6>
-                    <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
-                        <h6 style="font-size: 14px;  color: #085998;">Tags phổ biến</h6>
-                        <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                    </div>
-                    <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
-                        <h6 style="font-size: 14px; color: #085998;">Tags phổ biến</h6>
-                        <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                    </div>
-                    <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
-                        <h6 style="font-size: 14px; color: #085998;">Tags phổ biến</h6>
-                        <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                    </div>
+                    @foreach (var i in (IEnumerable<dynamic>)ViewData["hashtag"])
+                    {
+                        <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
+                            <h6 style="font-size: 14px;  color: #085998;">@i.HashtagName</h6>
+                            <p style="margin: 0; font-size: 12px;">Find the latest update</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
 
         <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;">
-            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
+            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" onclick="showPostBox()" data-bs-toggle="modal" data-bs-target="#postModal">
                 <input type="text" class="form-control p-2 rounded-15 input-search"
                        placeholder="Cùng thú cưng chia sẻ">
                 <button type="submit" style="color: #ffffff; border-radius: 6px;"
@@ -118,114 +122,98 @@
                         <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
                     </svg> -->
-                    Create Post
+                    Tạo bài viết
                 </button>
             </div>
-            <div class="shadow" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
-                <div style="padding: 22px;">
-                    <img src="/image/Rectangle 24.png" style="width: 100%;">
-                </div>
-                <div class="text-start" style="padding:0 22px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h5 style="font-weight: bold; margin-bottom: 20px;">MO231 - Pomeranian White</h5>
-                        <div class="text-end"
-                             style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                            <i class="bi bi-suit-heart-fill"></i>
-                        </div>
-                    </div>
-                    <p>
-                        Chào bạn, mình là Sóc Milk, một chú cún năng động và yêu thích khám phá! Mình rất thích chạy
-                        bộ ngoài trời, đặc biệt là vào buổi sáng sớm, khi không khí trong lành và mát mẻ. Mình cũng
-                        rất thích chơi đùa với các bạn cún khác, nhất là những trò như ném bóng hay đuổi bắt. Mình
-                        ăn thức ăn khô và đôi khi thưởng thức những miếng thịt bò nướng thơm ngon. Nếu bạn là một
-                        bạn cún yêu thích thể thao và có sở thích chia sẻ những bữa ăn ngon, hãy kết bạn với mình
-                        nhé!
-                    </p>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <div class="text-start"
-                         style="padding-left: 22px; display: flex; justify-content: space-between;">
-                        <div style="display: flex;">
-                            <img src="/image/Rectangle 24.png" width="30px" height="30px"
-                                 style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
-                            <div>
-                                <h6 style="margin: 0;">Pavel Gvay</h6>
-                                <p style="margin: 0;">2 days ago</p>
+            @if ((IEnumerable<dynamic>)ViewData["forum"] == null)
+            {
+                <p>Bài viết không tồn tại</p>
+            }
+            else
+            {
+                @foreach (var i in (IEnumerable<dynamic>)ViewData["forum"])
+                {
+                    <div class="shadow" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
+                        <a href="/Forum/@i.id" style="color:black">
+                            <div style="padding: 22px;">
+                                <img src="@i.image" style="width: 100%;">
                             </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                            <div>651,324 Views</div>
-                            <div>36,6545 Likes</div>
-                            <div>56 comments</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="text-start" style="padding:0 22px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h5 style="font-weight: bold; margin-bottom: 20px;">@i.title</h5>
+                                    <div class="text-end"
+                                         style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                        <form method="post" asp-page-handler="Like">
+                                            <input hidden value="@i.id" name="id" />
+                                            <button type="submit" style="border:none; background-color:#ffbf00; border-radius:50%"><i class="bi bi-suit-heart-fill"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p>
+                                    @i.content
+                                </p>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <div class="text-start"
+                                     style="padding-left: 22px; display: flex; justify-content: space-between;">
+                                    <div style="display: flex;">
+                                        <img src="/image/Rectangle 24.png" width="30px" height="30px"
+                                             style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                        <div>
+                                            <h6 style="margin: 0;">@i.name</h6>
+                                            @{
+                                                TimeSpan timeDiff = DateTime.Now - i.createAt;
+                                                string timeDisplay;
 
-            <div class="shadow" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
-                <div style="padding: 22px;">
-                    <img src="/image/Rectangle 24.png" style="width: 100%;">
-                </div>
-                <div class="text-start" style="padding:0 22px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h5 style="font-weight: bold; margin-bottom: 20px;">MO231 - Pomeranian White</h5>
-                        <div class="text-end"
-                             style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                            <i class="bi bi-suit-heart-fill"></i>
-                        </div>
-                    </div>
-                    <p>
-                        Chào bạn, mình là Sóc Milk, một chú cún năng động và yêu thích khám phá! Mình rất thích chạy
-                        bộ ngoài trời, đặc biệt là vào buổi sáng sớm, khi không khí trong lành và mát mẻ. Mình cũng
-                        rất thích chơi đùa với các bạn cún khác, nhất là những trò như ném bóng hay đuổi bắt. Mình
-                        ăn thức ăn khô và đôi khi thưởng thức những miếng thịt bò nướng thơm ngon. Nếu bạn là một
-                        bạn cún yêu thích thể thao và có sở thích chia sẻ những bữa ăn ngon, hãy kết bạn với mình
-                        nhé!
-                    </p>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <div class="text-start"
-                         style="padding-left: 22px; display: flex; justify-content: space-between;">
-                        <div style="display: flex;">
-                            <img src="/image/Rectangle 24.png" width="30px" height="30px"
-                                 style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
-                            <div>
-                                <h6 style="margin: 0;">Pavel Gvay</h6>
-                                <p style="margin: 0;">2 days ago</p>
+                                                if (timeDiff.TotalMinutes < 60)
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalMinutes} phút trước";
+                                                }
+                                                else if (timeDiff.TotalHours < 24)
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalHours} giờ trước";
+                                                }
+                                                else
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalDays} ngày trước";
+                                                }
+
+                                            }
+                                            <p style="margin: 0;">@timeDisplay</p>
+
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                        <div>@i.views Views</div>
+                                        <div>@i.likes Likes</div>
+                                        <div>@i.comments comments</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                            <div>651,324 Views</div>
-                            <div>36,6545 Likes</div>
-                            <div>56 comments</div>
-                        </div>
+                        </a>
                     </div>
-                </div>
-            </div>
+                }
+            }
         </div>
         <div class="col-md-3" style="padding-right: 30px;">
             <div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
                 <h6 style="padding:15px 0; padding-top: 15px; color: #085998;">Sản phẩm<span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></h6>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-                    <div style="display: flex;">
-                        <img src="/image/Rectangle 24.png" width="50px" height="50px" style="margin-right: 15px;" />
-                        <div>
-                            <h6 style="color: #085998;">Hạt dầu cá hồi dành cho chó con kén ăn King’s Pet</h6>
-                            <p style="color: black;">by Michele Hansen</p>
+                @foreach (var i in Model.products)
+                {
+                    <a href="/Product/ProductDetails?id=@i.ProductId">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
+
+                            <div style="display: flex;">
+                                <img src="~/img/@i.Image" width="50px" height="50px" style="margin-right: 15px;" />
+                                <div>
+                                    <h6 style="color: #085998;">@i.ProductName</h6>
+                                    <p style="color: black;">@i.Category.CategoryName</p>
+                                </div>
+                            </div>
+                            <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
                         </div>
-                    </div>
-                    <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-                    <div style="display: flex;">
-                        <img src="/image/Rectangle 24.png" width="50px" height="50px" style="margin-right: 15px;" />
-                        <div>
-                            <h6 style="color: #085998;">Hạt dầu cá hồi dành cho chó con kén ăn King’s Pet</h6>
-                            <p style="color: black;">by Michele Hansen</p>
-                        </div>
-                    </div>
-                    <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
-                </div>
+                    </a>
+                }
             </div>
 
             <div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
@@ -254,5 +242,56 @@
 
         </div>
     </div>
-
 </div>
+
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #242526; color: white; border-radius: 10px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel" style="color:white">Tạo bài viết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    @* <div style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold;">
+                    <h2 style="margin: 0;">Tạo bài viết</h2>
+                    <button onclick="hidePostBox()" style="background: none; border: none; font-size: 20px; color: white; cursor: pointer;">&times;</button>
+                    </div>*@
+                    <div style="display: flex; align-items: center; margin-top: 10px;">
+                        <div style="width: 40px; height: 40px; background: gray; border-radius: 50%;"></div>
+                        <div style="margin-left: 10px;">
+                            <p style="margin: 0; font-weight: bold;">@Model.Acc</p>
+                            @*<p style="margin: 0; font-size: 12px; color: #b0b3b8;">🔒 Bạn bè</p>*@
+                        </div>
+                    </div>
+                    <input required placeholder="Title" name="title" type="text" style="width:100%;background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    @{
+                        string s = Model.Acc + " ơi, bạn đang nghĩ gì thế?";
+                    }
+                    <textarea name="content" placeholder="@s" required
+                              style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;"></textarea>
+                    <select name="forumType" style="width: 100%; height: 80px; background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none;">
+                        @foreach (var i in Model.forumTypes)
+                        {
+                            <option value="@i.TypeId">@i.TypeName</option>
+                        }
+                    </select>
+                    <input required type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    <button style="width: 100%; padding: 10px; margin-top: 10px; background: #3A3B3C; border: none; color: #B0B3B8; font-weight: bold; border-radius: 5px; cursor: pointer;" type="submit">
+                        Đăng
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showPostBox() {
+        document.getElementById("post").classList.remove("hidden");
+    }
+
+    function hidePostBox() {
+        document.getElementById("post").classList.add("hidden");
+    }
+</script>

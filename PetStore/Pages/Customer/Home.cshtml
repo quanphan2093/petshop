@@ -4,7 +4,6 @@
     Layout = "_Layout";
 }
 @using System.Globalization
-<link href="~/css/home.css" rel="stylesheet" />
 <style>
     .image-container {
         position: relative;
@@ -39,7 +38,6 @@
         background-color: #ffcd16;
         border: #085998 2px solid;
         color: #085998;
-        text-wrap: nowrap;
     }
 
         .btn-view-intro a {
@@ -57,7 +55,6 @@
         background-color: #085998;
         color: #ffffff;
         border: none;
-        text-wrap: nowrap;
     }
 
         .btn-discover a {
@@ -86,29 +83,23 @@
         </button>
     </div>
     <div class="row">
-        @if(Model.forums != null)
+        @foreach (var i in Model.forums.Take(8))
         {
-            @foreach (var i in Model.forums.Take(8))
-            {
-                <div class="col-md-6 col-lg-3 col-sm-12">
-                    <div class="shadow" style="border-radius: 12px; width: 95%; padding: 10px; text-align: center;">
-                        <div style="width: 200px; height: 200px; margin: 0 auto;">
-                            <img src="@i.Image"
-                                 style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; margin-top: 10px;" />
+            <div class="col-6 col-md-3 mt-4">
+                <a href="/Forum/@i.ForumId" style="color:black">
+                    <div class="shadow" style="border-radius: 12px; width: 95%; padding-bottom: 10px;">
+                        <div style="display: flex; justify-content: center; align-items: center; height: 258px; overflow: hidden;">
+                            <img src="@i.Image" alt="Pomeranian White" style="width: 80%;height: 100%; object-fit: cover; margin-top: 20px;" />
                         </div>
-                        <h5 class="text-center" style="margin-top: 10px;">@i.Content</h5>
-                        <p class="text-center" style="opacity: 0.6; padding-bottom: 10px;">
-                            Gene: <span style="font-weight: bold;">@(i.Gene == true ? "Male" : "Female")</span>
-                            <i class="bi bi-dot"></i>
-                            Age: <span style="font-weight: bold;">@i.Age months</span>
-                        </p>
+                        <h5 class="text-center" style="margin-top: 10px;">MO321 - Pomeranian White</h5>
+                        <p class="text-center" style="opacity: 0.6; padding-bottom: 10px;">Gene: <span style="font-weight: bold;">Male</span> <i class="bi bi-dot"></i> Age: <span style="font-weight: bold;">02 months</span></p>
                     </div>
 
-                </div>
-            }
+                </a>
+            </div>
         }
     </div>
-    <div class="image-container">
+    <div class="image-container mt-4">
         <img src="~/Images/Slice .png" alt="Example Image" />
         <div class="button-container">
             <button class="btn-view-intro">
@@ -132,36 +123,27 @@
                 </a>
             </button>
         </div>
-        @if(Model.products != null)
+        @foreach (var i in Model.products.Take(8))
         {
-            @foreach (var i in Model.products.Take(8))
-            {
-                <div class="col-md-6 col-lg-3 col-sm-12 text-center mt-3"
-                     style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                    <div class="shadow mt-3" style="border-radius: 12px; width: 92%; text-align: center; padding: 10px;">
-                        <a href="/Product/ProductDetails?id=@i.ProductId" style="text-decoration: none; color: inherit; display: block;">
-                            <div style="width: 200px; height: 200px; margin: 0 auto;">
-                                <img src="@i.Image"
-                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
-                            </div>
-                            <h6 class="text-start mt-4" style="margin-left: 10px; font-weight: bold;">
-                                @i.ProductName
-                            </h6>
-                            <p class="text-start" style="margin-left: 10px; font-size: 13px; color:black">
-                                Product: <span style="font-weight: bold;">@i.Category.CategoryName</span><br />
-                                Size: <span style="font-weight: bold;">@i.Size gam</span>
-                            </p>
-                            <h6 class="text-start" style="margin-left: 10px;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h6>
-                        </a>
-                        <button class="text-start"
-                                style="background-color: #fceed5; border: none; border-radius: 8px; width: 93%; margin-top: 10px;
-                   color: #085998; font-weight: bold; padding: 0 10px; margin-bottom: 10px;">
-                            <img src="~/Images/Frame.png" /><i class="bi bi-dot"></i> Free Toy & Free Shaker
-                        </button>
+            <div class="col-6 col-lg-3 text-center mt-3"
+                 style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                <div class="shadow mt-3" style="border-radius: 12px; width: 92%; ">
+                    <div style="width: 200px; height: 200px; margin: 0 auto;">
+                        <img src="@i.Image" style="width: 85%; height: 29%;  object-fit: cover; border-radius: 12px;" />
                     </div>
-
+                    <h6 class="text-start mt-4" style="margin-left: 10px; font-weight: bold;">
+                        @i.ProductName
+                    </h6>
+                    <p class="text-start" style="margin-left: 10px; font-size: 13px;">
+                        Product: <span style="font-weight: bold;">@i.Category.CategoryName</span><br /> Size: <span style="font-weight: bold;">@i.Size gam</span>
+                    </p>
+                    <h6 class="text-start" style="margin-left: 10px;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h6>
+                    <button class="text-start"
+                            style="background-color: #fceed5; border: none; border-radius: 8px;width:93%;margin-top:10px; color: #085998; font-weight: bold; padding: 0 10px; margin-bottom: 10px;">
+                        <img src="~/Images/Frame.png" /><i class="bi bi-dot"></i>Free Toy & Free Shaker
+                    </button>
                 </div>
-            }
+            </div>
         }
     </div>
     <div class="row mt-5">

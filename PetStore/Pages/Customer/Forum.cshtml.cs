@@ -1,12 +1,157 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using PetStore.Models;
 
 namespace PetStore.Pages.Customer
 {
     public class ForumModel : PageModel
     {
-        public void OnGet()
+        public List<Forum> Forums { get; set; } = new List<Forum>();
+        public List<Account> Account { get; set; } = new List<Account>();
+        public List<Infor> infors { get; set; } = new List<Infor>();
+        public List<Comment> comments { get; set; }
+        public List<Hashtag> hashtags { get; set; }
+        public List<PostHashtag> postHashtags { get; set; }
+        public List<Product> products { get; set; } = new List<Product>();
+        public List<ForumType> forumTypes { get; set; }
+        public string Search;
+        private readonly PetStoreContext _context;
+        public string Acc;
+        private IFormFile imageFile { get; set; }
+        public ForumModel(PetStoreContext context)
         {
+            _context = context;
         }
+
+        public void GetData(string search, string type)
+        {
+            int? accId = HttpContext.Session.GetInt32("acc");
+            if (accId != null)
+            {
+                var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
+                if (info != null)
+                {
+                    Acc = info.Fullname;
+                }
+            }
+            Forums = _context.Forums.ToList();
+            Account = _context.Accounts.ToList();
+            infors = _context.Infors.ToList();
+            postHashtags = _context.PostHashtags.ToList();
+            hashtags = _context.Hashtags.ToList();
+            forumTypes = _context.ForumTypes.ToList();
+            products = _context.Products.Include(x => x.Category).Where(x => x.Status.Equals("Available")).OrderByDescending(x => x.CreateAt).Take(3).ToList();
+            var forum = from a in Account
+                        join i in infors on a.AccountId equals i.AccountId
+                        join f in Forums on a.AccountId equals f.AccountId
+                        where f.Status == "Active"
+                        select new
+                        {
+                            id = f.ForumId,
+                            content = f.Content,
+                            views = f.Views,
+                            likes = f.Likes,
+                            comments = f.Comments,
+                            title = f.Title,
+                            image = f.Image,
+                            createAt = f.CreateAt,
+                            name = i.Fullname,
+                            typeId = f.TypeId
+                        };
+            Search = search;
+            forum = forum.OrderByDescending(x => x.createAt).ToList();
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                forum = forum.Where(x => x.title != null && x.title.Contains(search)).ToList();
+            }
+            if (!string.IsNullOrEmpty(type) && !type.Equals("All"))
+            {
+                forum = forum.Where(x => x.typeId == int.Parse(type)).ToList();
+            }
+            var hashtag = _context.PostHashtags
+                          .Include(ph => ph.Forum)
+                          .Include(ph => ph.Hashtag)
+                          .GroupBy(ph => new { ph.HashtagId, ph.Hashtag.Tag })
+                          .Select(g => new
+                          {
+                              HashtagId = g.Key.HashtagId,
+                              HashtagName = g.Key.Tag,
+                              Count = g.Count()
+                          })
+                          .OrderByDescending(g => g.Count)
+                          .Take(3)
+                          .ToList();
+            ViewData["forum"] = forum;
+            ViewData["hashtag"] = hashtag;
+
+        }
+        public IActionResult OnGet(string search, string type)
+        {
+            GetData(search, type);
+            return Page();
+        }
+
+        public IActionResult OnPostLike(string search, string type, string id)
+        {
+            GetData(search, type);
+            Forum f = _context.Forums.SingleOrDefault(x => x.ForumId == int.Parse(id));
+            if (f != null)
+            {
+                f.Likes += 1;
+                _context.Forums.Update(f);
+                _context.SaveChanges();
+                return RedirectToPage();
+            }
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPost(string title, string content, IFormFile? file, string search, string type, string forumType)
+        {
+            int? accId = HttpContext.Session.GetInt32("acc");
+            if (accId == null)
+            {
+                return RedirectToPage("/Common/Login");
+            }
+            GetData(search, type);
+            var acc = _context.Accounts.Where(x => x.AccountId == accId).SingleOrDefault();
+            var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
+            if (info == null)
+            {
+                return RedirectToPage("/Profile");
+            }
+            imageFile = file;
+            Forum f = new Forum();
+            f.Title = title;
+            f.Content = content;
+            if (imageFile != null)
+            {
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+                string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fileStream);
+                }
+                f.Image = $"/Images/Images_Profile/{uniqueFileName}";
+            }
+            f.CreateAt = DateTime.Now;
+            f.Likes = 0;
+            f.Views = 0;
+            f.Comments = 0;
+            f.AccountId = accId;
+            f.Status = "Active";
+            f.TypeId = int.Parse(forumType);
+            _context.Forums.Add(f);
+            _context.SaveChanges();
+
+            return RedirectToPage("Forum");
+        }
+
+
     }
 }
