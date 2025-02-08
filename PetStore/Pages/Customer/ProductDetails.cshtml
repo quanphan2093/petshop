@@ -4,7 +4,7 @@
     var product = Model.product == null ? new Models.Product() : Model.product;
 }
 @using PetStore.Models
-<link href="~/css/productDetailStyle.css" rel="stylesheet">
+<link href="~/css/productDetailStyle.css" rel="stylesheet"/>
 <div class="container product-container">
     <h3 class="text-blue text-center mb-5">CHI TIẾT SẢN PHẨM</h3>
     <div class="row mb-5">
@@ -13,12 +13,12 @@
             @if(Model.lsImage != null)
             {
                 <div class="product-image">
-                    <img src="~/img/@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
+                    <img src="@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
                 </div>
                 <div class="product-thumbnails d-flex justify-content-center mt-3 gap-3">
                     @foreach(var imgUrl in Model.lsImage)
                     {
-                        <img src="~/img/@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
+                        <img src="@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
                     }
                 </div>
             }
@@ -79,13 +79,13 @@
                             <div class="row ms-0 w-100">
                                 <div class="col-6 d-flex ms-0 ps-0">
                                     <button type="button" class="decreaseBtn btn btn-outline-dark overflow-hidden w-cus h-fit">-</button>
-                                    <input type="number" class="quantityInput form-control text-center border border-dark-cus h-fit" value="1" min="1">
+                                    <input type="number" class="quantityInput form-control text-center border border-dark-cus h-fit" value="1" min="1" oninput="this.value = Math.max(1, this.value)">
                                     <button type="button" class="increaseBtn btn btn-outline-dark overflow-hidden align-items-center w-cus h-fit">+</button>
                                 </div>
                                 <div class="col-6  d-flex ms-0 ps-0">
                                     @if (product != null)
                                     {
-                                        <p class="mt-2 text-muted fs-10px">@(product.UnitInStock == null ? 0 : product.UnitInStock) sản phẩm có sẵn</p>
+                                        <p class="mt-2 text-muted fs-10px" id="UnitInStock">@(product.UnitInStock == null ? 0 : product.UnitInStock) sản phẩm có sẵn</p>
                                     }
                                 </div>
                             </div>
@@ -97,9 +97,9 @@
                     <button id="addToCartBtn" type="button" class="btn btn-outline-primary btn-add-cart rounded-pill text-blue ps-4 pe-4 fs-6">
                         Thêm vào giỏ hàng
                     </button>
-                    <div id="result"></div>
-                    <button class="btn btn-custom btn-buy-now rounded-pill ms-3 me-3 ps-2rem pe-2rem fs-6">Mua ngay</button>
+                    <button type="button" class="buy-now btn btn-custom btn-buy-now rounded-pill ms-3 me-3 ps-2rem pe-2rem fs-6">Mua ngay</button>
                 </div>
+                <div id="errorMessage" class="mt-3" style="display:none; color: red; font-weight: bold;"></div>
             </form>
         </div>
     </div>
@@ -147,7 +147,7 @@
         {
             @foreach(var data in Model.lsfeedbacks)
             {
-                string fullname = PetStoreContext.Ins.Infors.Where(a => a.AccountId == data.AccountId).Select(i => i.Fullname).ToString();
+                string fullname = PetStoreContext.Ins.Infors.Where(a => a.AccountId == data.AccountId).FirstOrDefault().Fullname;
                 <div class="card mb-3 p-4 shadow-sm rounded-custom border-dark">
                     <div class="d-flex align-items-center">
                         <div class="me-3">
@@ -210,7 +210,7 @@
                         <div class="pb-5">
                             <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
                                 <a href="/Product/ProductDetails?id=@data.ProductId">
-                                    <img class="img-fluid mb-4 rounded-15" src="~/img/@data.Image" alt="">
+                                    <img class="img-fluid mb-4 rounded-15" src="@data.Image" alt="">
                                     <h6 class="text-start m-0">@data.ProductName</h6>
                                     <p class="text-muted text-start mb-2">Danh mục: <b>@data.Category.CategoryName</b></p>
                                     @using System.Globalization
@@ -228,4 +228,5 @@
 <script src="~/js/productDetailScript.js?v=@DateTime.Now.Ticks"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/addCartScript.js?v=@DateTime.Now.Ticks"></script>
+<script src="~/js/buyNowScript.js?v=@DateTime.Now.Ticks"></script>
 

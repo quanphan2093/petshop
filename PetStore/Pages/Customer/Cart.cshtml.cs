@@ -9,7 +9,10 @@ namespace PetStore.Pages.Customer
     {
         [BindProperty]
         public int proId { get; set; } = 0;
+        [BindProperty]
         public List<ShoppingCart> lsCart { get; set; } = new List<ShoppingCart>();
+        [BindProperty]
+        public int totalPro { get; set; } = 0;
         public void OnGet()
         {
             int? acc = HttpContext.Session.GetInt32("acc");
@@ -20,6 +23,10 @@ namespace PetStore.Pages.Customer
             }
             lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
                 .ThenInclude(p => p.Category).Where(c => c.AccountId == acc).ToList();
+            foreach (var p in lsCart)
+            {
+                totalPro = totalPro + (int)p.Quantity;
+            }
 
         }
         public JsonResult OnPost(int productId, int quantity)
@@ -38,6 +45,11 @@ namespace PetStore.Pages.Customer
                 Product product = PetStoreContext.Ins.Products.Find(productId);
                 if (product == null) {
                     return new JsonResult(new { success = false, message = "Không tìm thấy sản phẩm!" });
+                }
+
+                if(product.UnitInStock < quantity || product.UnitInStock == null)
+                {
+                    return new JsonResult(new { success = false, message = "Không đủ sản phẩm trong kho!" });
                 }
 
                 ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.AccountId == acc && c.ProductId == productId).FirstOrDefault();
@@ -76,25 +88,33 @@ namespace PetStore.Pages.Customer
             try
             {
                 for (int i=0; i < cartIds.Length; i++) {
-                    ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.CartId == cartIds[i]).FirstOrDefault();
+                    ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.CartId == cartIds[i]).Include(p => p.Product).FirstOrDefault();
                     if(cart != null)
                     {
-                        if(cart.Quantity != quantities[i])
+                        if(quantities[i] <= cart.Product.UnitInStock)
                         {
-                            if (quantities[i] != 0)
+                            if(cart.Quantity != quantities[i])
                             {
-                                cart.Quantity = quantities[i];
-                                cart.UpdateAt = DateTime.Now;
-                                PetStoreContext.Ins.ShoppingCarts.Update(cart);
-                                PetStoreContext.Ins.SaveChanges();
-                            }
-                            else if (quantities[i] == 0)
-                            {
-                                PetStoreContext.Ins.ShoppingCarts.Remove(cart);
-                                PetStoreContext.Ins.SaveChanges();
-                            }
+                                if (quantities[i] != 0)
+                                {
+                                    cart.Quantity = quantities[i];
+                                    cart.UpdateAt = DateTime.Now;
+                                    PetStoreContext.Ins.ShoppingCarts.Update(cart);
+                                    PetStoreContext.Ins.SaveChanges();
+                                }
+                                else if (quantities[i] == 0)
+                                {
+                                    PetStoreContext.Ins.ShoppingCarts.Remove(cart);
+                                    PetStoreContext.Ins.SaveChanges();
+                                }
                             
+                            }
                         }
+                        else
+                        {
+                            return new JsonResult(new { success = false, message = "Số lượng sản phẩm không đủ!" });
+                        }
+                        
                     }
                 }
                 return new JsonResult(new { success = true, message = "thành công!" });
