@@ -4,7 +4,7 @@
     var product = Model.product == null ? new Models.Product() : Model.product;
 }
 @using PetStore.Models
-<link href="~/css/productDetailStyle.css" rel="stylesheet"/>
+<link href="~/css/productDetailStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
 <div class="container product-container">
     <h3 class="text-blue text-center mb-5">CHI TIẾT SẢN PHẨM</h3>
     <div class="row mb-5">
@@ -13,12 +13,12 @@
             @if(Model.lsImage != null && Model.lsImage.Count() != 0)
             {
                 <div class="product-image">
-                    <img src="~/img/@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
+                    <img src="@Model.lsImage.First().ImgUrl" class="img-fluid" id="main-image" alt="Product Image">
                 </div>
                 <div class="product-thumbnails d-flex justify-content-center mt-3 gap-3">
                     @foreach(var imgUrl in Model.lsImage)
                     {
-                        <img src="~/img/@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
+                        <img src="@imgUrl.ImgUrl" alt="Image 1" class="img-fluid img-thumbnail rounded-custom">
                     }
                 </div>
             }

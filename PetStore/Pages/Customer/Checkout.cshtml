@@ -105,7 +105,7 @@
                         total = total + price;
                         <input type="hidden" name="dataPro" value="@p.ProductId-@p.Quantity"/>
                         <div class="cart-item py-3 d-flex align-items-center">
-                            <img src="img/product-2.png" alt="Product Image" class="me-3 rounded-15" style="width: 100px; height: 100px; object-fit: cover;">
+                            <img src="@p.Product.Image" alt="Product Image" class="me-3 rounded-15" style="width: 100px; height: 100px; object-fit: cover;">
                             <div class="flex-grow-1">
                                 <p class="mb-1 fw-bold fs-6">@p.Product.ProductName</p>
                                 <p class="mb-1 text-muted">Số lượng: @p.Quantity</p>
@@ -125,7 +125,7 @@
                     <p class="mb-1">Phí vận chuyển: <span class="float-end">_ VND</span></p>
                 </div>
                 <div class="summary mt-2">
-                    <p class="total-price mb-3">Tổng cộng: <span class="float-end">@(total==null? "" :((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND</span></p>
+                    <p class="total-price mb-3">Tổng cộng: <span id="price" class="float-end">@(total == null ? "" : ((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND </span> </p>
                     <div class="d-flex justify-content-between">
                         <a href="/Cart" class="text-decoration-none go-back">&lt; Quay về giỏ hàng</a>
                         <button type="submit" class="btn-order">ĐẶT HÀNG</button>
@@ -149,12 +149,16 @@
     document.addEventListener("DOMContentLoaded", function () {
         const radioButtons = document.querySelectorAll('input[name="payment"]');
         const qrImage = document.getElementById("bankingQR");
-
+        const amount = document.getElementById("price").textContent.replace(/[^0-9]/g, '');
+        if (amount === "") amount = 0;
         radioButtons.forEach(radio => {
             radio.addEventListener("change", function () {
-                // Kiểm tra xem radio được chọn có giá trị là "Chuyển khoản ngân hàng" hay không
                 if (this.nextElementSibling.textContent.trim() === "Chuyển khoản ngân hàng") {
+                    const accountName = "TA DUY HAI";
+
+                    qrImage.querySelector("img").src = `https://img.vietqr.io/image/tpb-00396925536-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
                     qrImage.style.display = "block";
+                    
                 } else {
                     qrImage.style.display = "none";
                 }
