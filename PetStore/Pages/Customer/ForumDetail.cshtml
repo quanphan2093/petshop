@@ -1,7 +1,7 @@
 ﻿@page "/Forum/{id}"
 @model PetStore.Pages.Customer.ForumDetailModel
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,10 +15,10 @@
 </style>
 <div>
     <div class="container-fluid shadow"
-         style=" border-radius:0 12px 12px 0; width: 95%; margin-top: 30px; position: fixed; left: 50%; transform: translateX(-50%);  height: 100%;">
+         style=" border-radius:0 12px 12px 0; width: 95%; margin-top: 30px;">
         <div class="row">
             <div class="col-md-7" style="padding: 0; ">
-                <div style="background-color: #5b5b5b; border-radius: 12px 0 0 12px; display: flex; justify-content: center; align-items: center; position: fixed; width: 57%; height: 703px;">
+                <div style="background-color: #5b5b5b; border-radius: 12px 0 0 12px; display: flex; justify-content: center; align-items: center; width: 97%; height: 703px;">
                     <img src="@Model.f.Image"
                          style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
                 </div>
@@ -48,7 +48,7 @@
                             }
                             <p style="font-weight: normal; font-size: 13px;">@timeDisplay</p>
                         </h6>
-                        <i class="bi bi-x-lg " style="margin-left: auto; cursor: pointer; font-size: 20px;"></i>
+                        <a href="/Forum" style="margin-left: auto; cursor: pointer; font-size: 20px; color:black"><i class="bi bi-x-lg "></i></a>
                     </div>
                     <h6>@Model.f.Title</h6>
                     <p style="font-size: 18px; text-align: justify; line-height: 1.8;">
@@ -84,8 +84,10 @@
                     <form method="post" asp-page-handler="Comment">
                         <div id="comment-form" style="display: none; margin-top: 10px;">
                             <input name="id" value="@Model.f.ForumId" hidden />
-                            <textarea name="content" id="comment-text" rows="3" style="width: 100%;" placeholder="Viết bình luận..."></textarea>
-                            <button id="submit-comment" type="submit">Gửi</button>
+                            <textarea name="content" id="comment-text" rows="3" style="width: 100%; padding:10px" placeholder="Viết bình luận..."></textarea>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
+                                <button id="submit-comment" type="submit">Gửi</button>
+                            </div>
                         </div>
                     </form>
                     <div class="mt-4">

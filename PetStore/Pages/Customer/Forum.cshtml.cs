@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PetStore.Models;
 
 namespace PetStore.Pages.Customer
@@ -18,30 +19,38 @@ namespace PetStore.Pages.Customer
         public string Search;
         private readonly PetStoreContext _context;
         public string Acc;
+        private const int PageSize = 5;
         private IFormFile imageFile { get; set; }
         public ForumModel(PetStoreContext context)
         {
             _context = context;
         }
 
-        public void GetData(string search, string type)
+        private IEnumerable<dynamic> getForum(string search, string type)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
-            if (accId != null)
+            if (accId.HasValue)
             {
-                var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
+                var info = _context.Infors.SingleOrDefault(x => x.AccountId == accId);
                 if (info != null)
                 {
                     Acc = info.Fullname;
                 }
             }
+
             Forums = _context.Forums.ToList();
             Account = _context.Accounts.ToList();
             infors = _context.Infors.ToList();
             postHashtags = _context.PostHashtags.ToList();
             hashtags = _context.Hashtags.ToList();
             forumTypes = _context.ForumTypes.ToList();
-            products = _context.Products.Include(x => x.Category).Where(x => x.Status.Equals("Available")).OrderByDescending(x => x.CreateAt).Take(3).ToList();
+            products = _context.Products
+                .Include(x => x.Category)
+                .Where(x => x.Status == "Available")
+                .OrderByDescending(x => x.CreateAt)
+                .Take(3)
+                .ToList();
+
             var forum = from a in Account
                         join i in infors on a.AccountId equals i.AccountId
                         join f in Forums on a.AccountId equals f.AccountId
@@ -59,16 +68,28 @@ namespace PetStore.Pages.Customer
                             name = i.Fullname,
                             typeId = f.TypeId
                         };
-            Search = search;
+
             forum = forum.OrderByDescending(x => x.createAt).ToList();
+
             if (!string.IsNullOrWhiteSpace(search))
             {
-                forum = forum.Where(x => x.title != null && x.title.Contains(search)).ToList();
+                forum = forum.Where(x => x.title?.Contains(search) == true).ToList();
             }
+
             if (!string.IsNullOrEmpty(type) && !type.Equals("All"))
             {
-                forum = forum.Where(x => x.typeId == int.Parse(type)).ToList();
+                if (int.TryParse(type, out int typeId))
+                {
+                    forum = forum.Where(x => x.typeId == typeId).ToList();
+                }
             }
+
+            return forum;
+        }
+
+        public void GetData(string search, string type)
+        {
+            
             var hashtag = _context.PostHashtags
                           .Include(ph => ph.Forum)
                           .Include(ph => ph.Hashtag)
@@ -82,6 +103,8 @@ namespace PetStore.Pages.Customer
                           .OrderByDescending(g => g.Count)
                           .Take(3)
                           .ToList();
+            var forum = getForum(search, type);
+            forum=forum.Take(PageSize).ToList();
             ViewData["forum"] = forum;
             ViewData["hashtag"] = hashtag;
 
@@ -91,20 +114,28 @@ namespace PetStore.Pages.Customer
             GetData(search, type);
             return Page();
         }
-
-        public IActionResult OnPostLike(string search, string type, string id)
+        public JsonResult OnPostLike(int id)
         {
-            GetData(search, type);
-            Forum f = _context.Forums.SingleOrDefault(x => x.ForumId == int.Parse(id));
-            if (f != null)
+            try
             {
-                f.Likes += 1;
-                _context.Forums.Update(f);
+                var forum = _context.Forums.Find(id);
+                if (forum == null)
+                {
+                    return new JsonResult(new { success = false, message = "Bài viết không tồn tại" });
+                }
+
+                forum.Likes += 1;
+                _context.Forums.Update(forum);
                 _context.SaveChanges();
-                return RedirectToPage();
+
+                return new JsonResult(new { success = true, likes = forum.Likes });
             }
-            return RedirectToPage();
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
         }
+
 
         public IActionResult OnPost(string title, string content, IFormFile? file, string search, string type, string forumType)
         {
@@ -112,6 +143,10 @@ namespace PetStore.Pages.Customer
             if (accId == null)
             {
                 return RedirectToPage("/Common/Login");
+            }
+            if(!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(content)) 
+            {
+                TempData["error"] = "Vui lòng điền đầy đủ tất cả các trường";
             }
             GetData(search, type);
             var acc = _context.Accounts.Where(x => x.AccountId == accId).SingleOrDefault();
@@ -152,6 +187,11 @@ namespace PetStore.Pages.Customer
             return RedirectToPage("Forum");
         }
 
-
+        public JsonResult OnGetMoreItems(string search, string type, int skip, int take = PageSize)
+        {
+            var forum = getForum(search, type);
+            var moreItems = forum.Skip(skip).Take(take).ToList();
+            return new JsonResult(moreItems);
+        }
     }
 }

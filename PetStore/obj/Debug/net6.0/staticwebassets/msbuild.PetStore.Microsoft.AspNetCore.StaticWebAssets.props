@@ -176,6 +176,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Frame.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\312ea31f-f343-4ecb-96e5-5bcc4bfec40b_wallpaperflare.com_wallpaper (6).jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>PetStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PetStore</BasePath>
+      <RelativePath>Images/Images_Profile/312ea31f-f343-4ecb-96e5-5bcc4bfec40b_wallpaperflare.com_wallpaper (6).jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\312ea31f-f343-4ecb-96e5-5bcc4bfec40b_wallpaperflare.com_wallpaper (6).jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\3386f3f4-0832-4597-83ce-7512e4a7b50a_Hoang10pe.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>PetStore</SourceId>
@@ -223,6 +239,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\9ffb9caf-89b7-455a-9cf0-9d3d03378e51_wallpaperflare.com_wallpaper (6).jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>PetStore</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/PetStore</BasePath>
+      <RelativePath>Images/Images_Profile/9ffb9caf-89b7-455a-9cf0-9d3d03378e51_wallpaperflare.com_wallpaper (6).jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Images_Profile\9ffb9caf-89b7-455a-9cf0-9d3d03378e51_wallpaperflare.com_wallpaper (6).jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Images\Shopping bag.png))">
       <SourceType>Package</SourceType>
