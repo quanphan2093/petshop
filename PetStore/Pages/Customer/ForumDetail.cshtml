@@ -6,6 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <style>
     .scrollFt {
         max-height: 718px;
@@ -19,8 +20,17 @@
         <div class="row">
             <div class="col-md-7" style="padding: 0; ">
                 <div style="background-color: #5b5b5b; border-radius: 12px 0 0 12px; display: flex; justify-content: center; align-items: center; width: 97%; height: 703px;">
-                    <img src="@Model.f.Image"
-                         style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                    @if(Model.f.Image == null)
+                        {
+                        <img src="~/Images/tải xuống.jfif"
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="@Model.f.Image"
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                    }
+
                 </div>
             </div>
             <div class="col-md-5 scrollFt" style="max-height: 718px; padding: 0;overflow-y: auto;">
@@ -55,13 +65,13 @@
                         @Model.f.Content
                     </p>
 
-                    <div class="row shadow" style="border-radius: 30px; width: 100%; padding: 5px;">
+                    <div class="row shadow forum-item" style="border-radius: 30px; width: 100%; padding: 5px;">
                         <div class="col-md-1" style="margin-top: 5px;">
                             <form style="margin:0" asp-page-handler="Like" method="post">
                                 <input name="id" value="@Model.f.ForumId" hidden/>
-                                <button type="submit" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
+                                <button class="like-button" type="submit" data-id="@Model.f.ForumId" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
                                     <i class="bi bi-heart-fill"></i>
-                                </button>
+                                </butto>
                             </form>
                         </div>
                         <div class="col-md-1" style="margin-top: 5px;">
@@ -78,7 +88,7 @@
                         </div>
 
                         <div class="col-md-3 text-center" style="margin: auto;padding-right: 0;">@Model.f.Views views</div>
-                        <div class="col-md-3 text-center" style="margin: auto;padding-right: 0;">@Model.f.Likes likes</div>
+                        <div class="col-md-3 text-center like-count" style="margin: auto;padding-right: 0;">@Model.f.Likes likes</div>
                         <div class="col-md-3 text-center" style="margin: auto;">@Model.f.Comments comments</div>
                     </div>
                     <form method="post" asp-page-handler="Comment">
@@ -141,16 +151,38 @@
 
 </script>
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/tpl/lib/easing/easing.min.js"></script>
-<script src="~/tpl/lib/waypoints/waypoints.min.js"></script>
-<script src="~/tpl/lib/owlcarousel/owl.carousel.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".like-button").forEach(button => {
+            button.addEventListener("click", async function (event) {
+                event.preventDefault();
 
-<!-- Template Javascript -->
-<script src="~/tpl/js/main.js?v=@DateTime.Now.Ticks"></script>
+                let postId = this.getAttribute("data-id");
+                let likeCountElement = this.closest(".forum-item").querySelector(".like-count");
+                let csrfToken = document.querySelector("input[name='__RequestVerificationToken']")?.value || "";
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+                let response = await fetch(`/Forum/${postId}?handler=Like`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: JSON.stringify({ id: postId })
+                });
+
+                if (response.ok) {
+                    let result = await response.json();
+                    if (result.success) {
+                        likeCountElement.innerText = `${result.likes} likes`;
+                    } else {
+                        alert(result.message);
+                    }
+                } else {
+                    let errorText = await response.text();
+                    alert(`Lỗi: ${response.status} - ${errorText}`);
+                }
+            });
+        });
+    });
+
+</script>

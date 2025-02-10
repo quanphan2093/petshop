@@ -5,8 +5,16 @@
       "PackagePath": "staticwebassets\\PetStore.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg",
+      "PackagePath": "staticwebassets\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg"
+    },
+    {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png",
       "PackagePath": "staticwebassets\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png"
+    },
+    {
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg",
+      "PackagePath": "staticwebassets\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Frame 7.png",
@@ -59,6 +67,10 @@
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\fe16332d-07b2-4039-994b-335c0e8e1586_Hoang10pe.jpg",
       "PackagePath": "staticwebassets\\Images\\fe16332d-07b2-4039-994b-335c0e8e1586_Hoang10pe.jpg"
+    },
+    {
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\tải xuống.jfif",
+      "PackagePath": "staticwebassets\\Images\\tải xuống.jfif"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\css\\cartStyle.css",

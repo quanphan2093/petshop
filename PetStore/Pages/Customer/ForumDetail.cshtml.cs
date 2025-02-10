@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
 using System;
+using static PetStore.Pages.Customer.ForumModel;
 
 namespace PetStore.Pages.Customer
 {
@@ -45,19 +46,27 @@ namespace PetStore.Pages.Customer
             }
             return Page();
         }
-        
-        public IActionResult OnPostLike(int id)
+
+        public JsonResult OnPostLike([FromBody] LikeRequest request)
         {
-            f = _context.Forums.Where(x => x.ForumId == id).SingleOrDefault();
-            string url = "Forum/" + f.ForumId;
-            if (f != null)
+            try
             {
-                f.Likes += 1;
-                _context.Forums.Update(f);
+                var forum = _context.Forums.Find(request.Id);
+                if (forum == null)
+                {
+                    return new JsonResult(new { success = false, message = "Bài viết không tồn tại" });
+                }
+
+                forum.Likes += 1;
+                _context.Forums.Update(forum);
                 _context.SaveChanges();
-                return RedirectToPage();
+
+                return new JsonResult(new { success = true, likes = forum.Likes });
             }
-            return RedirectToPage(url);
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
         }
         public IActionResult OnPostComment(int id, string content)
         {

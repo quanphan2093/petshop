@@ -114,11 +114,12 @@ namespace PetStore.Pages.Customer
             GetData(search, type);
             return Page();
         }
-        public JsonResult OnPostLike(int id)
+
+        public JsonResult OnPostLike([FromBody] LikeRequest request)
         {
             try
             {
-                var forum = _context.Forums.Find(id);
+                var forum = _context.Forums.Find(request.Id);
                 if (forum == null)
                 {
                     return new JsonResult(new { success = false, message = "Bài viết không tồn tại" });
@@ -135,7 +136,6 @@ namespace PetStore.Pages.Customer
                 return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
             }
         }
-
 
         public IActionResult OnPost(string title, string content, IFormFile? file, string search, string type, string forumType)
         {
@@ -172,7 +172,7 @@ namespace PetStore.Pages.Customer
                 {
                     imageFile.CopyTo(fileStream);
                 }
-                f.Image = $"/Images/Images_Profile/{uniqueFileName}";
+                f.Image = $"/Images/{uniqueFileName}";
             }
             f.CreateAt = DateTime.Now;
             f.Likes = 0;
@@ -192,6 +192,10 @@ namespace PetStore.Pages.Customer
             var forum = getForum(search, type);
             var moreItems = forum.Skip(skip).Take(take).ToList();
             return new JsonResult(moreItems);
+        }
+        public class LikeRequest
+        {
+            public int Id { get; set; }
         }
     }
 }

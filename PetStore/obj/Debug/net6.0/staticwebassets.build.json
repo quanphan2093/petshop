@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qX8LIY7FSGE7w1uqSEeA8343k/L7qEWWFOLDSTDnFio=",
+  "Hash": "BK2M9vClIfeaqWNZ2a8Y1lcu7QO8UAXp2KZBii6Revg=",
   "Source": "PetStore",
   "BasePath": "_content/PetStore",
   "Mode": "Default",
@@ -153,6 +153,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg",
+      "SourceId": "PetStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\",
+      "BasePath": "_content/PetStore",
+      "RelativePath": "Images/2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg"
+    },
+    {
       "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png",
       "SourceId": "PetStore",
       "SourceType": "Discovered",
@@ -168,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg",
+      "SourceId": "PetStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\",
+      "BasePath": "_content/PetStore",
+      "RelativePath": "Images/744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg"
     },
     {
       "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\bannerHome.png",
@@ -389,6 +423,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Slice 3.png"
+    },
+    {
+      "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\tải xuống.jfif",
+      "SourceId": "PetStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\",
+      "BasePath": "_content/PetStore",
+      "RelativePath": "Images/tải xuống.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\tải xuống.jfif"
     },
     {
       "Identity": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\js\\addCartScript.js",

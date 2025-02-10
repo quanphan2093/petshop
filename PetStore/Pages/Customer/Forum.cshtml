@@ -107,11 +107,14 @@
                         </div>
                     }
                 </div>
-            </div>
+            </div> 
         </div>
-
-        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;">
-            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" onclick="showPostBox()" data-bs-toggle="modal" data-bs-target="#postModal">
+        
+        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;" >
+            @{
+                var accId = HttpContext.Session.GetInt32("acc");
+            }
+            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" data-bs-toggle="modal" data-bs-target="#postModal">
                 <input type="text" class="form-control p-2 rounded-15 input-search"
                        placeholder="Cùng thú cưng chia sẻ">
                 <button type="submit" style="color: #ffffff; border-radius: 6px;"
@@ -147,9 +150,13 @@
                                         <h5 style="font-weight: bold; margin-bottom: 20px;">@i.title</h5>
                                         <div class="text-end"
                                              style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                                            <button class="like-button" data-id="@i.id" style="border:none; background-color:#ffbf00; border-radius:50%">
-                                                <i class="bi bi-suit-heart-fill"></i>
-                                            </button>
+                                            <form method="post" asp-page-handler="Like">
+                                                @Html.AntiForgeryToken()
+                                                <input name="id" hidden value="@i.id"/>
+                                                <button class="like-button" data-id="@i.id" style="border:none; background-color:#ffbf00; border-radius:50%">
+                                                    <i class="bi bi-suit-heart-fill"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <p>
@@ -331,41 +338,41 @@
                             }
                             let imageHtml = i.image ? `<div style="padding: 22px;"><img src="${i.image}" style="width: 100%;"></div>` : "";
                             let forumItem = `
-                                        <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
-                                            <a href="/Forum/${i.id}" style="color:black">
-                                                    ${imageHtml}
-                                               <div class="text-start" style="padding:0 22px; padding-top:10px">
-                                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                        <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
-                                                            <div class="text-end"
-                                                                    style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                                                                <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
-                                                                    <i class="bi bi-suit-heart-fill"></i>
-                                                                </button>
-                                                            </div>
+                                            <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
+                                                <a href="/Forum/${i.id}" style="color:black">
+                                                        ${imageHtml}
+                                                   <div class="text-start" style="padding:0 22px; padding-top:10px">
+                                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                            <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
+                                                                <div class="text-end"
+                                                                        style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                                                    <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
+                                                                        <i class="bi bi-suit-heart-fill"></i>
+                                                                    </button>
+                                                                </div>
+                                                        </div>
+                                                        <p>${i.content}</p>
                                                     </div>
-                                                    <p>${i.content}</p>
-                                                </div>
-                                                    <div style="padding-bottom: 20px;">
-                                                    <div class="text-start"
-                                                         style="padding-left: 22px; display: flex; justify-content: space-between;">
-                                                        <div style="display: flex;">
-                                                            <img src="/image/Rectangle 24.png" width="30px" height="30px"
-                                                                 style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
-                                                            <div>
-                                                                <h6 style="margin: 0;">${i.name}</h6>
-                                                                <p style="margin: 0;">${timeDisplay}</p>
+                                                        <div style="padding-bottom: 20px;">
+                                                        <div class="text-start"
+                                                             style="padding-left: 22px; display: flex; justify-content: space-between;">
+                                                            <div style="display: flex;">
+                                                                <img src="/image/Rectangle 24.png" width="30px" height="30px"
+                                                                     style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                                                <div>
+                                                                    <h6 style="margin: 0;">${i.name}</h6>
+                                                                    <p style="margin: 0;">${timeDisplay}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                                                <div>${i.views} Views</div>
+                                                               <div class="like-count">${i.likes} Likes</div>
+                                                                <div>${i.comments} Comments</div>
                                                             </div>
                                                         </div>
-                                                        <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                                                            <div>${i.views} Views</div>
-                                                           <div class="like-count">${i.likes} Likes</div>
-                                                            <div>${i.comments} Comments</div>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>`;
+                                                </a>
+                                            </div>`;
 
                             forumList.insertAdjacentHTML("beforeend", forumItem);
                         });
@@ -383,35 +390,64 @@
         }
     });
 </script>
+<script>
+    var isLoggedIn = @((accId.HasValue && accId.Value > 0) ? "true" : "false") === true;
+    console.log("User Logged In: ", isLoggedIn);
+    window.onload = function () {
+        var inputGroup = document.querySelector(".input-group");
+        if (!inputGroup) {
+            console.error("Lỗi: Không tìm thấy .input-group");
+            return;
+        }
 
+        inputGroup.addEventListener("click", function (event) {
+            if (!isLoggedIn) {
+                event.preventDefault();
+                alert("Bạn cần đăng nhập để tạo bài viết!");
+            } else {
+                var postModal = new bootstrap.Modal(document.getElementById("postModal"));
+                postModal.show();
+            }
+        });
+    };
+
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".like-button").forEach(button => {
             button.addEventListener("click", async function (event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
                 let postId = this.getAttribute("data-id");
                 let likeCountElement = this.closest(".forum-item").querySelector(".like-count");
 
-                let response = await fetch(`/Forum?handler=Like&id=${postId}`, {
+                let csrfToken = document.querySelector("input[name='__RequestVerificationToken']")?.value || "";
+
+                let response = await fetch(`/Forum?handler=Like`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" }
+                    headers: {
+                        "Content-Type": "application/json",
+                        "RequestVerificationToken": csrfToken 
+                    },
+                    body: JSON.stringify({ id: postId })
                 });
 
                 if (response.ok) {
                     let result = await response.json();
                     if (result.success) {
-                        likeCountElement.innerText = `${result.likes} Likes`; 
+                        likeCountElement.innerText = `${result.likes} Likes`;
                     } else {
                         alert(result.message);
                     }
                 } else {
-                    let errorText = await response.text(); 
+                    let errorText = await response.text();
                     alert(`Lỗi: ${response.status} - ${errorText}`);
-                    return;
                 }
             });
         });
     });
+
 </script>
+
+
 
