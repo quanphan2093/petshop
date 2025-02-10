@@ -3,7 +3,14 @@
 @{
     Layout = "_Layout";
 }
-<link href="~/css/productStyle.css" rel="stylesheet">
+<link href="~/css/productStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet">
+<style>
+    .product-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+</style>
 <!-- Products Start -->
 <div class="container mt-5">
 
@@ -85,11 +92,11 @@
                 {
                     @foreach(var pro in Model.lsProduct)
                     {
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6">
                             <div class="pb-5">
                                 <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
                                     <a href="/Product/ProductDetails?id=@pro.ProductId">
-                                        <img class="img-fluid mb-4 rounded-15 bg-light" src="~/img/@pro.Image" alt="">
+                                        <img class="img-fluid mb-4 rounded-15 bg-light" src="@pro.Image" alt="">
                                         <h6 class="text-start">@pro.ProductName</h6>
                                         <p class="text-muted text-start mb-2">Danh mục: <b>@pro.Category.CategoryName</b></p>
                                         @using System.Globalization

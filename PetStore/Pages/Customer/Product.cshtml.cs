@@ -33,7 +33,7 @@ namespace PetStore.Pages.Customer
 
         public void OnGet(string? categories, int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).AsQueryable();
+            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Where(p => p.Status == "Available").AsQueryable();
 
             //filter by category
             if (!string.IsNullOrEmpty(categories))

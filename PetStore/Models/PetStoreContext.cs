@@ -34,6 +34,7 @@ namespace PetStore.Models
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<PostHashtag> PostHashtags { get; set; } = null!;
+        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
@@ -284,6 +285,10 @@ namespace PetStore.Models
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
+                entity.Property(e => e.PaymentMethodId)
+                    .HasColumnName("paymentMethodId")
+                    .HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
                 entity.Property(e => e.UpdateAt).HasColumnType("datetime");
@@ -297,6 +302,11 @@ namespace PetStore.Models
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK__Order__AddressID__32E0915F");
+
+                entity.HasOne(d => d.PaymentMethod)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.PaymentMethodId)
+                    .HasConstraintName("FK_Order_PaymentMethod");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.Orders)
@@ -349,6 +359,30 @@ namespace PetStore.Models
                     .HasForeignKey(d => d.HashtagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__PostHasht__Hasht__5FB337D6");
+            modelBuilder.Entity<PaymentMethod>(entity =>
+            {
+                entity.HasKey(e => e.MethodId)
+                    .HasName("PK__PaymentM__C7B34C894A22A74C");
+
+                entity.ToTable("PaymentMethod");
+
+                entity.Property(e => e.MethodId).HasColumnName("methodId");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("createAt");
+
+                entity.Property(e => e.MethodName)
+                    .HasMaxLength(50)
+                    .HasColumnName("methodName");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(10)
+                    .HasColumnName("status");
+
+                entity.Property(e => e.UpdateAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updateAt");
             });
 
             modelBuilder.Entity<Product>(entity =>
