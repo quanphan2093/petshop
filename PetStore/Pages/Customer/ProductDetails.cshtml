@@ -121,7 +121,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 border rounded-custom p-5 border-dark">
              @if (product != null)
              {
-                <p class="text-dark fs-5"><b>@product.Details</b></p>
+                <p class="text-dark fs-5"><b>@Html.Raw(product.Details.Replace("\\r\\n", "<br>"))</b></p>
              }
         </div>
     </div>
