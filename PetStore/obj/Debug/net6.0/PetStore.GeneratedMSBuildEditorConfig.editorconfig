@@ -9,101 +9,111 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PetStore
 build_property.RootNamespace = PetStore
-build_property.ProjectDir = C:\Users\admin\Desktop\forum\PetStore\
+build_property.ProjectDir = C:\Users\Hi\OneDrive - Đại học FPT- FPT University\Desktop\PetShop\petshop\PetStore\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\admin\Desktop\forum\PetStore
+build_property.MSBuildProjectDirectory = C:\Users\Hi\OneDrive - Đại học FPT- FPT University\Desktop\PetShop\petshop\PetStore
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Common/Login.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Admin/productAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5ccHJvZHVjdEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Common/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tbW9uXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Common/Register.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Common/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tbW9uXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/About.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQWJvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Blog.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Blog.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQmxvZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/BlogDetail.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/BlogDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQmxvZ0RldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Cart.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQ2FydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Checkout.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQ2hlY2tvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Contact.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcQ29udGFjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Forum.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Forum.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcRm9ydW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/ForumDetail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcRm9ydW1EZXRhaWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Home.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcSG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Order.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Order.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcT3JkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Product.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Product.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/ProductDetails.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/ProductDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcUHJvZHVjdERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Service.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Service.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcU2VydmljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Error.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Index.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Privacy.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/_ViewImports.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/_ViewStart.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Customer/Profile.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Customer/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-j98gt7v8kv
 
-[C:/Users/admin/Desktop/forum/PetStore/Pages/Shared/_Layout.cshtml]
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-083a7j7cna
+
+[C:/Users/Hi/OneDrive - Đại học FPT- FPT University/Desktop/PetShop/petshop/PetStore/Pages/Shared/_layoutAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9sYXlvdXRBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-ll94j1i1no
