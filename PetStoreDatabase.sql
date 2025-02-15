@@ -147,7 +147,6 @@ CREATE TABLE Infor (
 	Image Nvarchar(Max),
 	AccountID INT FOREIGN KEY REFERENCES Account(AccountID),
 	StateId INT FOREIGN KEY REFERENCES StateInfor(StateId)
-
 )
 
 CREATE TABLE ProductImage(
@@ -177,6 +176,33 @@ ALTER TABLE Forum
 ADD [Image] NVARCHAR(255),
 	[Age] INT DEFAULT 0,
 	[GENE] BIT DEFAULT 0;
+
+ALTER TABLE Forum
+ADD views INT,
+	likes int,
+	comments INT,
+	title NVARCHAR(255);
+
+CREATE TABLE Hashtags(
+	HashtagID INT PRIMARY KEY IDENTITY,
+    Tag VARCHAR(100) UNIQUE NOT NULL
+)
+
+CREATE TABLE PostHashtags (
+	PostHashtagsId INT PRIMARY KEY IDENTITY,
+    ForumID INT NOT NULL,
+    HashtagID INT NOT NULL,
+    FOREIGN KEY (ForumID) REFERENCES Forum(ForumId),
+    FOREIGN KEY (HashtagID) REFERENCES Hashtags(HashtagID)
+);
+
+CREATE TABLE ForumType(
+	TypeId INT PRIMARY KEY IDENTITY,
+	TypeName NVARCHAR(255)
+)
+
+ALTER TABLE Forum
+ADD TypeId INT FOREIGN KEY (TypeId) REFERENCES ForumType(TypeId);
 
 CREATE TABLE PaymentMethod (
 	methodId int primary key identity(1,1),
