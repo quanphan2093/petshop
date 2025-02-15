@@ -1,0 +1,166 @@
+﻿@page
+@model PetStore.Pages.Admin.DetailImageProductModel
+@{
+    Layout = "_layoutAdmin";
+}
+<div class="layout-specing">
+    <div class="row">
+        <div class="col-xl-9 col-lg-6 col-md-4">
+            <h5 class="mb-0">Sản phẩm</h5>
+            <nav aria-label="breadcrumb" class="d-inline-block mt-2">
+                <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="index.html">FurFriends</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@(Model.lsProductIMG != null && Model.lsProductIMG.Count != 0? Model.lsProductIMG[0].Product.ProductName : "Sản phẩm")</li>
+                </ul>
+            </nav>
+        </div><!--end col-->
+
+        <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+            <div class="justify-content-md-end">
+                <form>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-12 col-md-5">
+                        </div><!--end col-->
+
+                        <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddImage">Thêm</a>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form><!--end form-->
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="table-responsive bg-white shadow rounded">
+                <table class="table mb-0 table-center">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom p-3" style="min-width: 50px;">#</th>
+                            <th class="border-bottom p-3" style="min-width: 50px;max-width: 50px;">Image</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Create At</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Update At</th>
+                            <th class="border-bottom p-3" style="min-width: 100px; max-width: 200px;">Status</th>
+                            <th class="border-bottom p-3" style="min-width: 200px; max-width: 200px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.lsProductIMG != null && Model.lsProductIMG.Count != 0)
+                        {
+                            int count = 0;
+                            @foreach (var pro in Model.lsProductIMG)
+                            {
+                                <tr>
+                                    <th class="p-3">@(++count)</th>
+                                    <td class="p-3" style="text-align:center">
+                                        <img src="@pro.ImgUrl" class="object-fit-cover img-fluid avatar shadow" style="border-radius: 15px; width: 50%; height: 100%" alt="">
+                                    </td>
+                                    <td class="p-3">@pro.CreateAt</td>
+                                    <td class="p-3">@pro.UpdateAt</td>
+                                    <td class="p-3">@pro.Status</td>
+                                    <td class="text-end p-3">
+                                        <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#editImage" data-productid="@pro.ProductId" data-img="@pro.ImgUrl" data-productIMGId = "@pro.ImgId">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                                            </svg>
+                                        </a>
+                                        <a href="/Admin/DetailImageProduct?handler=Delete&id=@pro.ImgId" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times-circle"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div><!--end row-->
+</div>
+<div class="modal fade" id="AddImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modalImageContent">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Hình ảnh Sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4 ">
+                <form method="post" asp-page="DetailImageProduct" enctype="multipart/form-data">
+                    <input type="hidden" name="method" value="create" />
+                    <input type="hidden" name="productId" value="@(Model.lsProductIMG != null && Model.lsProductIMG.Count != 0? Model.lsProductIMG[0].ProductId : "1")" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <input name="productImg" required type="file" id="img" rows="4" class="form-control" accept="image/*" />
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Thêm ảnh</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modalImageContent">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Hình ảnh Sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4 ">
+                <form method="post" asp-page="DetailImageProduct" enctype="multipart/form-data">
+                    <input type="hidden" name="method" value="update" />
+                    <input type="hidden" name="productId"/>
+                    <input type="hidden" name="productIMGId"/>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <img name="productImg" class="img-fluid mb-4 rounded-15 bg-light img-product" src="~/tpl/img/product-1.png" alt="">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-8">
+                            <div class="mb-3">
+                                <input name="productImg" required type="file" id="img" rows="4" class="form-control" accept="image/*" />
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add New Appointment End -->
+<!-- Modal end -->
+<script>
+    const editProductModal = document.getElementById('editImage');
+
+    editProductModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+
+        // Lấy dữ liệu từ các thuộc tính data-*
+        const productId = button.getAttribute('data-productid');
+        const productIMG = button.getAttribute('data-img');
+        const productIMGId = button.getAttribute('data-productIMGId');
+
+        // Điền dữ liệu vào các input của modal
+        editProductModal.querySelector('input[name="productIMGId"]').value = productIMGId;
+        editProductModal.querySelector('input[name="productId"]').value = productId;
+        editProductModal.querySelector('.img-product').src = productIMG;
+    });
+</script>
