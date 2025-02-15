@@ -1,0 +1,277 @@
+﻿@page "/Admin/Order"
+@model PetStore.Pages.Admin.OrderAdminModel
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-4">
+                <h5 class="mb-0">Đơn Hàng</h5>
+                <nav aria-label="breadcrumb" class="d-inline-block mt-2">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="index.html">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Đơn Hàng</li>
+                    </ul>
+                </nav>
+            </div><!--end col-->
+
+            <div class="col-xl-6 col-lg-6 col-md-8 mt-4 mt-md-0">
+                <div class="justify-content-md-end">
+                    <form method="get">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-sm-12 col-md-9">
+                                <div class="mb-0 d-flex gap-3 align-items-center">
+                                    <div class="col-5">
+                                        <select class="form-control select2input w-100" name="status">
+                                            <option value="All" selected="@(Model.Status == "All")">Tất cả</option>
+                                            @foreach (var i in Model.statusOrders)
+                                            {
+                                                <option value="@i.StatusId" selected="@(Model.Status == i.StatusId.ToString())">@i.StatusName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-7">
+                                        <select class="form-control select2input w-100" name="payment">
+                                            <option value="All" selected="@(Model.Payment == "All")">Tất cả</option>
+                                            @foreach (var i in Model.paymentMethods)
+                                            {
+                                                <option value="@i.MethodId" selected="@(Model.Payment == i.MethodId.ToString())">@i.MethodName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-sm-12 col-md-3 mt-4 mt-sm-0">
+                                <div class="d-grid">
+                                    <button class="btn btn-primary">Lọc</button>
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </form><!--end form-->
+
+
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="table-responsive bg-white shadow rounded">
+                    <table class="table mb-0 table-center">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom p-3" style="min-width: 50px;">#</th>
+                                <th class="border-bottom p-3" style="min-width: 180px;">Tên</th>
+                                <th class="border-bottom p-3" style="min-width: 150px;">Địa Chỉ</th>
+                                <th class="border-bottom p-3" style="min-width:150px;">Phương thức thanh toán</th>
+                                <th class="border-bottom p-3" style="min-width:150px;">Ngày tạo</th>
+                                <th class="border-bottom p-3" style="min-width:150px;">Ngày cập nhật</th>
+                                <th class="border-bottom p-3" style="min-width: 180px;">Người bán</th>
+                                <th class="border-bottom p-3" style="min-width:150px;">Ghi chú</th>
+                                <th class="border-bottom p-3" style="min-width: 220px;">Ghi chú bời người bán</th>
+                                <th class="border-bottom p-3" style="min-width: 220px;">Trạng Thái</th>
+                                <th class="border-bottom p-3" style="min-width:150px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
+                            {
+                                <tr>
+                                    <th class="p-3">@i.OrderId</th>
+
+                                    <td class="p-3">
+                                        <a href="#" class="text-dark">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@i.image" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                <span class="ms-2">@i.name</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="p-3">@i.addresses</td>
+                                    <td class="p-3">@i.payment</td>
+                                    <td class="p-3">@i.createAt</td>
+                                    <td class="p-3">@i.updateAt</td>
+                                    <td class="p-3">
+                                        <a href="#" class="text-dark">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@i.imageSale" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                <span class="ms-2">@i.nameSale</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="p-3">@i.note</td>
+                                    <td class="p-3">@i.notebySale</td>
+                                    <td class="p-3">
+                                        @i.status
+                                        @if (i.statusId == 1)
+                                        {
+                                            <form method="post" asp-page-handler="UpdateStatus">
+                                                <input type="hidden" name="orderId" value="@i.OrderId" />
+                                                <input type="hidden" name="status" value="3" />
+                                                <button type="submit" class="btn btn-warning">Chờ giao hàng</button>
+                                            </form>
+                                        }
+                                        @if (i.statusId == 3)
+                                        {
+                                            <form method="post" asp-page-handler="UpdateStatus">
+                                                <input type="hidden" name="orderId" value="@i.OrderId" />
+                                                <input type="hidden" name="status" value="2" />
+                                                <button type="submit" class="btn btn-info">Vận chuyển</button>
+                                            </form>
+                                        }
+                                        @if (i.statusId == 2)
+                                        {
+                                            <form method="post" asp-page-handler="UpdateStatus">
+                                                <input type="hidden" name="orderId" value="@i.OrderId" />
+                                                <input type="hidden" name="status" value="4" />
+                                                <button type="submit" class="btn btn-success">Hoàn Thành</button>
+                                            </form>
+                                        }
+                                    </td>
+                                    <td class="text-end p-3">
+                                        <a href="/Admin/OrderDetail/@i.OrderId" class="btn btn-icon btn-pills btn-soft-primary"><i class="uil uil-eye"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end row-->
+
+        <div class="row text-center">
+            <!-- PAGINATION START -->
+            <div class="col-12 mt-4">
+                <div class="d-md-flex align-items-center text-center justify-content-between" style="float:right">
+                    @*<span class="text-muted me-3">
+                    Showing @((Model.PageNumber - 1) *  + 1) -
+                    @(Math.Min((int)ViewData["CurrentPage"] * PAGE_SIZE, (int)ViewData["TotalItems"]))
+                    out of @ViewData["TotalItems"]
+                    </span>*@
+                    <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+                        <!-- Nút "Prev" -->
+                        <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@(Model.PageNumber > 1 ? $"/Admin/Order?page={Model.PageNumber - 1}&status={Model.Status ?? "All"}&payment={Model.Payment ?? "All"}" : "#")" aria-label="Previous">Prev</a>
+                        </li>
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                                <a class="page-link" href="/Admin/Order?page=@i&status=@(Model.Status ?? "All")&payment=@(Model.Payment ?? "All")">@i</a>
+                            </li>
+                        }
+
+                        <!-- Nút "Next" -->
+                        <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                            <a class="page-link" href="@(Model.PageNumber < Model.TotalPages ? $"/Admin/Order?page={Model.PageNumber + 1}&status={Model.Status ?? "All"}&payment={Model.Payment ?? "All"}" : "#")" aria-label="Next">Next</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- PAGINATION END -->
+        </div>
+
+    </div>
+</div><!--end container-->
+<!-- View Appintment Start -->
+<div class="modal fade" id="viewappointment" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel1">Appointment Detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <div class="d-flex align-items-center">
+                    <img src="../assets/images/client/01.jpg" class="avatar avatar-small rounded-pill" alt="">
+                    <h5 class="mb-0 ms-3">Howard Tanner</h5>
+                </div>
+                <ul class="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
+                    <li>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex">
+                                <h6>Age:</h6>
+                                <p class="text-muted ms-2">25 year old</p>
+                            </li>
+
+                            <li class="d-flex">
+                                <h6>Gender:</h6>
+                                <p class="text-muted ms-2">Male</p>
+                            </li>
+
+                            <li class="d-flex">
+                                <h6 class="mb-0">Department:</h6>
+                                <p class="text-muted ms-2 mb-0">Cardiology</p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex">
+                                <h6>Date:</h6>
+                                <p class="text-muted ms-2">20th Dec 2020</p>
+                            </li>
+
+                            <li class="d-flex">
+                                <h6>Time:</h6>
+                                <p class="text-muted ms-2">11:00 AM</p>
+                            </li>
+
+                            <li class="d-flex">
+                                <h6 class="mb-0">Doctor:</h6>
+                                <p class="text-muted ms-2 mb-0">Dr. Calvin Carlo</p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- View Appintment End -->
+<!-- Accept Appointment Start -->
+<div class="modal fade" id="acceptappointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body py-5">
+                <div class="text-center">
+                    <div class="icon d-flex align-items-center justify-content-center bg-soft-success rounded-circle mx-auto" style="height: 95px; width:95px;">
+                        <i class="uil uil-check-circle h1 mb-0"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Accept Appointment</h4>
+                        <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-soft-success">Accept</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Accept Appointment End -->
+<!-- Cancel Appointment Start -->
+<div class="modal fade" id="cancelappointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body py-5">
+                <div class="text-center">
+                    <div class="icon d-flex align-items-center justify-content-center bg-soft-danger rounded-circle mx-auto" style="height: 95px; width:95px;">
+                        <i class="uil uil-times-circle h1 mb-0"></i>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Cancel Appointment</h4>
+                        <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-soft-danger">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
