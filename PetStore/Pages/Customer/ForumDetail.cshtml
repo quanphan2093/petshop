@@ -94,9 +94,9 @@
                     <form method="post" asp-page-handler="Comment">
                         <div id="comment-form" style="display: none; margin-top: 10px;">
                             <input name="id" value="@Model.f.ForumId" hidden />
-                            <textarea name="content" id="comment-text" rows="3" style="width: 100%; padding:10px" placeholder="Viết bình luận..."></textarea>
+                            <textarea name="content" id="comment-text" rows="3" style="width: 100%; padding:10px; background:#eeeeee; border:none; border-radius:12px" placeholder="Viết bình luận..."></textarea>
                             <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
-                                <button id="submit-comment" type="submit">Gửi</button>
+                                <button id="submit-comment" type="submit" style="background:#ffcd16; border:none; padding: 8px 25px; border-radius:12px;">Gửi</button>
                             </div>
                         </div>
                     </form>

@@ -95,26 +95,28 @@
                     </div>
                 }
             </form>
-
-            <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
-                <div style="margin: 5px 0 20px;">
-                    <h6 class="text-start" style="margin-bottom: 20px;  color: #085998;">Tags phổ biến</h6>
-                    @foreach (var i in (IEnumerable<dynamic>)ViewData["hashtag"])
-                    {
-                        <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
-                            <h6 style="font-size: 14px;  color: #085998;">@i.HashtagName</h6>
-                            <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                        </div>
-                    }
+            @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
+            {
+                <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
+                    <div style="margin: 5px 0 20px;">
+                        <h6 class="text-start" style="margin-bottom: 20px;  color: #085998;">Tags phổ biến</h6>
+                        @foreach (var i in (IEnumerable<dynamic>)ViewData["hashtag"])
+                        {
+                            <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
+                                <h6 style="font-size: 14px;  color: #085998;">@i.HashtagName</h6>
+                                <p style="margin: 0; font-size: 12px;">Find the latest update</p>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div> 
+            }
         </div>
         
         <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;" >
             @{
                 var accId = HttpContext.Session.GetInt32("acc");
             }
-            <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" data-bs-toggle="modal" data-bs-target="#postModal">
+            <div class="position-relative postforum input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" data-bs-toggle="modal" data-bs-target="#postModal">
                 <input type="text" class="form-control p-2 rounded-15 input-search"
                        placeholder="Cùng thú cưng chia sẻ">
                 <button type="submit" style="color: #ffffff; border-radius: 6px;"
@@ -230,7 +232,7 @@
                 }
             </div>
 
-            <div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
+            @*<div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
                 <h6 style="padding:15px 0; padding-top: 15px; color: #085998;">Blog <span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></h6>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
                     <div style="display: flex;">
@@ -252,8 +254,7 @@
                     </div>
                     <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
                 </div>
-            </div>
-
+            </div>*@
         </div>
     </div>
 </div>
@@ -285,7 +286,7 @@
                             <option style="color:black" value="@i.TypeId">@i.TypeName</option>
                         }
                     </select>
-                    <input required type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    <input  type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
                     <button style="width: 100%; padding: 10px; margin-top: 10px; background: #3A3B3C; border: none; color: #B0B3B8; font-weight: bold; border-radius: 5px; cursor: pointer;" type="submit">
                         Đăng
                     </button>
@@ -294,16 +295,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function showPostBox() {
-        document.getElementById("post").classList.remove("hidden");
-    }
-
-    function hidePostBox() {
-        document.getElementById("post").classList.add("hidden");
-    }
-</script>
 
 <script>
     let skip = 5;
@@ -394,12 +385,13 @@
     var isLoggedIn = @((accId.HasValue && accId.Value > 0) ? "true" : "false") === true;
     console.log("User Logged In: ", isLoggedIn);
     window.onload = function () {
-        var inputGroup = document.querySelector(".input-group");
+        var inputGroup = document.querySelector(".postforum");
         if (!inputGroup) {
-            console.error("Lỗi: Không tìm thấy .input-group");
+            console.error("Lỗi: Không tìm thấy .postforum");
             return;
         }
-
+        inputGroup.removeAttribute("data-bs-toggle");
+        inputGroup.removeAttribute("data-bs-target");
         inputGroup.addEventListener("click", function (event) {
             if (!isLoggedIn) {
                 event.preventDefault();
@@ -410,7 +402,6 @@
             }
         });
     };
-
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

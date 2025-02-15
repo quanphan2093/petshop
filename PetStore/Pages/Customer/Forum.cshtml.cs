@@ -48,7 +48,7 @@ namespace PetStore.Pages.Customer
                 .Include(x => x.Category)
                 .Where(x => x.Status == "Available")
                 .OrderByDescending(x => x.CreateAt)
-                .Take(3)
+                .Take(5)
                 .ToList();
 
             var forum = from a in Account

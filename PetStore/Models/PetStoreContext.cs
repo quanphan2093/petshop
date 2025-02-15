@@ -359,6 +359,7 @@ namespace PetStore.Models
                     .HasForeignKey(d => d.HashtagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__PostHasht__Hasht__5FB337D6");
+            });
             modelBuilder.Entity<PaymentMethod>(entity =>
             {
                 entity.HasKey(e => e.MethodId)
