@@ -28,6 +28,7 @@ namespace PetStore.Pages.Admin
 
         private void GetData(int? page, string status, string payment)
         {
+            
             int pageNumber = page ?? 1;
 
             accounts = _context.Accounts.ToList();
@@ -81,9 +82,15 @@ namespace PetStore.Pages.Admin
                 .ToList();
             ViewData["order"] = paginatedOrders;
         }
-        public void OnGet(int? page, string status, string payment)
+        public IActionResult OnGet(int? page, string status, string payment)
         {
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName == "Customer")
+            {
+                return Redirect("/login");
+            }
             GetData(page, status, payment);
+            return Page();
         }
 
         public IActionResult OnPostUpdateStatus(string orderId, string status, int? page, string sta, string payment)

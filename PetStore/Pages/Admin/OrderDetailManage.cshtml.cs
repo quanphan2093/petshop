@@ -14,8 +14,13 @@ namespace PetStore.Pages.Admin
         }
         public List<OrderDetail> orderDetails { get;set; }= new List<OrderDetail>();
         public int Total { get; set; }  
-        public void OnGet(int? id)
+        public IActionResult OnGet(int? id)
         {
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName == "Customer")
+            {
+                return Redirect("/login");
+            }
             orderDetails =_context.OrderDetails.Include(x => x.Product).Where(x => x.OrderId == id).ToList();
             int total = 0;
             foreach (var order in orderDetails)
@@ -23,6 +28,7 @@ namespace PetStore.Pages.Admin
                 total += (int)order.Total;
             }
             Total=total;
+            return Page();
         }
     }
 }
