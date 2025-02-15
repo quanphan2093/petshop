@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PetStore.Models;
+using System.Security.Principal;
 using System.Text.Json;
 
 namespace PetStore.Pages.Admin
@@ -14,27 +15,15 @@ namespace PetStore.Pages.Admin
         public int currentPage = 0;
         string pathSave = "/tpl/img/";
         public List<Category> lsCategory { get; set; } = new List<Category>();
-        public void OnGet(int? current = 1)
+        public IActionResult OnGet(int? current = 1)
         {
-
-            LoadData(current);
-        }
-
-        public void OnGetDelete(int productId, int? current = 1)
-        {
-            List<ProductImage> proIMG = PetStoreContext.Ins.ProductImages.Where(p => p.ProductId == productId).ToList();
-            if (proIMG != null)
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if(roleName == null || roleName != "Admin")
             {
-                PetStoreContext.Ins.ProductImages.RemoveRange(proIMG);
-                PetStoreContext.Ins.SaveChanges();
-                Product pro = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).FirstOrDefault();
-                if (pro != null)
-                {
-                    PetStoreContext.Ins.Products.Remove(pro);
-                    PetStoreContext.Ins.SaveChanges();
-                }
+                return Redirect("/Home");
             }
             LoadData(current);
+            return Page();
         }
         public void LoadData(int? current = 1)
         {
@@ -51,8 +40,12 @@ namespace PetStore.Pages.Admin
 
         }
 
-        public async Task OnPost(IFormFile img, IFormFile productImg,string? method = "null") {
-
+        public async Task<IActionResult> OnPost(IFormFile img, IFormFile productImg,string? method = "null") {
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName != "Admin")
+            {
+                return Redirect("/Home");
+            }
             if (method == "create") { 
                 string name = Request.Form["name"];
                 string detail = Request.Form["detail"].ToString();
@@ -158,6 +151,7 @@ namespace PetStore.Pages.Admin
             }
 
             LoadData();
+            return Redirect("/Admin/Product");
         }
 
     }

@@ -9,24 +9,24 @@ namespace PetStore.Pages.Admin
     {
         public List<ProductImage> lsProductIMG { get; set; } = new List<ProductImage>();
         string pathSave = "/tpl/img/";
-        public void OnGet(int? id = 1)
+        public IActionResult OnGet(int? id = 1)
         {
-            lsProductIMG = PetStoreContext.Ins.ProductImages.Include(p => p.Product).Where(p => p.ProductId == id).ToList();
-        }
-        public IActionResult OnGetDelete(int id)
-        {
-            ProductImage proImg = PetStoreContext.Ins.ProductImages.Where(p => p.ImgId == id).FirstOrDefault();
-            int? productId = proImg.ProductId;
-            if (proImg != null)
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName != "Admin")
             {
-                PetStoreContext.Ins.ProductImages.Remove(proImg);
-                PetStoreContext.Ins.SaveChanges();
+                return Redirect("/Home");
             }
-            return Redirect("/Admin/DetailImageProduct?id=" + productId);
+            lsProductIMG = PetStoreContext.Ins.ProductImages.Include(p => p.Product).Where(p => p.ProductId == id).ToList();
+            return Page();
         }
         public async Task<IActionResult> OnPost(int? productId, IFormFile productImg, string method)
         {
-            if(method == "update")
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName != "Admin")
+            {
+                return Redirect("/Home");
+            }
+            if (method == "update")
             {
                 var ImgID = Request.Form["productIMGId"];
                 ProductImage pro = PetStoreContext.Ins.ProductImages.Where(p => p.ImgId == int.Parse(ImgID)).FirstOrDefault();
