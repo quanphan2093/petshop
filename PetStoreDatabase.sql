@@ -234,10 +234,14 @@ VALUES
 
 INSERT INTO Account (Email, Password, CreateAt, UpdateAt, [State], RoleID)
 VALUES 
-('admin@example.com', 'admin123', GETDATE(), GETDATE(), 'Active', 1),
-('sales@example.com', 'sales123', GETDATE(), GETDATE(), 'Active', 3),
-('support@example.com', 'support123', GETDATE(), GETDATE(), 'Inactive', 4),
-('manager@example.com', 'manager123', GETDATE(), GETDATE(), 'Active', 5);
+--admin123
+('adminfurfriends@gmail.com', '$2a$11$mTqrUFm2l58Yf.8rZuoXRetDlqtZPGe2T2IN7p9OjjjG4SuBtdVGe', GETDATE(), GETDATE(), 'Active', 1),
+('salesfurfriends@gmail.com', '$2a$11$L5M8UODpM6bbsbDJRUiEoOWpfggiJD8CiZhbz9qj2rpFgWw0iPXyi', GETDATE(), GETDATE(), 'Active', 3),
+('supportfurfriends@gmail.com', '$2a$11$Tq5zSpdnI38J8J3qtuzP6Ogs6.BTOwJ4JDl3.mp0R40pvTX8vnqWm', GETDATE(), GETDATE(), 'Inactive', 4),
+('managerfurfriends@gmail.com', '$2a$11$F344X3nn60LQbidNnp0NeuZc0q.QbjrWbTj1qY2p/PFEzV.CODo4u', GETDATE(), GETDATE(), 'Active', 5);
+
+INSERT INTO Infor (Fullname, Phone, Address, Gender, Image, AccountID) values
+('Admin','0396925536','Thuong Tin, Ha Noi','1',null,1)
 
 INSERT INTO StatusOrder (StatusName)
 VALUES 
@@ -254,3 +258,5 @@ VALUES
 (N'Thức ăn'),
 (N'Đồ chơi'),
 (N'Vòng cổ');
+
+INSERT INTO ForumType VALUES (N'Câu chuyện thú cưng') ,(N'Thắc mắc & tư vấn')

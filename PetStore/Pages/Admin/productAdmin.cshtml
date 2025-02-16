@@ -1,0 +1,330 @@
+﻿@page "/Admin/Product"
+@model PetStore.Pages.Admin.productAdminModel
+@{
+    Layout = "_layoutAdmin";
+}
+<div class="layout-specing">
+    <div class="row">
+        <div class="col-xl-9 col-lg-6 col-md-4">
+            <h5 class="mb-0">Sản phẩm</h5>
+            <nav aria-label="breadcrumb" class="d-inline-block mt-2">
+                <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="index.html">FurFriends</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                </ul>
+            </nav>
+        </div><!--end col-->
+
+        <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+            <div class="justify-content-md-end">
+                <form>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-12 col-md-5">
+                        </div><!--end col-->
+
+                        <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#appointmentform">Thêm</a>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form><!--end form-->
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="table-responsive bg-white shadow rounded">
+                <table class="table mb-0 table-center">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom p-3" style="min-width: 50px;">#</th>
+                            <th class="border-bottom p-3" style="min-width: 180px;max-width: 200px;">Tên sản phẩm</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Mô tả</th>
+                            <th class="border-bottom p-3">Giá</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Ảnh</th>
+                            <th class="border-bottom p-3" style="min-width: 100px; max-width: 200px;">Giảm giá</th>
+                            <th class="border-bottom p-3">Size</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Ngày tạo</th>
+                            <th class="border-bottom p-3" style="min-width: 120px; max-width: 150px;">Trạng thái</th>
+                            <th class="border-bottom p-3" style="min-width: 120px; max-width: 150px;">Danh mục</th>
+                            <th class="border-bottom p-3" style="min-width: 170px; max-width: 200px;">Đơn vị trong kho</th>
+                            <th class="border-bottom p-3" style="min-width: 130px; max-width: 150px;">Đơn vị đã đặt</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 150px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(Model.lsProduct != null && Model.lsProduct.Count != 0)
+                        {
+                            @foreach(var pro in Model.lsProduct)
+                            {
+                                <tr>
+                                    <th class="p-3">@pro.ProductId</th>
+                                    <td class="p-3">
+                                        <a href="#" class="text-dark">
+                                            <div class="d-flex align-items-center">
+
+                                                <span class="ms-2">@pro.ProductName</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="p-3 text-truncate" style="max-width: 200px;">@Html.Raw(pro.Details.Replace("\\r\\n", "<br>"))</td>
+                                    @using System.Globalization
+@using PetStore.Models
+                                    <td class="p-3">@(((int)pro.Price).ToString("N0", CultureInfo.InvariantCulture)) </td>
+                                    <td class="p-3">
+                                        <img src="@pro.Image" class="object-fit-cover img-fluid avatar shadow" alt="">
+                                    </td>
+                                    <td class="p-3">@pro.Discount</td>
+                                    <td class="p-3">@(pro.Size == null? "none" : pro.Size + " kg")</td>
+                                    <td class="p-3">@pro.CreateAt</td>
+                                    <td class="p-3">@pro.Status</td>
+                                    <td class="p-3">@pro.Category.CategoryName</td>
+                                    <td class="p-3">@(pro.UnitInStock == null ? "0" : pro.UnitInStock)</td>
+                                    <td class="p-3">@(pro.UnitOrdered == null ? "0" : pro.UnitOrdered)</td>
+                                    <td class="text-end p-3">
+                                        <a href="#" class="btn btn-icon btn-pills btn-soft-primary"
+                                           data-bs-toggle="modal" data-bs-target="#editProduct"
+                                           data-productid="@pro.ProductId"
+                                           data-productname="@pro.ProductName"
+                                           data-details="@pro.Details"
+                                           data-price="@pro.Price"
+                                           data-image="@pro.Image"
+                                           data-discount="@(pro.Discount ?? 0)"
+                                           data-size="@(pro.Size ?? 0)"
+                                           data-unitinstock="@(pro.UnitInStock ?? 0)"
+                                           data-categoryid="@pro.CategoryId"
+                                           data-status ="@pro.Status">
+                                            <i class="uil uil-eye"></i>
+                                        </a>
+                                       <a href="/Admin/DetailImageProduct?id=@pro.ProductId" class="btn btn-icon btn-pills btn-soft-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                                            </svg>
+                                        </a>
+                                        <a href="/Admin/Product/Delelte?productId=@pro.ProductId" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times-circle"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!--end row-->
+
+     <div class="row text-center">
+         <!-- PAGINATION START -->
+         <div class="col-12 mt-4">
+             <div class="d-md-flex align-items-center text-center justify-content-between">
+                 <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+                     @if(Model.totalPage != null)
+                     {
+                         @for(int i=1; i <= Model.totalPage; i++){
+                             <li class="page-item @(Model.currentPage == i? "active" : "")"><a class="page-link" href="/Admin/Product?current=@i">@i</a></li>
+                         }
+                     }
+                 </ul>
+             </div>
+         </div><!--end col-->
+         <!-- PAGINATION END -->
+     </div><!--end row-->
+</div>
+
+
+<!-- page-wrapper -->
+<!-- Modal start -->
+<!-- Add New Appointment Start -->
+<div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <form method="post" asp-page="productAdmin" enctype="multipart/form-data">
+                    <input type="hidden" name="method" value="create" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Tên sản phẩm <span class="text-danger">*</span> : </label>
+                                <input required name="name" id="name" type="text" class="form-control" placeholder="Tên sản phẩm :">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả <span class="text-danger">*</span> : </label>
+                                <textarea required name="detail" id="detail" rows="4" class="form-control" placeholder="Mô tả:"></textarea>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Ảnh <span class="text-danger">*</span> : </label>
+                                <input required name="img" id="img" type="file" class="form-control" placeholder="ảnh :" accept="image/*">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Giá (VNĐ)<span class="text-danger">*</span> : </label>
+                                <input required name="price" id="price" type="number" class="form-control" placeholder="giá :">
+                            </div>
+                        </div><!--end col-->
+
+
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Giảm giá : </label>
+                                <input name="discount" id="discount" type="number" class="form-control" placeholder="giảm giá (0.0 -> 1.0) :" step="0.1" min="0" max="1" onchange="this.value = Math.max(0, Math.min(1, this.value))">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Trạng thái : </label>
+                                <input name="status" id="status" type="text" disabled class="form-control" placeholder="available" value="available">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"> Danh mục : </label>
+                                <select name="category" class="form-control">
+                                    @if(Model.lsCategory != null && Model.lsCategory.Count != 0)
+                                    {
+                                        @foreach(var cate in Model.lsCategory)
+                                        {
+                                            <option value="@cate.CategoryId">@cate.CategoryName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Size (kg) : </label>
+                                <input oninput="this.value = Math.max(0, this.value)" name="size" id="size" type="number" class="form-control" placeholder="Size:">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Đơn vị trong kho <span class="text-danger">*</span> : </label>
+                                <input required oninput="this.value = Math.max(0, this.value)" name="unitInStock" id="unitInStock" type="number" class="form-control" placeholder="Đơn vị trong kho:">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <form method="post" asp-page="productAdmin" enctype="multipart/form-data">
+                    <input type="hidden" name="method" value="update"/>
+                    <input type="hidden" name="productId"/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Tên sản phẩm <span class="text-danger">*</span> : </label>
+                                <input required name="productName" id="name" type="text" class="form-control" placeholder="Tên sản phẩm :">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả <span class="text-danger">*</span> : </label>
+                                <textarea required name="productDetail" id="detail" rows="4" class="form-control" placeholder="Mô tả:"></textarea>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Ảnh (Để trống nếu không thay đổi) : </label>
+                                <input name="productImg" id="productImg" type="file" class="form-control" placeholder="ảnh :" accept="image/*">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Giá (VNĐ)<span class="text-danger">*</span> : </label>
+                                <input required name="proprice" id="proprice" type="number" class="form-control" placeholder="giá :">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Giảm giá <span class="text-danger">*</span> : </label>
+                                <input required name="prodiscount" id="prodiscount" type="number" class="form-control" placeholder="giảm giá (0.0 -> 1.0) :" step="0.1" min="0" max="1" onchange="this.value = Math.max(0, Math.min(1, this.value))">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Trạng thái : </label>
+                                <select name="prostatus" class="form-control">
+                                    <option value="Available">available</option>
+                                    <option value="Not Available">not available</option>
+                                </select>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"> Danh mục : </label>
+                                <select name="productCate" class="form-control">
+                                    @if (Model.lsCategory != null && Model.lsCategory.Count != 0)
+                                    {
+                                        @foreach (var cate in Model.lsCategory)
+                                        {
+                                            <option value="@cate.CategoryId">@cate.CategoryName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Size (kg) : </label>
+                                <input oninput="this.value = Math.max(0, this.value)" name="prosize" id="prosize" type="number" class="form-control" placeholder="Size:">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Đơn vị trong kho <span class="text-danger">*</span> : </label>
+                                <input required oninput="this.value = Math.max(0, this.value)" name="prounitInStock" id="prounitInStock" type="number" class="form-control" placeholder="Đơn vị trong kho:">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add New Appointment End -->
+<!-- Modal end -->
+<script src="~/js/ModalProductScript.js?v=@DateTime.Now.Ticks"></script>
