@@ -45,6 +45,10 @@ namespace PetStore.Pages.Customer
         public async Task<IActionResult> OnPost(string? fullname, string? phone, string? gender, string? address, IFormFile? image)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
+            if (accId == null)
+            {
+                return Redirect("/login");
+            }
             InformationUser = PetStoreContext.Ins.Infors.
                    Include(x => x.Account).
                    Where(x => x.AccountId == accId).

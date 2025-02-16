@@ -27,7 +27,7 @@ namespace PetStore.Pages.Admin
         }
         public void LoadData(int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).Where(p => p.Status != "deleted").AsQueryable();
+            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).Where(p => p.Status != "deleted").OrderByDescending(p => p.CreateAt).AsQueryable();
 
             totalPage = products.Count() / pageSize;
             if (products.Count() % pageSize != 0) totalPage += 1;

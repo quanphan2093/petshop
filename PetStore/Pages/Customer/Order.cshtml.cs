@@ -21,11 +21,11 @@ namespace PetStore.Pages.Customer
         }
         public IActionResult OnGet(string status, string search)
         {
-            //int? accId = HttpContext.Session.GetInt32("acc");
-            //if (accId == null)
-            //{
-            //    return RedirectToPage("/Common/Login");
-            //}
+            int? accId = HttpContext.Session.GetInt32("acc");
+            if (accId == null)
+            {
+                return RedirectToPage("/Common/Login");
+            }
             products =_context.Products.ToList();
             categories=_context.Categories.ToList();
             ordersDetail=_context.OrderDetails.ToList();
@@ -36,7 +36,7 @@ namespace PetStore.Pages.Customer
                         join p in products on od.ProductId equals p.ProductId
                         join c in categories on p.CategoryId equals c.CategoryId
                         join s in statusOrders on o.StatusId equals s.StatusId
-                        //where o.AccountId == accId
+                        where o.AccountId == accId
                         select new
                         {
                             OrderId = o.OrderId,
