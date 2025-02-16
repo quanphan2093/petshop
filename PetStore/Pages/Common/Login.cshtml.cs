@@ -31,7 +31,8 @@ namespace PetStore.Pages
 				return Page();
 			}
 			HttpContext.Session.SetInt32("role", account.Role.RoleId);
-			HttpContext.Session.SetInt32("acc", account.AccountId);
+            HttpContext.Session.SetString("roleName", account.Role.RoleName);
+            HttpContext.Session.SetInt32("acc", account.AccountId);
 			HttpContext.Session.SetString("email", account.Email);
 			return Redirect("/Home");
 		}

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PetStore.Models;
+using System.Security.Principal;
+using System.Text.Json;
 
 namespace PetStore.Pages.Admin
 {
@@ -13,15 +15,19 @@ namespace PetStore.Pages.Admin
         public int currentPage = 0;
         string pathSave = "/tpl/img/";
         public List<Category> lsCategory { get; set; } = new List<Category>();
-        public void OnGet(int? current = 1)
+        public IActionResult OnGet(int? current = 1)
         {
-
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if(roleName == null || roleName != "Admin")
+            {
+                return Redirect("/Home");
+            }
             LoadData(current);
+            return Page();
         }
-
         public void LoadData(int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).AsQueryable();
+            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).Where(p => p.Status != "deleted").AsQueryable();
 
             totalPage = products.Count() / pageSize;
             if (products.Count() % pageSize != 0) totalPage += 1;
@@ -34,8 +40,12 @@ namespace PetStore.Pages.Admin
 
         }
 
-        public async Task OnPost(string method, IFormFile img, IFormFile productImg) {
-
+        public async Task<IActionResult> OnPost(IFormFile img, IFormFile productImg,string? method = "null") {
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName != "Admin")
+            {
+                return Redirect("/Home");
+            }
             if (method == "create") { 
                 string name = Request.Form["name"];
                 string detail = Request.Form["detail"].ToString();
@@ -45,7 +55,7 @@ namespace PetStore.Pages.Admin
                     await img.CopyToAsync(stream);
                 }
                 string pathImg = pathSave + img.FileName;
-                int price = int.Parse(Request.Form["price"]);
+                decimal price = decimal.Parse(Request.Form["price"]);
                 double? discount;
                 string discountValue = Request.Form["discount"];
                 discount = double.TryParse(discountValue, out double resultDiscount) ? resultDiscount : 0;
@@ -94,9 +104,54 @@ namespace PetStore.Pages.Admin
                 }
 
             }
-            else if (method == "update") Console.WriteLine("update");
+            else if (method == "update"){
+                int productId = int.Parse(Request.Form["productId"]);
+                Product pro = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).FirstOrDefault();
+                if (pro != null)
+                {
+                    pro.ProductName = Request.Form["productName"];
+                    string detail = Request.Form["productDetail"];
+                    pro.Details = detail.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");
+                    string pathImg = pro.Image;
+                    if (productImg != null)
+                    {
+                        var filePath = Path.Combine("wwwroot/tpl/img", productImg.FileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await productImg.CopyToAsync(stream);
+                        }
+                        pathImg = pathSave + productImg.FileName;
+                    }
+                    pro.Image = pathImg;
+                    pro.Price = decimal.Parse(Request.Form["proprice"]);
+                    double? discount;
+                    string discountValue = Request.Form["prodiscount"];
+                    discount = double.TryParse(discountValue, out double resultDiscount) ? resultDiscount : 0;
+                    pro.Discount = discount;
+                    pro.Status = Request.Form["prostatus"];
+                    pro.CategoryId = int.Parse(Request.Form["productCate"]);
+                    int? size;
+                    string sizeValue = Request.Form["prosize"];
+                    size = int.TryParse(discountValue, out int resultSize) ? resultSize : null;
+                    pro.Size = size;
+                    pro.UnitInStock = int.Parse(Request.Form["prounitInStock"]);
+                    pro.UpdateAt = DateTime.Now;
+
+                    PetStoreContext.Ins.Products.Update(pro);
+                    await PetStoreContext.Ins.SaveChangesAsync();
+
+                    ProductImage proImg = PetStoreContext.Ins.ProductImages.Where(p => p.ProductId == pro.ProductId).FirstOrDefault();
+                    if (proImg != null) {
+                        proImg.ImgUrl = pro.Image;
+                        proImg.UpdateAt = DateTime.Now;
+                        PetStoreContext.Ins.ProductImages.Update(proImg);
+                        await PetStoreContext.Ins.SaveChangesAsync();
+                    }
+                }
+            }
 
             LoadData();
+            return Redirect("/Admin/Product");
         }
 
     }

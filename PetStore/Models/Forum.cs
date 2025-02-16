@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PetStore.Models
 {
@@ -7,7 +8,8 @@ namespace PetStore.Models
     {
         public Forum()
         {
-            Comments = new HashSet<Comment>();
+            CommentsNavigation = new HashSet<Comment>();
+            PostHashtags = new HashSet<PostHashtag>();
         }
 
         public int ForumId { get; set; }
@@ -20,8 +22,15 @@ namespace PetStore.Models
         public string? Image { get; set; }
         public int? Age { get; set; }
         public bool? Gene { get; set; }
+        public int? Views { get; set; }
+        public int? Likes { get; set; }
+        public int? Comments { get; set; }
+        public string? Title { get; set; }
+        public int? TypeId { get; set; }
 
         public virtual Account? Account { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ForumType? Type { get; set; }
+        public virtual ICollection<Comment> CommentsNavigation { get; set; }
+        public virtual ICollection<PostHashtag> PostHashtags { get; set; }
     }
 }

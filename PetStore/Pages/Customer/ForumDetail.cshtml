@@ -1,0 +1,188 @@
+﻿@page "/Forum/{id}"
+@model PetStore.Pages.Customer.ForumDetailModel
+@{
+    Layout = "_Layout";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    .scrollFt {
+        max-height: 718px;
+        overflow-y: auto;
+        padding: 0;
+    }
+</style>
+<div>
+    <div class="container-fluid shadow"
+         style=" border-radius:0 12px 12px 0; width: 95%; margin-top: 30px;">
+        <div class="row">
+            <div class="col-md-7" style="padding: 0; ">
+                <div style="background-color: #5b5b5b; border-radius: 12px 0 0 12px; display: flex; justify-content: center; align-items: center; width: 97%; height: 703px;">
+                    @if(Model.f.Image == null)
+                        {
+                        <img src="~/Images/tải xuống.jfif"
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="@Model.f.Image"
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-5 scrollFt" style="max-height: 718px; padding: 0;overflow-y: auto;">
+                <div style="margin: 20px 0 0 20px; width: 90%;">
+                    <div style="display: flex;">
+                        <img src="@Model.i.Image" width="50px" height="50px" style="margin-right: 20px;" />
+                        <h6>
+                            @Model.i.Fullname
+                            @{
+                                TimeSpan timeDiff = (TimeSpan)(DateTime.Now - Model.f.CreateAt);
+                                string timeDisplay;
+
+                                if (timeDiff.TotalMinutes < 60)
+                                {
+                                    timeDisplay = $"{(int)timeDiff.TotalMinutes} phút trước";
+                                }
+                                else if (timeDiff.TotalHours < 24)
+                                {
+                                    timeDisplay = $"{(int)timeDiff.TotalHours} giờ trước";
+                                }
+                                else
+                                {
+                                    timeDisplay = $"{(int)timeDiff.TotalDays} ngày trước";
+                                }
+                            }
+                            <p style="font-weight: normal; font-size: 13px;">@timeDisplay</p>
+                        </h6>
+                        <a href="/Forum" style="margin-left: auto; cursor: pointer; font-size: 20px; color:black"><i class="bi bi-x-lg "></i></a>
+                    </div>
+                    <h6>@Model.f.Title</h6>
+                    <p style="font-size: 18px; text-align: justify; line-height: 1.8;">
+                        @Model.f.Content
+                    </p>
+
+                    <div class="row shadow forum-item" style="border-radius: 30px; width: 100%; padding: 5px;">
+                        <div class="col-md-1" style="margin-top: 5px;">
+                            <form style="margin:0" asp-page-handler="Like" method="post">
+                                <input name="id" value="@Model.f.ForumId" hidden/>
+                                <button class="like-button" type="submit" data-id="@Model.f.ForumId" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
+                                    <i class="bi bi-heart-fill"></i>
+                                </butto>
+                            </form>
+                        </div>
+                        <div class="col-md-1" style="margin-top: 5px;">
+                                <button id="chat-icon" type="submit" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
+                                    <i class="bi bi-chat"></i>
+                                </button>
+                        </div>
+                        <div class="col-md-1" style="margin-top: 5px;">
+                            <form style="margin:0">
+                                <button  type="submit" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
+                                    <i class="bi bi-upload"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="col-md-3 text-center" style="margin: auto;padding-right: 0;">@Model.f.Views views</div>
+                        <div class="col-md-3 text-center like-count" style="margin: auto;padding-right: 0;">@Model.f.Likes likes</div>
+                        <div class="col-md-3 text-center" style="margin: auto;">@Model.f.Comments comments</div>
+                    </div>
+                    <form method="post" asp-page-handler="Comment">
+                        <div id="comment-form" style="display: none; margin-top: 10px;">
+                            <input name="id" value="@Model.f.ForumId" hidden />
+                            <textarea name="content" id="comment-text" rows="3" style="width: 100%; padding:10px; background:#eeeeee; border:none; border-radius:12px" placeholder="Viết bình luận..."></textarea>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
+                                <button id="submit-comment" type="submit" style="background:#ffcd16; border:none; padding: 8px 25px; border-radius:12px;">Gửi</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-4">
+                        @foreach (var i in (IEnumerable<dynamic>)ViewData["comment"])
+                        {
+                            <div class="mt-1 container-fluid"
+                                 style="background-color: #eeeeee; border-radius: 12px; padding: 10px;">
+                                <div class="row">
+                                    <div class="col-md-10" style="display: flex;">
+                                        <img src="@i.img" width="38px" height="38px"
+                                             style="border-radius: 50%; margin-right: 10px;" />
+                                        <h5 class="text-center" style="margin:auto 0;">@i.name</h5>
+                                    </div>
+                                    <div class="col-md-2"
+                                         style="display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-heart-fill text-center" style="margin: auto;"></i>
+                                    </div>
+                                </div>
+                                <p style="padding-left: 47px; width: 80%;">
+                                    @i.content
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let chatIcon = document.getElementById("chat-icon");
+        let commentForm = document.getElementById("comment-form");
+
+        chatIcon.addEventListener("click", function (event) {
+            if (commentForm.style.display === "none" || commentForm.style.display === "") {
+                commentForm.style.display = "block";
+            } else {
+                commentForm.style.display = "none";
+            }
+            event.stopPropagation(); 
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!commentForm.contains(event.target) && event.target !== chatIcon) {
+                commentForm.style.display = "none";
+            }
+        });
+    });
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".like-button").forEach(button => {
+            button.addEventListener("click", async function (event) {
+                event.preventDefault();
+
+                let postId = this.getAttribute("data-id");
+                let likeCountElement = this.closest(".forum-item").querySelector(".like-count");
+                let csrfToken = document.querySelector("input[name='__RequestVerificationToken']")?.value || "";
+
+                let response = await fetch(`/Forum/${postId}?handler=Like`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: JSON.stringify({ id: postId })
+                });
+
+                if (response.ok) {
+                    let result = await response.json();
+                    if (result.success) {
+                        likeCountElement.innerText = `${result.likes} likes`;
+                    } else {
+                        alert(result.message);
+                    }
+                } else {
+                    let errorText = await response.text();
+                    alert(`Lỗi: ${response.status} - ${errorText}`);
+                }
+            });
+        });
+    });
+
+</script>

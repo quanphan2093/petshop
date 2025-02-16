@@ -98,14 +98,13 @@
                                            data-status ="@pro.Status">
                                             <i class="uil uil-eye"></i>
                                         </a>
-                                        <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#editImage" data-productIMG="@Html.Raw(System.Text.Json.JsonSerializer.Serialize(pro.ProductImages.Select(img => new { img.ImgId, img.ImgUrl }).ToList()))"
-                                           data-productid="@pro.ProductId">
+                                       <a href="/Admin/DetailImageProduct?id=@pro.ProductId" class="btn btn-icon btn-pills btn-soft-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
                                                 <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                                                 <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
                                             </svg>
                                         </a>
-                                        <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times-circle"></i></a>
+                                        <a href="/Admin/Product/Delelte?productId=@pro.ProductId" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times-circle"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -117,23 +116,22 @@
         </div>
     </div><!--end row-->
 
-    <div class="row text-center">
-        <!-- PAGINATION START -->
-        <div class="col-12 mt-4">
-            <div class="d-md-flex align-items-center text-center justify-content-between">
-                <span class="text-muted me-3">Showing 1 - 10 out of 50</span>
-                <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                    @if(Model.totalPage != null)
-                    {
-                        @for(int i=1; i <= Model.totalPage; i++){
-                            <li class="page-item @(Model.currentPage == i? "active" : "")"><a class="page-link" href="/Admin/Product?current=@i">@i</a></li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div><!--end col-->
-        <!-- PAGINATION END -->
-    </div><!--end row-->
+     <div class="row text-center">
+         <!-- PAGINATION START -->
+         <div class="col-12 mt-4">
+             <div class="d-md-flex align-items-center text-center justify-content-between">
+                 <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+                     @if(Model.totalPage != null)
+                     {
+                         @for(int i=1; i <= Model.totalPage; i++){
+                             <li class="page-item @(Model.currentPage == i? "active" : "")"><a class="page-link" href="/Admin/Product?current=@i">@i</a></li>
+                         }
+                     }
+                 </ul>
+             </div>
+         </div><!--end col-->
+         <!-- PAGINATION END -->
+     </div><!--end row-->
 </div>
 
 
@@ -259,7 +257,7 @@
                         </div><!--end col-->
                         <div class="col-lg-12">
                             <div class="mb-3">
-                                <label class="form-label">Ảnh : </label>
+                                <label class="form-label">Ảnh (Để trống nếu không thay đổi) : </label>
                                 <input name="productImg" id="productImg" type="file" class="form-control" placeholder="ảnh :" accept="image/*">
                             </div>
                         </div><!--end col-->
@@ -313,41 +311,6 @@
                             <div class="mb-3">
                                 <label class="form-label">Đơn vị trong kho <span class="text-danger">*</span> : </label>
                                 <input required oninput="this.value = Math.max(0, this.value)" name="prounitInStock" id="prounitInStock" type="number" class="form-control" placeholder="Đơn vị trong kho:">
-                            </div>
-                        </div><!--end col-->
-
-                        <div class="col-lg-12">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                            </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modalImageContent">
-        <div class="modal-content">
-            <div class="modal-header border-bottom p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Hình ảnh Sản phẩm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-3 pt-4 ">
-                <form method="post" asp-page="productAdmin" enctype="multipart/form-data">
-                    <input type="hidden" name="method" value="updateImage"/>
-                    <input type="hidden" name="productId"/>
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <div class="mb-3">
-                                <img class="img-fluid mb-4 rounded-15 bg-light" src="~/tpl/img/product-1.png" alt="">
-                            </div>
-                        </div><!--end col-->
-                        <div class="col-lg-8">
-                            <div class="mb-3">
-                                <input name="productDetail" type="file" id="img" rows="4" class="form-control"/>
                             </div>
                         </div><!--end col-->
 

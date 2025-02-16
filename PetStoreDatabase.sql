@@ -147,7 +147,6 @@ CREATE TABLE Infor (
 	Image Nvarchar(Max),
 	AccountID INT FOREIGN KEY REFERENCES Account(AccountID),
 	StateId INT FOREIGN KEY REFERENCES StateInfor(StateId)
-
 )
 
 CREATE TABLE ProductImage(
@@ -177,6 +176,33 @@ ALTER TABLE Forum
 ADD [Image] NVARCHAR(255),
 	[Age] INT DEFAULT 0,
 	[GENE] BIT DEFAULT 0;
+
+ALTER TABLE Forum
+ADD views INT,
+	likes int,
+	comments INT,
+	title NVARCHAR(255);
+
+CREATE TABLE Hashtags(
+	HashtagID INT PRIMARY KEY IDENTITY,
+    Tag VARCHAR(100) UNIQUE NOT NULL
+)
+
+CREATE TABLE PostHashtags (
+	PostHashtagsId INT PRIMARY KEY IDENTITY,
+    ForumID INT NOT NULL,
+    HashtagID INT NOT NULL,
+    FOREIGN KEY (ForumID) REFERENCES Forum(ForumId),
+    FOREIGN KEY (HashtagID) REFERENCES Hashtags(HashtagID)
+);
+
+CREATE TABLE ForumType(
+	TypeId INT PRIMARY KEY IDENTITY,
+	TypeName NVARCHAR(255)
+)
+
+ALTER TABLE Forum
+ADD TypeId INT FOREIGN KEY (TypeId) REFERENCES ForumType(TypeId);
 
 CREATE TABLE PaymentMethod (
 	methodId int primary key identity(1,1),
@@ -208,10 +234,14 @@ VALUES
 
 INSERT INTO Account (Email, Password, CreateAt, UpdateAt, [State], RoleID)
 VALUES 
-('admin@example.com', 'admin123', GETDATE(), GETDATE(), 'Active', 1),
-('sales@example.com', 'sales123', GETDATE(), GETDATE(), 'Active', 3),
-('support@example.com', 'support123', GETDATE(), GETDATE(), 'Inactive', 4),
-('manager@example.com', 'manager123', GETDATE(), GETDATE(), 'Active', 5);
+--admin123
+('adminfurfriends@gmail.com', '$2a$11$mTqrUFm2l58Yf.8rZuoXRetDlqtZPGe2T2IN7p9OjjjG4SuBtdVGe', GETDATE(), GETDATE(), 'Active', 1),
+('salesfurfriends@gmail.com', '$2a$11$L5M8UODpM6bbsbDJRUiEoOWpfggiJD8CiZhbz9qj2rpFgWw0iPXyi', GETDATE(), GETDATE(), 'Active', 3),
+('supportfurfriends@gmail.com', '$2a$11$Tq5zSpdnI38J8J3qtuzP6Ogs6.BTOwJ4JDl3.mp0R40pvTX8vnqWm', GETDATE(), GETDATE(), 'Inactive', 4),
+('managerfurfriends@gmail.com', '$2a$11$F344X3nn60LQbidNnp0NeuZc0q.QbjrWbTj1qY2p/PFEzV.CODo4u', GETDATE(), GETDATE(), 'Active', 5);
+
+INSERT INTO Infor (Fullname, Phone, Address, Gender, Image, AccountID) values
+('Admin','0396925536','Thuong Tin, Ha Noi','1',null,1)
 
 INSERT INTO StatusOrder (StatusName)
 VALUES 
@@ -228,3 +258,5 @@ VALUES
 (N'Thức ăn'),
 (N'Đồ chơi'),
 (N'Vòng cổ');
+
+INSERT INTO ForumType VALUES (N'Câu chuyện thú cưng') ,(N'Thắc mắc & tư vấn')

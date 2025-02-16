@@ -19,7 +19,7 @@ editProductModal.addEventListener('show.bs.modal', function (event) {
     discount = discount ? discount : 0;
     size = size ? size : null;
     unitInStock = unitInStock ? unitInStock : 0;
-
+     
     // Điền dữ liệu vào các input của modal
     editProductModal.querySelector('input[name="productId"]').value = productId;
     editProductModal.querySelector('input[name="productName"]').value = productName;
@@ -33,19 +33,4 @@ editProductModal.addEventListener('show.bs.modal', function (event) {
     let categorySelect = editProductModal.querySelector('select[name="productCate"]');
     categorySelect.value = categoryId;
     editProductModal.querySelector('select[name="prostatus"]').value = status;
-});
-
-
-const editImageModal = document.getElementById('editImage');
-
-editImageModal.addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget; // Button that triggered the modal
-
-    // Lấy dữ liệu từ các thuộc tính data-*
-    const productId = button.getAttribute('data-productid');
-
-    let listImg = button.getAttribute('data-productIMG');
-    //listImg = JSON.parse(listImg);
-    console.log(listImg);
-
 });
