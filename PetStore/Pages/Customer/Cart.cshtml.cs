@@ -23,6 +23,7 @@ namespace PetStore.Pages.Customer
             }
             lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
                 .ThenInclude(p => p.Category).Where(c => c.AccountId == acc).ToList();
+            if(lsCart == null) Response.Redirect("/Home");
             foreach (var p in lsCart)
             {
                 totalPro = totalPro + (int)p.Quantity;

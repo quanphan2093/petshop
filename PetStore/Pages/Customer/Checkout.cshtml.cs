@@ -53,7 +53,8 @@ namespace PetStore.Pages.Customer
                 return;
             }
             lspayMethod = PetStoreContext.Ins.PaymentMethods.Where(pm => pm.Status == "active").ToList();
-            foreach(var p in lsCart)
+            if(lspayMethod == null) Response.Redirect("/Home");
+            foreach (var p in lsCart)
             {
                 totalPro = totalPro + (int)p.Quantity;
             }

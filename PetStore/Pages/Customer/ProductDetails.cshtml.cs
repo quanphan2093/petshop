@@ -16,27 +16,30 @@ namespace PetStore.Pages.Customer
 
         [BindProperty]
         public List<Product> lsProduct { get; set; } = new List<Product>();
-        public void OnGet(int? id)
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
-                return;
+                return Redirect("/Home");
             }
 
-            // Query the product from the database
             product = PetStoreContext.Ins.Products
-                                      .Include(p => p.ProductImages)
+                                      .Include(p => p.ProductImages).Where(p => p.Status == "Available")
                                       .FirstOrDefault(p => p.ProductId == id);
+            if (product == null) return Redirect("/Home");
             var listfeedbacks = PetStoreContext.Ins.Feedbacks.Include(a => a.Account).ThenInclude(i => i.Infors)
                 .Where(f => f.ProductId == id).AsQueryable();
-
+            if(listfeedbacks == null) return Redirect("/Home");
             lsfeedbacks = listfeedbacks.ToList();
 
             var listImage = PetStoreContext.Ins.ProductImages.Where(p => p.ProductId == id).AsQueryable();
+            if(listImage == null) return Redirect("/Home");
             lsImage = listImage.ToList();
 
             var listProduct = PetStoreContext.Ins.Products.Include(p => p.Category).OrderBy(p => p.UnitOrdered).Take(5).AsQueryable();
+            if (listProduct == null) return Redirect("/Home");
             lsProduct = listProduct.ToList();
+            return Page();
 
         }
     }
