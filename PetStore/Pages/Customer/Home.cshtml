@@ -5,23 +5,33 @@
 }
 <link href="~/css/home.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
 @using System.Globalization
-<div class="banner-container">
-    <button class="prev" style="z-index:10;"><i class="bi bi-caret-left-fill"></i></button>
-    <div class="image-container-banner">
-         <a href="/Home">
-            <img style="min-height: 100% !important; object-fit:contain !important;" alt="home" class="slide" src="~/Images/bannerForum.jpg">
-        </a>
-        <a href="https://www.facebook.com/nhungnguoibanlamlongg" target="_blank">
-            <img style="min-height: 100% !important; object-fit:contain !important;" alt="facebook" class="slide" src="~/Images/BannerFacebook.png">
-        </a>
-        <a href="/Product">
-            <img style="min-height: 100% !important; object-fit:contain !important;" alt="product" class="slide" src="~/Images/BannerProduct.png">
-        </a>
+<div id="carouselexamplecontrols" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="/home">
+                <img src="~/images/bannerforum.jpg" class="d-block w-100" alt="home">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="https://www.facebook.com/nhungnguoibanlamlongg" target="_blank">
+                <img src="~/images/bannerfacebook.png" class="d-block w-100" alt="pagefacebook">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="/product">
+                <img src="~/images/bannerproduct.png" class="d-block w-100" alt="product">
+            </a>
+        </div>
     </div>
-    <button class="next" style="z-index:10;"><i class="bi bi-caret-right-fill"></i></button>
+    <button class="carousel-control-prev ms-2" type="button" data-bs-target="#carouselexamplecontrols" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">previous</span>
+    </button>
+    <button class="carousel-control-next me-2" type="button" data-bs-target="#carouselexamplecontrols" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">next</span>
+    </button>
 </div>
-<div class="dots-container"></div>
-
 <div class="container mt-4">
     <div style="display: flex; justify-content: space-between;">
         <div>
@@ -121,4 +131,3 @@
         </div>
     </div>
 </div>
-<script src="~/js//ScrollImageScript.js"></script>
