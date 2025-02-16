@@ -13,6 +13,7 @@ namespace PetStore.Pages.Admin
             _context = context;
         }
         public List<OrderDetail> orderDetails { get;set; }= new List<OrderDetail>();
+        
         public int Total { get; set; }  
         public IActionResult OnGet(int? id)
         {

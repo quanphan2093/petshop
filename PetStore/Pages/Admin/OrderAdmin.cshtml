@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
+                            @foreach (var i in Model.ordersview)
                             {
                                 <tr>
                                     <th class="p-3">@i.OrderId</th>
@@ -84,28 +84,28 @@
                                     <td class="p-3">
                                         <a href="#" class="text-dark">
                                             <div class="d-flex align-items-center">
-                                                <img src="@i.image" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                <span class="ms-2">@i.name</span>
+                                                <img src="@i.Image" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                <span class="ms-2">@i.Name</span>
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="p-3">@i.addresses</td>
-                                    <td class="p-3">@i.payment</td>
-                                    <td class="p-3">@i.createAt</td>
-                                    <td class="p-3">@i.updateAt</td>
+                                    <td class="p-3">@i.Addresses</td>
+                                    <td class="p-3">@i.Payment</td>
+                                    <td class="p-3">@i.CreateAt</td>
+                                    <td class="p-3">@i.UpdateAt</td>
                                     <td class="p-3">
                                         <a href="#" class="text-dark">
                                             <div class="d-flex align-items-center">
-                                                <img src="@i.imageSale" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                <span class="ms-2">@i.nameSale</span>
+                                                <img src="@i.ImageSale" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                                <span class="ms-2">@i.NameSale</span>
                                             </div>
                                         </a>
                                     </td>
-                                    <td class="p-3">@i.note</td>
-                                    <td class="p-3">@i.notebySale</td>
+                                    <td class="p-3">@i.Note</td>
+                                    <td class="p-3">@i.NoteBySale</td>
                                     <td class="p-3">
-                                        @i.status
-                                        @if (i.statusId == 1)
+                                        @i.Status
+                                        @if (i.StatusId == 1)
                                         {
                                             <form method="post" asp-page-handler="UpdateStatus">
                                                 <input type="hidden" name="orderId" value="@i.OrderId" />
@@ -113,7 +113,7 @@
                                                 <button type="submit" class="btn btn-warning">Chờ giao hàng</button>
                                             </form>
                                         }
-                                        @if (i.statusId == 3)
+                                        @if (i.StatusId == 3)
                                         {
                                             <form method="post" asp-page-handler="UpdateStatus">
                                                 <input type="hidden" name="orderId" value="@i.OrderId" />
@@ -121,7 +121,7 @@
                                                 <button type="submit" class="btn btn-info">Vận chuyển</button>
                                             </form>
                                         }
-                                        @if (i.statusId == 2)
+                                        @if (i.StatusId == 2)
                                         {
                                             <form method="post" asp-page-handler="UpdateStatus">
                                                 <input type="hidden" name="orderId" value="@i.OrderId" />
@@ -151,23 +151,14 @@
                     out of @ViewData["TotalItems"]
                     </span>*@
                     <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                        <!-- Nút "Prev" -->
-                        <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
-                            <a class="page-link" href="@(Model.PageNumber > 1 ? $"/Admin/Order?page={Model.PageNumber - 1}&status={Model.Status ?? "All"}&payment={Model.Payment ?? "All"}" : "#")" aria-label="Previous">Prev</a>
-                        </li>
-
                         @for (int i = 1; i <= Model.TotalPages; i++)
                         {
                             <li class="page-item @(Model.PageNumber == i ? "active" : "")">
-                                <a class="page-link" href="/Admin/Order?page=@i&status=@(Model.Status ?? "All")&payment=@(Model.Payment ?? "All")">@i</a>
+                                <a class="page-link" href="/Admin/Order?pagenum=@i&status=@(Model.Status ?? "All")&payment=@(Model.Payment ?? "All")">@i</a>
                             </li>
                         }
-
-                        <!-- Nút "Next" -->
-                        <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
-                            <a class="page-link" href="@(Model.PageNumber < Model.TotalPages ? $"/Admin/Order?page={Model.PageNumber + 1}&status={Model.Status ?? "All"}&payment={Model.Payment ?? "All"}" : "#")" aria-label="Next">Next</a>
-                        </li>
                     </ul>
+
 
                 </div>
             </div>

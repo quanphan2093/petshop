@@ -19,88 +19,102 @@ namespace PetStore.Pages.Admin
         public List<PaymentMethod> paymentMethods { get; set; } = new List<PaymentMethod>();
         public List<StatusOrder> statusOrders { get; set; } = new List<StatusOrder>();
         public List<Address> addresses { get; set; } = new List<Address>();
-        public const int PAGE_SIZE =10;
-        public int TotalPages { get; set; }
-        public int PageNumber { get; set; }
+        public List<OrderViewModel> ordersview { get; set; } = new List<OrderViewModel>();
+        public int PAGE_SIZE =10;
+        public int TotalPages = 0;
+        public int PageNumber =0;
         public string Status { get; set; }
         public string Payment { get; set; }
         public string s { get; set; }
-
-        private void GetData(int? page, string status, string payment)
+        public IActionResult OnGet(string status, string payment, int? pagenum = 1)
         {
-            
-            int pageNumber = page ?? 1;
-
-            accounts = _context.Accounts.ToList();
-            infors = _context.Infors.ToList();
-            orders = _context.Orders.ToList();
-            addresses = _context.Addresses.ToList();
-            statusOrders = _context.StatusOrders.ToList();
-            paymentMethods = _context.PaymentMethods.ToList();
-
-            var order = from o in orders
-                        join i in infors on o.AccountId equals i.AccountId
-                        join a in addresses on o.AddressId equals a.AddressId
-                        join p in paymentMethods on o.PaymentMethodId equals p.MethodId
-                        join s in statusOrders on o.StatusId equals s.StatusId
-                        join sale in infors on o.SaleId equals sale.AccountId into saleJoin
+            //string? roleName = HttpContext.Session.GetString("roleName");
+            //if (roleName == null || roleName == "Customer")
+            //{
+            //    return Redirect("/login");
+            //}
+            Console.WriteLine($"Processing page: {pagenum}");
+            GetData(status, payment, pagenum);
+            return Page();
+        }
+        private void GetData(string status, string payment, int? pagenum = 1)
+        {
+            Console.WriteLine($"Processing page: {pagenum}");
+            var query = from o in _context.Orders
+                        join i in _context.Infors on o.AccountId equals i.AccountId
+                        join a in _context.Addresses on o.AddressId equals a.AddressId
+                        join p in _context.PaymentMethods on o.PaymentMethodId equals p.MethodId
+                        join s in _context.StatusOrders on o.StatusId equals s.StatusId
+                        join sale in _context.Infors on o.SaleId equals sale.AccountId into saleJoin
                         from sale in saleJoin.DefaultIfEmpty()
-                        select new
+                        select new OrderViewModel
                         {
                             OrderId = o.OrderId,
-                            image = i.Image,
-                            name = i.Fullname,
-                            status = s.StatusName,
-                            createAt = o.CreateAt,
-                            updateAt = o.UpdateAt,
-                            note = o.Note,
-                            notebySale = o.NoteBySale,
-                            imageSale = sale != null ? sale.Image : null,
-                            nameSale = sale != null ? sale.Fullname : "Không có sale",
-                            payment = p.MethodName,
-                            addresses = a.Address1,
-                            statusId = o.StatusId,
-                            paymentId = o.PaymentMethodId,
+                            Image = i.Image,
+                            Name = i.Fullname,
+                            Status = s.StatusName,
+                            CreateAt = o.CreateAt,
+                            UpdateAt = o.UpdateAt,
+                            Note = o.Note,
+                            NoteBySale = o.NoteBySale,
+                            ImageSale = sale != null ? sale.Image : null,
+                            NameSale = sale != null ? sale.Fullname : "Không có sale",
+                            Payment = p.MethodName,
+                            Addresses = a.Address1,
+                            StatusId = o.StatusId,
+                            PaymentId = o.PaymentMethodId,
                         };
+
             if (!string.IsNullOrEmpty(status) && status != "All" && int.TryParse(status, out int statusId))
             {
-                order = order.Where(x => x.statusId == statusId);
+                query = query.Where(x => x.StatusId == statusId);
             }
             if (!string.IsNullOrEmpty(payment) && payment != "All" && int.TryParse(payment, out int paymentId))
             {
-                order = order.Where(x => x.paymentId == paymentId);
+                query = query.Where(x => x.PaymentId == paymentId);
             }
+
             Status = status;
             Payment = payment;
-            var totalItems = order.Count();
-            var totalPages = (int)Math.Ceiling(totalItems / (double)PAGE_SIZE);
-            TotalPages = totalPages;
-            PageNumber = pageNumber;
-            var paginatedOrders = order
-                .Skip((pageNumber - 1) * PAGE_SIZE)
+
+            int totalItems = query.Count();
+            TotalPages = (int)Math.Ceiling(totalItems / (double)PAGE_SIZE);
+            PageNumber = pagenum.Value;
+            ordersview = query
+                .Skip((pagenum.Value - 1) * PAGE_SIZE)
                 .Take(PAGE_SIZE)
                 .ToList();
-            ViewData["order"] = paginatedOrders;
-        }
-        public IActionResult OnGet(int? page, string status, string payment)
-        {
-            string? roleName = HttpContext.Session.GetString("roleName");
-            if (roleName == null || roleName == "Customer")
-            {
-                return Redirect("/login");
-            }
-            GetData(page, status, payment);
-            return Page();
         }
 
-        public IActionResult OnPostUpdateStatus(string orderId, string status, int? page, string sta, string payment)
+       
+
+        public IActionResult OnPostUpdateStatus(string orderId, string status, string sta, string payment, int? pagenum = 1)
         {   
-            GetData(page,sta,payment);
+            GetData(sta,payment, pagenum);
             Order o = _context.Orders.Where(x => x.OrderId == int.Parse(orderId)).FirstOrDefault();
             o.StatusId = int.Parse(status);
             _context.Orders.Update(o);
             _context.SaveChanges();
             return RedirectToPage();
         }
+
+        public class OrderViewModel
+        {
+            public int OrderId { get; set; }
+            public string Image { get; set; }
+            public string Name { get; set; }
+            public string Status { get; set; }
+            public DateTime? CreateAt { get; set; }
+            public DateTime? UpdateAt { get; set; }
+            public string Note { get; set; }
+            public string NoteBySale { get; set; }
+            public string ImageSale { get; set; }
+            public string NameSale { get; set; }
+            public string Payment { get; set; }
+            public string Addresses { get; set; }
+            public int? StatusId { get; set; }
+            public int? PaymentId { get; set; }
+        }
+
     }
 }
