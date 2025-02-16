@@ -3,71 +3,24 @@
 @{
     Layout = "_Layout";
 }
+<link href="~/css/home.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
 @using System.Globalization
-<style>
-    .image-container {
-        position: relative;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-        .image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-    .button-container {
-        position: absolute;
-        top: 82%;
-        left: 80%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        gap: 10px;
-    }
-
-        .button-container button {
-            border-radius: 20px;
-            padding: 8px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-    .btn-view-intro {
-        background-color: #ffcd16;
-        border: #085998 2px solid;
-        color: #085998;
-    }
-
-        .btn-view-intro a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .btn-view-intro i {
-            border-radius: 50%;
-            border: 1px solid #085998;
-            padding: 0 3px;
-        }
-
-    .btn-discover {
-        background-color: #085998;
-        color: #ffffff;
-        border: none;
-    }
-
-        .btn-discover a {
-            text-decoration: none;
-            color: inherit;
-        }
-</style>
-
 <div class="banner-container">
-    <div class="image-container">
-        <img src="~/Images/bannerHome.png?v=@DateTime.Now.Ticks" width="100%">
+    <button class="prev" style="z-index:10;"><i class="bi bi-caret-left-fill"></i></button>
+    <div class="image-container-banner">
+         <a href="/Home">
+            <img style="min-height: 100% !important; object-fit:contain !important;" alt="home" class="slide" src="~/Images/bannerForum.jpg">
+        </a>
+        <a href="https://www.facebook.com/nhungnguoibanlamlongg" target="_blank">
+            <img style="min-height: 100% !important; object-fit:contain !important;" alt="facebook" class="slide" src="~/Images/BannerFacebook.png">
+        </a>
+        <a href="/Product">
+            <img style="min-height: 100% !important; object-fit:contain !important;" alt="product" class="slide" src="~/Images/BannerProduct.png">
+        </a>
     </div>
+    <button class="next" style="z-index:10;"><i class="bi bi-caret-right-fill"></i></button>
 </div>
+<div class="dots-container"></div>
 
 <div class="container mt-4">
     <div style="display: flex; justify-content: space-between;">
@@ -168,3 +121,4 @@
         </div>
     </div>
 </div>
+<script src="~/js//ScrollImageScript.js"></script>
