@@ -1,8 +1,8 @@
 ﻿
-Create database PetStore
+Create database PetStoreTest
 go
 
-use PetStore
+use PetStoreTest
 
 Go
 -- Table: Role
@@ -236,8 +236,11 @@ INSERT INTO Account (Email, Password, CreateAt, UpdateAt, [State], RoleID)
 VALUES 
 --admin123
 ('adminfurfriends@gmail.com', '$2a$11$mTqrUFm2l58Yf.8rZuoXRetDlqtZPGe2T2IN7p9OjjjG4SuBtdVGe', GETDATE(), GETDATE(), 'Active', 1),
+--sales123
 ('salesfurfriends@gmail.com', '$2a$11$L5M8UODpM6bbsbDJRUiEoOWpfggiJD8CiZhbz9qj2rpFgWw0iPXyi', GETDATE(), GETDATE(), 'Active', 3),
+--support123
 ('supportfurfriends@gmail.com', '$2a$11$Tq5zSpdnI38J8J3qtuzP6Ogs6.BTOwJ4JDl3.mp0R40pvTX8vnqWm', GETDATE(), GETDATE(), 'Inactive', 4),
+--manager123
 ('managerfurfriends@gmail.com', '$2a$11$F344X3nn60LQbidNnp0NeuZc0q.QbjrWbTj1qY2p/PFEzV.CODo4u', GETDATE(), GETDATE(), 'Active', 5);
 
 INSERT INTO Infor (Fullname, Phone, Address, Gender, Image, AccountID) values
