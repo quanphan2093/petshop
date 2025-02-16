@@ -5,16 +5,16 @@
       "PackagePath": "staticwebassets\\PetStore.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg",
-      "PackagePath": "staticwebassets\\Images\\2dade952-74cc-430a-ae0c-c021f39d6b16_wallpaperflare.com_wallpaper (6).jpg"
-    },
-    {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png",
       "PackagePath": "staticwebassets\\Images\\31c10c20d326b9ab4937a675d0a9bcd6 1.png"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg",
-      "PackagePath": "staticwebassets\\Images\\744b99f3-2581-4a3d-ab29-edc5b62510f4_wallpaperflare.com_wallpaper (6).jpg"
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\BannerFacebook.png",
+      "PackagePath": "staticwebassets\\Images\\BannerFacebook.png"
+    },
+    {
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\BannerProduct.png",
+      "PackagePath": "staticwebassets\\Images\\BannerProduct.png"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Frame 7.png",
@@ -23,26 +23,6 @@
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Frame.png",
       "PackagePath": "staticwebassets\\Images\\Frame.png"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Images_Profile\\312ea31f-f343-4ecb-96e5-5bcc4bfec40b_wallpaperflare.com_wallpaper (6).jpg",
-      "PackagePath": "staticwebassets\\Images\\Images_Profile\\312ea31f-f343-4ecb-96e5-5bcc4bfec40b_wallpaperflare.com_wallpaper (6).jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Images_Profile\\3386f3f4-0832-4597-83ce-7512e4a7b50a_Hoang10pe.jpg",
-      "PackagePath": "staticwebassets\\Images\\Images_Profile\\3386f3f4-0832-4597-83ce-7512e4a7b50a_Hoang10pe.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Images_Profile\\94818c8b-f12d-4269-abe2-d56f654cbd1a_9508b8ec-e7ac-4012-8b8a-20fa2be73b5a.jpg",
-      "PackagePath": "staticwebassets\\Images\\Images_Profile\\94818c8b-f12d-4269-abe2-d56f654cbd1a_9508b8ec-e7ac-4012-8b8a-20fa2be73b5a.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Images_Profile\\9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg",
-      "PackagePath": "staticwebassets\\Images\\Images_Profile\\9c492716-a726-49fe-a8ad-9f3aa8ee8dcc_Hoang10pe.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Images_Profile\\9ffb9caf-89b7-455a-9cf0-9d3d03378e51_wallpaperflare.com_wallpaper (6).jpg",
-      "PackagePath": "staticwebassets\\Images\\Images_Profile\\9ffb9caf-89b7-455a-9cf0-9d3d03378e51_wallpaperflare.com_wallpaper (6).jpg"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\Shopping bag.png",
@@ -69,12 +49,16 @@
       "PackagePath": "staticwebassets\\Images\\bankingQR\\bankingQR.jpg"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\bannerHome.png",
-      "PackagePath": "staticwebassets\\Images\\bannerHome.png"
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\banner2.jpg",
+      "PackagePath": "staticwebassets\\Images\\banner2.jpg"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\fe16332d-07b2-4039-994b-335c0e8e1586_Hoang10pe.jpg",
-      "PackagePath": "staticwebassets\\Images\\fe16332d-07b2-4039-994b-335c0e8e1586_Hoang10pe.jpg"
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\bannerForum.jpg",
+      "PackagePath": "staticwebassets\\Images\\bannerForum.jpg"
+    },
+    {
+      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\bannerHome.png",
+      "PackagePath": "staticwebassets\\Images\\bannerHome.png"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\Images\\tải xuống.jfif",
@@ -1477,10 +1461,6 @@
       "PackagePath": "staticwebassets\\tpl\\img\\blog-2.jpg"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\cristina-gottardi-CSpjU6hYo_0-unsplash.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\cristina-gottardi-CSpjU6hYo_0-unsplash.jpg"
-    },
-    {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\hero.jpg",
       "PackagePath": "staticwebassets\\tpl\\img\\hero.jpg"
     },
@@ -1505,52 +1485,8 @@
       "PackagePath": "staticwebassets\\tpl\\img\\product-4.png"
     },
     {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\team-1.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\team-1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\team-2.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\team-2.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\team-3.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\team-3.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\team-4.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\team-4.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\team-5.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\team-5.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\testimonial-1.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\testimonial-1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\testimonial-2.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\testimonial-2.jpg"
-    },
-    {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\testimonial.jpg",
       "PackagePath": "staticwebassets\\tpl\\img\\testimonial.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\user.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\user.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\wallpaperflare.com_wallpaper (1).jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\wallpaperflare.com_wallpaper (1).jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\wallpaperflare.com_wallpaper.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\wallpaperflare.com_wallpaper.jpg"
-    },
-    {
-      "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\img\\wallpaperflare.com_wallpaper_1.jpg",
-      "PackagePath": "staticwebassets\\tpl\\img\\wallpaperflare.com_wallpaper_1.jpg"
     },
     {
       "Id": "C:\\Users\\admin\\Desktop\\checkout\\PetStore\\wwwroot\\tpl\\js\\main.js",

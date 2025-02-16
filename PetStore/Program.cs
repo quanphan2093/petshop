@@ -10,7 +10,6 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("value")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<PetStoreContext>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
