@@ -28,18 +28,18 @@ namespace PetStore.Pages.Admin
         public string s { get; set; }
         public IActionResult OnGet(string status, string payment, int? pagenum = 1)
         {
-            //string? roleName = HttpContext.Session.GetString("roleName");
-            //if (roleName == null || roleName == "Customer")
-            //{
-            //    return Redirect("/login");
-            //}
-            Console.WriteLine($"Processing page: {pagenum}");
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName == "Customer")
+            {
+                return Redirect("/login");
+            }
             GetData(status, payment, pagenum);
             return Page();
         }
         private void GetData(string status, string payment, int? pagenum = 1)
         {
-            Console.WriteLine($"Processing page: {pagenum}");
+            paymentMethods = _context.PaymentMethods.ToList();
+            statusOrders = _context.StatusOrders.ToList();
             var query = from o in _context.Orders
                         join i in _context.Infors on o.AccountId equals i.AccountId
                         join a in _context.Addresses on o.AddressId equals a.AddressId
