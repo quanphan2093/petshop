@@ -16,12 +16,16 @@ namespace PetStore.Pages.Admin
             List<ProductImage> proIMG = PetStoreContext.Ins.ProductImages.Where(p => p.ProductId == productId).ToList();
             if (proIMG != null)
             {
-                PetStoreContext.Ins.ProductImages.RemoveRange(proIMG);
+                foreach (var image in proIMG) {
+                    image.Status = "deleted";
+                }
+                PetStoreContext.Ins.ProductImages.UpdateRange(proIMG);
                 PetStoreContext.Ins.SaveChanges();
                 Product pro = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).FirstOrDefault();
                 if (pro != null)
                 {
-                    PetStoreContext.Ins.Products.Remove(pro);
+                    pro.Status = "deleted";
+                    PetStoreContext.Ins.Products.Update(pro);
                     PetStoreContext.Ins.SaveChanges();
                 }
             }
