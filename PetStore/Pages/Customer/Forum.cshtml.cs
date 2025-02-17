@@ -66,7 +66,8 @@ namespace PetStore.Pages.Customer
                             image = f.Image,
                             createAt = f.CreateAt,
                             name = i.Fullname,
-                            typeId = f.TypeId
+                            typeId = f.TypeId,
+                            imgProfile = i.Image
                         };
 
             forum = forum.OrderByDescending(x => x.createAt).ToList();
