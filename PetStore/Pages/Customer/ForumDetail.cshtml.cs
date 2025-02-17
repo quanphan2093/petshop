@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
 using System;
+using System.Xml.Linq;
 using static PetStore.Pages.Customer.ForumModel;
 
 namespace PetStore.Pages.Customer
@@ -13,6 +14,9 @@ namespace PetStore.Pages.Customer
         public List<Comment> comments { get; set; }
         public List<Account> accounts { get; set; }
         public List<Infor> infors { get; set; }
+        public List<ForumType> forumTypes { get; set; }
+        private IFormFile imageFile { get; set; }
+        public Infor info { get; set; }
         private readonly PetStoreContext _context;
         public ForumDetailModel(PetStoreContext context)
         {
@@ -20,7 +24,9 @@ namespace PetStore.Pages.Customer
         }
         public IActionResult OnGet(int? id)
         {
+            forumTypes = _context.ForumTypes.ToList();
             f = _context.Forums.Where(x => x.ForumId == id).SingleOrDefault();
+            info = _context.Infors.FirstOrDefault(x => x.AccountId == f.AccountId);
             comments=_context.Comments.ToList();
             infors=_context.Infors.ToList();
             accounts=_context.Accounts.ToList();
@@ -68,6 +74,41 @@ namespace PetStore.Pages.Customer
                 return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
             }
         }
+
+        public IActionResult OnPostEdit(int id, string title, string content, IFormFile? file, string forumType)
+        {
+            int? accId = HttpContext.Session.GetInt32("acc");
+            var forum = _context.Forums.Find(id);
+            if (accId == null || forum.AccountId != accId)
+            {
+                return RedirectToPage("/Common/Login");
+            }
+            f = _context.Forums.Where(x => x.ForumId == id).SingleOrDefault();
+            if (forum == null) return RedirectToPage();
+            imageFile = file;
+            if (imageFile != null)
+            {
+                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+                string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(fileStream);
+                }
+                forum.Image = $"/Images/{uniqueFileName}";
+            }
+            forum.Title = title;
+            forum.Content = content.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");
+            forum.TypeId = int.Parse(forumType);
+            _context.Forums.Update(forum);
+            _context.SaveChanges();
+
+            return RedirectToPage();
+        }
         public IActionResult OnPostComment(int id, string content)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
@@ -95,3 +136,5 @@ namespace PetStore.Pages.Customer
 
     }
 }
+
+
