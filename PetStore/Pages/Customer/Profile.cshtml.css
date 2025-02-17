@@ -45,7 +45,7 @@ h1 {
     max-width: 500px;
     padding: 20px;
     text-align: left;
-    margin-left: 150px; /* Lệch qua bên phải */
+    /*margin-left: 150px;*/ /* Lệch qua bên phải */
 }
 
     .profile-info p {

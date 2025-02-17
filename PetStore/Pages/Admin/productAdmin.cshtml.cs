@@ -11,7 +11,7 @@ namespace PetStore.Pages.Admin
     {
         public List<Product> lsProduct { get; set; } = new List<Product>();
         public int totalPage = 0;
-        private int pageSize = 1;
+        private int pageSize = 10;
         public int currentPage = 0;
         string pathSave = "/tpl/img/";
         public List<Category> lsCategory { get; set; } = new List<Category>();
