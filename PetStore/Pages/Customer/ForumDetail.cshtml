@@ -63,7 +63,7 @@
                     @if (Model.f.Image != null)
                     {
                         <img src="@Model.f.Image"
-                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: contain;" />
                     }
                 </div>
             </div>
@@ -109,7 +109,7 @@
                     </div>
                     <h6>@Model.f.Title</h6>
                     <p style="font-size: 18px; text-align: justify; line-height: 1.8;">
-                        @Model.f.Content
+                        @Html.Raw(Model.f.Content.Replace("\\r\\n", "<br>"))
                     </p>
 
                     <div class="row shadow forum-item" style="border-radius: 30px; width: 100%; padding: 5px;">
@@ -192,7 +192,7 @@
                     </div>
                     <input required value="@Model.f.Title" name="title" type="text" style="width:100%;background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none; color: white;" />
                     <textarea name="content" required
-                              style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;">@Model.f.Content</textarea>
+                              style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;"> @Html.Raw(Model.f.Content.Replace("\\r\\n", "\n"))</textarea>
                     <select name="forumType" style="width: 100%; height: 80px; background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none;color:white">
                         @foreach (var i in Model.forumTypes)
                         {

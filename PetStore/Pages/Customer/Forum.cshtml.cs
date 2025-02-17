@@ -158,7 +158,7 @@ namespace PetStore.Pages.Customer
             imageFile = file;
             Forum f = new Forum();
             f.Title = title;
-            f.Content = content;
+            f.Content = content.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");
             if (imageFile != null)
             {
                 string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");

@@ -102,7 +102,7 @@ namespace PetStore.Pages.Customer
                 forum.Image = $"/Images/{uniqueFileName}";
             }
             forum.Title = title;
-            forum.Content = content;
+            forum.Content = content.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");
             forum.TypeId = int.Parse(forumType);
             _context.Forums.Update(forum);
             _context.SaveChanges();

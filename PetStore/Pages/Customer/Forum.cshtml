@@ -95,7 +95,7 @@
                     </div>
                 }
             </form>
-            @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
+           @*  @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
             {
                 <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
                     <div style="margin: 5px 0 20px;">
@@ -109,7 +109,7 @@
                         }
                     </div>
                 </div>
-            }
+            } *@
         </div>
         
         <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;" >
@@ -144,7 +144,7 @@
                                 @if (i.image != null)
                                 {
                                     <div style="padding: 22px;">
-                                        <img src="@i.image" style="width: 100%;">
+                                        <img src="@i.image" style="width: 100%;"/>
                                     </div>
                                 }
                                 <div class="text-start" style="padding:0 22px; padding-top:10px">
@@ -162,7 +162,7 @@
                                         </div>
                                     </div>
                                     <p>
-                                        @i.content
+                                        @Html.Raw(i.content.Replace("\\r\\n", "<br>"))
                                     </p>
                                 </div>
                                 <div style="padding-bottom: 20px;">
@@ -231,30 +231,6 @@
                     </a>
                 }
             </div>
-
-            @*<div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
-                <h6 style="padding:15px 0; padding-top: 15px; color: #085998;">Blog <span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></h6>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-                    <div style="display: flex;">
-                        <img src="/image/Rectangle 24.png" width="50px" height="50px" style="margin-right: 15px;" />
-                        <div>
-                            <h6 style="color: #085998;">Hạt dầu cá hồi dành cho chó con kén ăn King’s Pet</h6>
-                            <p style="color: black;">by Michele Hansen</p>
-                        </div>
-                    </div>
-                    <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 7px;">
-                    <div style="display: flex;">
-                        <img src="/image/Rectangle 24.png" width="50px" height="50px" style="margin-right: 15px;" />
-                        <div>
-                            <h6 style="color: #085998;">Hạt dầu cá hồi dành cho chó con kén ăn King’s Pet</h6>
-                            <p style="color: black;">by Michele Hansen</p>
-                        </div>
-                    </div>
-                    <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
-                </div>
-            </div>*@
         </div>
     </div>
 </div>
