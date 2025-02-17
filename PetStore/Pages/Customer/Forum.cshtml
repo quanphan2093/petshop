@@ -3,6 +3,7 @@
 @{
     Layout = "_Layout";
 }
+<link href="~/css/forum.css" rel="stylesheet">
 <style>
     .text-blue {
         color: #085998;
@@ -58,7 +59,7 @@
 </style>
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row text-center">
-        <div class="col-md-3 text-center" style="display: flex; flex-direction: column; align-items: center; padding-left: 30px;">
+        <div class="col-md-3 text-center filter_forum" style="display: flex; flex-direction: column; align-items: center; padding-left: 30px;">
             <form style="width:100%" method="get">
                 <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
                     <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
@@ -166,7 +167,7 @@
                                     </p>
                                 </div>
                                 <div style="padding-bottom: 20px;">
-                                    <div class="text-start"
+                                    <div class="text-start forum_react"
                                          style="padding-left: 22px; display: flex; justify-content: space-between;">
                                         <div style="display: flex;">
                                             <img src="/image/Rectangle 24.png" width="30px" height="30px"
@@ -195,7 +196,7 @@
 
                                             </div>
                                         </div>
-                                        <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                        <div class="react" style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
                                             <div>@i.views Views</div>
                                             <div class="like-count">@i.likes Likes</div>
                                             <div>@i.comments comments</div>
@@ -211,7 +212,7 @@
                 <p>Đang tải...</p>
             </div>
         </div>
-        <div class="col-md-3" style="padding-right: 30px;">
+        <div class="col-md-3 product_forum" style="padding-right: 30px;">
             <div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
                 <h6 style="padding:15px 0; padding-top: 15px; color: #085998;">Sản phẩm<span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></h6>
                 @foreach (var i in Model.products)
