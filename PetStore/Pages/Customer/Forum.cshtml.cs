@@ -154,7 +154,8 @@ namespace PetStore.Pages.Customer
             var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
             if (info == null)
             {
-                return RedirectToPage("/Profile");
+                TempData["error"] = "Vui lòng điền đầy đủ thông tin của bạn trước khi đăng bài";
+                return Redirect("/Profile");
             }
             imageFile = file;
             Forum f = new Forum();
