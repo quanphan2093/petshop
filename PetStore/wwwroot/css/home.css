@@ -1,45 +1,21 @@
-﻿@media (max-width: 1599px) {
-    .banner-container {
-        height: 79vh !important;
-    }
-}
-@media (max-width: 1499px) {
-    .banner-container {
-        height: 70vh !important;
-    }
-}
-@media (max-width: 1399px) {
-    .banner-container {
-        height: 66vh !important;
-    }
-}
-@media (max-width: 1199px) {
-    .banner-container {
-        height: 50vh !important;
+﻿@media (max-width: 992px) {
+    .button-container button {
+        display: none;
     }
 }
 @media (max-width: 768px) {
     .button-container button {
         display:none;
     }
-    .banner-container {
-        height: 40vh !important;
-    }
 }
 @media (max-width: 550px) {
     .button-container button {
         display: none;
     }
-    .banner-container {
-        height: 28vh !important;
-    }
 }
 @media (max-width: 480px) {
     .button-container button {
         display: none;
-    }
-    .banner-container {
-        height: 17vh !important;
     }
 }
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\CheckPetShop\\petshop\\PetStore\\PetStore.csproj": {}
+    "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\PetStore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\CheckPetShop\\petshop\\PetStore\\PetStore.csproj": {
+    "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\PetStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\CheckPetShop\\petshop\\PetStore\\PetStore.csproj",
+        "projectUniqueName": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\PetStore.csproj",
         "projectName": "PetStore",
-        "projectPath": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\CheckPetShop\\petshop\\PetStore\\PetStore.csproj",
+        "projectPath": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\PetStore.csproj",
         "packagesPath": "C:\\Users\\Hi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\CheckPetShop\\petshop\\PetStore\\obj\\",
+        "outputPath": "C:\\Users\\Hi\\OneDrive - Đại học FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
