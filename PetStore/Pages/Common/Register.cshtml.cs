@@ -20,51 +20,51 @@ namespace PetStore.Pages.Common
             string comfirm = Request.Form["comfirm"];
             if (string.IsNullOrEmpty(email))
             {
-                ViewData["messageErrorRegister"] = "The email field is not empty.";
+                ViewData["messageErrorRegister"] = "Trường email không được để trống.";
                 return Page();
             }
             if (!Regex.IsMatch(email, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
             {
-                ViewData["messageErrorRegister"] = "Please input a valid email";
+                ViewData["messageErrorRegister"] = "Vui lòng nhập một địa chỉ email hợp lệ.";
                 return Page();
             }
             if (string.IsNullOrEmpty(pass))
             {
-                ViewData["messageErrorRegister"] = "Password cannot be null";
+                ViewData["messageErrorRegister"] = "Mật khẩu không được để trống.";
                 return Page();
             }
             var account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(email)).FirstOrDefault();
             if (account != null)
             {
-                ViewData["messageErrorRegister"] = "Email existed";
+                ViewData["messageErrorRegister"] = "Email đã tồn tại.";
                 return Page();
             }
             if (!pass.Trim().Equals(comfirm.Trim()))
             {
-                ViewData["messageErrorRegister"] = "Confirm password does not match.";
+                ViewData["messageErrorRegister"] = "Mật khẩu xác nhận không khớp";
                 return Page();
             }
             if (!Regex.IsMatch(pass, "(?=.*[A-Z])"))
             {
-                ViewData["messageErrorRegister"] = "The password must contain at least 1 uppercase letter.";
+                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 chữ cái viết hoa";
                 return Page();
             }
 
             if (!Regex.IsMatch(pass, "(?=.*[a-z])"))
             {
-                ViewData["messageErrorRegister"] = "The password must contain at least 1 lowercase letter.";
+                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 chữ cái viết thường.";
                 return Page();
             }
 
             if (!Regex.IsMatch(pass, "(?=.*[\\W_])"))
             {
-                ViewData["messageErrorRegister"] = "The password must contain at least 1 special character.";
+                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.";
                 return Page();
             }
 
             if (pass.Length < 8)
             {
-                ViewData["messageErrorRegister"] = "The password must be at least 8 characters long.";
+                ViewData["messageErrorRegister"] = "Mật khẩu phải có ít nhất 8 ký tự.";
                 return Page();
             }
 
@@ -76,9 +76,9 @@ namespace PetStore.Pages.Common
             acc.RoleId = 2;
             PetStoreContext.Ins.Accounts.Add(acc);
             PetStoreContext.Ins.SaveChanges();
-            string token = Guid.NewGuid().ToString();
-            SendMail(email, token, pass);
-            TempData["successRegister"] = "Register successfull. Please check email to active account";
+            //string token = Guid.NewGuid().ToString();
+            //SendMail(email, token, pass);
+            //TempData["successRegister"] = "Register successfull. Please check email to active account";
             return Redirect("/Login");
         }
 

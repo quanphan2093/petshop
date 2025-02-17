@@ -120,16 +120,16 @@
 			let messages = [];
 
 			if (!/[A-Z]/.test(password)) {
-				messages.push("The password must contain at least 1 uppercase letter.");
+				messages.push("Mật khẩu phải chứa ít nhất 1 chữ cái viết hoa.");
 			}
 			if (!/[a-z]/.test(password)) {
-				messages.push("The password must contain at least 1 lowercase letter.");
+				messages.push("Mật khẩu phải chứa ít nhất 1 chữ cái viết thường.");
 			}
 			if (!/[\W_]/.test(password)) {
-				messages.push("The password must contain at least 1 special character.");
+				messages.push("Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.");
 			}
 			if (password.length < 8) {
-				messages.push("The password must be at least 8 characters long.");
+				messages.push("Mật khẩu phải có ít nhất 8 ký tự.");
 			}
 
 			feedback.innerHTML = messages.join("<br>");

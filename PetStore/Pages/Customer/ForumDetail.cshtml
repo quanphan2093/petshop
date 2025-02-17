@@ -58,7 +58,7 @@
                     else
                     {
                         <img src="@Model.f.Image"
-                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: contain;" />
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
                     }
 
                 </div>
@@ -96,7 +96,7 @@
                                 </a>
                                 <!-- Danh sách menu -->
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">✏ Edit</a></li>
+                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#postModal">✏ Edit</a></li>
                                     <li><a class="dropdown-item" href="/Forum/@Model.f.ForumId/delete">🗑 Delete</a></li>
                                 </ul>
                             </div>
@@ -170,7 +170,40 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #242526; color: white; border-radius: 10px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel" style="color:white">Sửa chữa bài viết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" asp-page-handler="Edit">
+                    <input type="hidden" value="@Model.f.ForumId"/>
+                    <div style="display: flex; align-items: center; margin-top: 10px;">
+                        <div style="width: 40px; height: 40px; background: gray; border-radius: 50%;"></div>
+                        <div style="margin-left: 10px;">
+                            <p style="margin: 0; font-weight: bold;">@Model.info.Fullname</p>
+                        </div>
+                    </div>
+                    <input required value="@Model.f.Title" name="title" type="text" style="width:100%;background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none; color: white;" />
+                    <textarea name="content" required
+                              style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;">@Model.f.Content</textarea>
+                    <select name="forumType" style="width: 100%; height: 80px; background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none;color:white">
+                        @foreach (var i in Model.forumTypes)
+                        {
+                            <option style="color:black" value="@i.TypeId" selected="@(Model.f.TypeId == i.TypeId)">@i.TypeName</option>
+                        }
+                    </select>
+                    <input type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    <button style="width: 100%; padding: 10px; margin-top: 10px; background: #3A3B3C; border: none; color: #B0B3B8; font-weight: bold; border-radius: 5px; cursor: pointer;" type="submit">
+                        Đăng
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let chatIcon = document.getElementById("chat-icon");
