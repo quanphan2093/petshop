@@ -1,0 +1,15 @@
+﻿@media (max-width: 768px) {
+    .product_forum {
+        display: none;
+    }
+    .filter_forum{
+        padding-left:10px !important;
+    }
+    .forum_react{
+        display:block !important;
+    }
+    .react{
+        margin-top: 5px !important;
+        width:100% !important;
+    }
+}

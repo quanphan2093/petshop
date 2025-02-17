@@ -4,6 +4,7 @@
     Layout = "_Layout";
 }
 <link href="~/css/home.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+<link href="~/css/productStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 @using System.Globalization
 <div id="carouselexamplecontrols" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -38,8 +39,8 @@
             <p style="opacity: 0.6;margin: 0;">Có gì mới ?</p>
             <h6 style="color: #085998; font-size: 20px; font-weight: 700;">Một Vài Em Pet Của Chúng Ta</h6>
         </div>
-        <button style="border: none; background-color: #085998;height: 40px; border-radius: 50px;">
-            <a style="color: #ffffff;padding: 2px 15px" href="/forum">
+        <button style="border: none; background-color: #085998;height: 40px;min-width:140px; border-radius: 50px;">
+            <a style="color: #ffffff;" href="/forum">
                 Diễn Đàn
                 <span style="margin-left: 5px; border-radius: 50%; border: 1px solid #ffffff; padding: 0 5px;">></span>
             </a>
@@ -79,8 +80,8 @@
                 <p style="opacity: 0.6;margin: 0;">Bạn đang tìm kiếm sản phẩm cho thú cưng?</p>
                 <h6 style="color: #085998; font-size: 22px; font-weight: 700;">Sản Phẩm Của Chúng Tôi</h6>
             </div>
-            <button style="border: none; background-color: #ffffff;height: 40px; border-radius: 50px; border: 2px solid #085998;">
-                <a style="color: #085998;padding: 2px 15px" href="/Product">
+            <button style="border: none; background-color: #ffffff;height: 40px;min-width:140px; border-radius: 50px; border: 2px solid #085998;">
+                <a style="color: #085998;" href="/Product">
                     Xem thêm
                     <span style="margin-left: 5px; border-radius: 50%; border: 1px solid #085998; padding: 0 5px;">></span>
                 </a>
@@ -88,12 +89,30 @@
         </div>
         @foreach (var i in Model.products.Take(8))
         {
-            <div class="col-6 col-lg-3 text-center mt-3"
+            <div class="col-lg-3 col-md-4 col-xs-6 col-sm-6 col-6">
+                <div class="pb-5">
+                    <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
+                        <a href="/Product/ProductDetails?id=@i.ProductId">
+                            <img class="img-fluid mb-4 rounded-15 bg-light" src="@i.Image" alt="" style="object-fit: contain;">
+                            <h6 class="text-start">@i.ProductName</h6>
+                            <p class="text-muted text-start mb-2">Danh mục: <b>@i.Category.CategoryName</b></p>
+                            <p class="text-muted text-start mb-2">Size: <b>@i.Size gam</b></p>
+                        @using System.Globalization
+                            <h5 class="mb-0 text-start">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h5>
+                            <button class="text-start"
+                                    style="background-color: #fceed5; border: none; border-radius: 8px; width: 93%; margin-top: 10px; color: #085998; font-weight: bold; padding: 0 10px; margin-bottom: 10px;">
+                                <img src="~/Images/Frame.png" /><i class="bi bi-dot"></i>Free Toy & Free Shaker
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @* <div class="col-6 col-lg-3 text-center mt-3"
                  style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <div class="shadow mt-3" style="border-radius: 12px; width: 92%;">
+                <div class="shadow mt-3" style="border-radius: 12px; width: 92%;height: 350px;">
                     <a href="/Product/ProductDetails?id=@i.ProductId" style="text-decoration: none; color: inherit; display: block;">
-                        <div style="width: 200px; height: 200px; margin: 0 auto; overflow: hidden;">
-                            <img src="@i.Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
+                        <div style="width: 100%; height: auto; margin: 0 auto; overflow: hidden;">
+                            <img src="@i.Image" style="width: 100%; height: 10rem; object-fit: contain; border-radius: 12px;" />
                         </div>
                         <h6 class="text-start mt-4" style="margin-left: 10px; font-weight: bold;">
                             @i.ProductName
@@ -111,15 +130,15 @@
                         </button>
                     </a>
                 </div>
-            </div>
+            </div> *@
 
         }
     </div>
     <div class="row mt-5">
-        <div class="col-5 col-md-5 text-center">
+        <div class="col-lg-5 col-md-12 col-xs-12 col-sm-12 col-12 text-center">
             <img src="~/Images/31c10c20d326b9ab4937a675d0a9bcd6 1.png" width="90%" />
         </div>
-        <div class="col-7 col-md-7" style="position: relative; padding-bottom: 50px;">
+        <div class="col-lg-7 col-md-12 col-xs-12 col-sm-12 col-12 " style="position: relative; padding-bottom: 50px;">
             <h3 style="font-size: 40px; font-weight: bold; color: #085998;">Giới thiệu</h3>
             <h4 style="margin: 25px 0; color: #085998; font-weight: bold;">Giữ thú cưng của bạn luôn vui vẻ</h4>
             <p style="color: #085998; font-size: 18px;">

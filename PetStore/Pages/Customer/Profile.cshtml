@@ -61,6 +61,7 @@
 
         <div class="container profile-container col-lg-7 col-md-7 col-xs-8 col-sm-8">
             <h1>Hồ sơ người dùng</h1>
+            <p class="text-danger" style="text-align:center;">@TempData["error"]</p>
             @if (Model.InformationUser != null)
             {
                 <div class="profile-header">
