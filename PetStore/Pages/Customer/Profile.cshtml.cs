@@ -11,6 +11,7 @@ namespace PetStore.Pages.Customer
     public class ProfileModel : PageModel
     {
         private readonly Verify_Profile_Update _emailService;
+        public List<Forum> lsForum { get; set; } = new List<Forum>();
         public ProfileModel(Verify_Profile_Update emailService)
         {
             _emailService = emailService;
@@ -26,9 +27,15 @@ namespace PetStore.Pages.Customer
                     Include(x => x.Account).
                     Where(x => x.AccountId == accId).
                     FirstOrDefault();
+                if (InformationUser == null) return Redirect("/Home");
                 UserAdditionInfo = PetStoreContext.Ins.Accounts.
                     Where(x => x.AccountId == accId).
                     FirstOrDefault();
+                if (UserAdditionInfo == null) return Redirect("/Home");
+                lsForum = PetStoreContext.Ins.Forums.Include(f => f.Type)
+                    .Where(f => f.AccountId == accId && f.Status == "Active").ToList();
+                if(lsForum == null) return Redirect("/Home");
+                Console.WriteLine(lsForum.Count);
                 return Page();
             }
             else

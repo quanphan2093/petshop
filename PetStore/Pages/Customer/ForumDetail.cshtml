@@ -48,22 +48,26 @@
     <div class="container-fluid shadow"
          style=" border-radius:0 12px 12px 0; width: 95%; margin-top: 30px;">
         <div class="row">
-            <div class="col-md-7" style="padding: 0; ">
+            <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12" style="padding: 0; ">
                 <div style="background-color: #5b5b5b; border-radius: 12px 0 0 12px; display: flex; justify-content: center; align-items: center; width: 97%; height: 703px;">
-                    @if(Model.f.Image == null)
+                    @* @if(Model.f.Image == null)
                         {
-                        <img src="~/Images/tải xuống.jfif"
+                        <img src="~/Images/31c10c20d326b9ab4937a675d0a9bcd6 1.png"
                              style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
                     }
                     else
                     {
                         <img src="@Model.f.Image"
+                             style="width: 95%; height: 97%; padding: 15px 0; object-fit: contain;" />
+                    } *@
+                    @if (Model.f.Image != null)
+                    {
+                        <img src="@Model.f.Image"
                              style="width: 95%; height: 97%; padding: 15px 0; object-fit: cover;" />
                     }
-
                 </div>
             </div>
-            <div class="col-md-5 scrollFt" style="max-height: 718px; padding: 0;overflow-y: auto;">
+            <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12 scrollFt" style="max-height: 718px; padding: 0;overflow-y: auto;">
                 <div style="margin: 20px 0 0 20px; width: 90%;">
                     <div style="display: flex;">
                         <img src="@Model.i.Image" width="50px" height="50px" style="margin-right: 20px;" />
@@ -109,7 +113,7 @@
                     </p>
 
                     <div class="row shadow forum-item" style="border-radius: 30px; width: 100%; padding: 5px;">
-                        <div class="col-md-1" style="margin-top: 5px;">
+                        <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1" style="margin-top: 5px;">
                             <form style="margin:0" asp-page-handler="Like" method="post">
                                 <input name="id" value="@Model.f.ForumId" hidden/>
                                 <button class="like-button" type="submit" data-id="@Model.f.ForumId" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
@@ -117,12 +121,12 @@
                                 </butto>
                             </form>
                         </div>
-                        <div class="col-md-1" style="margin-top: 5px;">
+                        <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1" style="margin-top: 5px;">
                                 <button id="chat-icon" type="submit" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
                                     <i class="bi bi-chat"></i>
                                 </button>
                         </div>
-                        <div class="col-md-1" style="margin-top: 5px;">
+                        <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1" style="margin-top: 5px;">
                             <form style="margin:0">
                                 <button  type="submit" style="background-color: #ffcd16; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border:none">
                                     <i class="bi bi-upload"></i>
@@ -130,9 +134,9 @@
                             </form>
                         </div>
 
-                        <div class="col-md-3 text-center" style="margin: auto;padding-right: 0;">@Model.f.Views views</div>
-                        <div class="col-md-3 text-center like-count" style="margin: auto;padding-right: 0;">@Model.f.Likes likes</div>
-                        <div class="col-md-3 text-center" style="margin: auto;">@Model.f.Comments comments</div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 text-center" style="margin: auto;padding-right: 0;">@Model.f.Views views</div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 text-center like-count" style="margin: auto;padding-right: 0;">@Model.f.Likes likes</div>
+                        <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 text-center" style="margin: auto;">@Model.f.Comments comments</div>
                     </div>
                     <form method="post" asp-page-handler="Comment">
                         <div id="comment-form" style="display: none; margin-top: 10px;">
