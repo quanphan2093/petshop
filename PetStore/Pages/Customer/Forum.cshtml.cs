@@ -74,7 +74,8 @@ namespace PetStore.Pages.Customer
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                forum = forum.Where(x => x.title?.Contains(search) == true).ToList();
+                forum = forum.Where(x => x.title?.ToLower().Contains(search.ToLower()) == true 
+                || x.content.ToLower().Contains(search.ToLower()) == true).ToList();
             }
 
             if (!string.IsNullOrEmpty(type) && !type.Equals("All"))
