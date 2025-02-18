@@ -33,7 +33,7 @@ namespace PetStore.Pages.Common
                 ViewData["messageErrorRegister"] = "Mật khẩu không được để trống.";
                 return Page();
             }
-            var account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            Account account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(email)).FirstOrDefault();
             if (account != null)
             {
                 ViewData["messageErrorRegister"] = "Email đã tồn tại.";
@@ -69,11 +69,12 @@ namespace PetStore.Pages.Common
             }
 
             string hash = BCrypt.Net.BCrypt.HashPassword(pass);
-            var acc = new Account();
+            Account acc = new Account();
             acc.Email = email;
             acc.Password = hash;
             acc.CreateAt = DateTime.Now;
             acc.RoleId = 2;
+            acc.State = "Active";
             PetStoreContext.Ins.Accounts.Add(acc);
             PetStoreContext.Ins.SaveChanges();
             //string token = Guid.NewGuid().ToString();
