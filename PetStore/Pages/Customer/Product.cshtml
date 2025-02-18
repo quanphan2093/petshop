@@ -2,6 +2,7 @@
 @model PetStore.Pages.Customer.ProductModel
 @{
     Layout = "_Layout";
+    int count = 0;
 }
 <link href="~/css/productStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 <style>
@@ -92,7 +93,8 @@
                 {
                     @foreach(var pro in Model.lsProduct)
                     {
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6">
+                        count++;
+                        <div class=" product-@count col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6">
                             <div class="pb-5">
                                 <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
                                     <a href="/Product/ProductDetails?id=@pro.ProductId">
