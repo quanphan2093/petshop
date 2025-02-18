@@ -90,7 +90,7 @@ namespace PetStore.Pages.Customer
                     Infors.Gender = Gender;
                     PetStoreContext.Ins.Infors.Update(Infors);
                     PetStoreContext.Ins.SaveChanges();
-                    await _emailService.SendVerificationEmailAsync(Infors.Account.Email);
+                    //await _emailService.SendVerificationEmailAsync(Infors.Account.Email);
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace PetStore.Pages.Customer
                     UserAdditionInfo = PetStoreContext.Ins.Accounts.
                     Where(x => x.AccountId == accId).
                     FirstOrDefault();
-                    await _emailService.SendVerificationEmailAsync(UserAdditionInfo.Email);
+                    //await _emailService.SendVerificationEmailAsync(UserAdditionInfo.Email);
                 }
                 
                 InformationUser = PetStoreContext.Ins.Infors.
