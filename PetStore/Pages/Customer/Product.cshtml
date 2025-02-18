@@ -75,8 +75,8 @@
                         @foreach (var cate in Model.lsCategory)
                         {
                             <div class="form-check mt-3 mb-3">
-                                <input class="form-check-input" type="checkbox" name="category" value="@cate.CategoryId" id="thoitrang" checked="@(Model.Category.Contains(cate.CategoryId.ToString()))">
-                                <label class="form-check-label" for="thoitrang">@cate.CategoryName</label>
+                                <input class="form-check-input" type="checkbox" name="category" value="@cate.CategoryId" id="@cate.CategoryName" checked="@(Model.Category.Contains(cate.CategoryId.ToString()))">
+                                <label class="" for="@cate.CategoryName">@cate.CategoryName</label>
                             </div>
                         }
                     }
