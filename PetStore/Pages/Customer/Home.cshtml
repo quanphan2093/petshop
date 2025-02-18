@@ -2,6 +2,7 @@
 @model PetStore.Pages.Customer.HomeModel
 @{
     Layout = "_Layout";
+    int count = 0;
 }
 <link href="~/css/home.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
 <link href="~/css/productStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet">
@@ -89,7 +90,8 @@
         </div>
         @foreach (var i in Model.products.Take(8))
         {
-            <div class="col-lg-3 col-md-4 col-xs-6 col-sm-6 col-6">
+            count++;
+            <div class="col-lg-3 col-md-4 col-xs-6 col-sm-6 col-6 element-@count">
                 <div class="pb-5">
                     <div class="product-item p-3 position-relative bg-white d-flex flex-column text-center shadow rounded-15">
                         <a href="/Product/ProductDetails?id=@i.ProductId">
@@ -99,7 +101,7 @@
                             <p class="text-muted text-start mb-2">Size: <b>@i.Size gam</b></p>
                         @using System.Globalization
                             <h5 class="mb-0 text-start">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) VND</h5>
-                            <button class="text-start"
+                            <button class="text-start btn-gift"
                                     style="background-color: #fceed5; border: none; border-radius: 8px; width: 93%; margin-top: 10px; color: #085998; font-weight: bold; padding: 0 10px; margin-bottom: 10px;">
                                 <img src="~/Images/Frame.png" /><i class="bi bi-dot"></i>Free Toy & Free Shaker
                             </button>
@@ -141,7 +143,7 @@
         <div class="col-lg-7 col-md-12 col-xs-12 col-sm-12 col-12 " style="position: relative; padding-bottom: 50px;">
             <h3 style="font-size: 40px; font-weight: bold; color: #085998;">Giới thiệu</h3>
             <h4 style="margin: 25px 0; color: #085998; font-weight: bold;">Giữ thú cưng của bạn luôn vui vẻ</h4>
-            <p style="color: #085998; font-size: 18px;">
+            <p style="color: #085998; font-size: 18px;text-align: justify">
                 Có một con vật cưng có nghĩa là bạn có nhiều niềm vui hơn, một người bạn mới, một người hạnh phúc luôn ở bên bạn để vui vẻ. Chúng tôi có hơn 200 loại vật nuôi khác nhau có thể đáp ứng nhu cầu của bạn! Có một con vật cưng có nghĩa là bạn có nhiều niềm vui hơn, một người bạn mới, một người hạnh phúc luôn ở bên bạn để vui vẻ.
             </p>
             <a href="About" style="background-color: #085998; color: #ffffff; border-radius: 20px; padding: 8px 30px; border: none; position: absolute; bottom: 0; right: 0;">

@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\wwwroot\\css\\productstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\wwwroot\\css\\productstyle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\forumdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\forumdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -11,20 +31,12 @@
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\customer\\forum.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\customer\\forum.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|c:\\users\\hi\\onedrive - \u0111\u1EA1i h\u1ECDc fpt- fpt university\\desktop\\petshop\\petshop\\petstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{010C4E95-7CC3-40CD-8C7D-B76C429EE28F}|PetStore\\PetStore.csproj|solutionrelative:petstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,21 +46,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 8,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "PetStore\\Pages\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "PetStore\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAJcAAAAAAAAAAAAmwKgAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T16:11:05.292Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:20:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
@@ -76,40 +75,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Profile.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml.cs",
-              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Profile.cshtml.cs",
-              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml.cs",
-              "RelativeToolTip": "PetStore\\Pages\\Customer\\Profile.cshtml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwCEAAABXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T16:08:37.423Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Forum.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Forum.cshtml.cs",
-              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Forum.cshtml.cs",
-              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Forum.cshtml.cs",
-              "RelativeToolTip": "PetStore\\Pages\\Customer\\Forum.cshtml.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAAAJwAAABeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T16:07:33.838Z",
+              "Title": "Product.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Product.cshtml",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Product.cshtml",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Product.cshtml",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Product.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAGAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-18T00:55:17.488Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Profile.cshtml",
-              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml",
-              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Profile.cshtml",
-              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml",
-              "RelativeToolTip": "PetStore\\Pages\\Customer\\Profile.cshtml",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAD8AAAAhAAAAAAAAAA==",
+              "Title": "Home.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Home.cshtml",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Home.cshtml",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Home.cshtml",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Home.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAF0AAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-17T16:07:21.933Z",
+              "WhenOpened": "2025-02-18T00:33:49.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "productStyle.css",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\wwwroot\\css\\productStyle.css",
+              "RelativeDocumentMoniker": "PetStore\\wwwroot\\css\\productStyle.css",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\wwwroot\\css\\productStyle.css",
+              "RelativeToolTip": "PetStore\\wwwroot\\css\\productStyle.css",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-02-18T00:25:24.806Z",
               "EditorCaption": ""
             },
             {
@@ -118,7 +117,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "PetStore\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAmwKgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T16:11:05.292Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Profile.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml.cs",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Profile.cshtml.cs",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml.cs",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Profile.cshtml.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAcwHkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T16:08:37.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Forum.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Forum.cshtml.cs",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Forum.cshtml.cs",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Forum.cshtml.cs",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Forum.cshtml.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAAAJwAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T16:07:33.838Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml",
+              "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\Profile.cshtml",
+              "RelativeToolTip": "PetStore\\Pages\\Customer\\Profile.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAD8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-17T16:07:21.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\appsettings.json",
               "RelativeDocumentMoniker": "PetStore\\appsettings.json",
@@ -131,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "ForumDetail.cshtml",
               "DocumentMoniker": "C:\\Users\\Hi\\OneDrive - \u0110\u1EA1i h\u1ECDc FPT- FPT University\\Desktop\\PetShop\\petshop\\PetStore\\Pages\\Customer\\ForumDetail.cshtml",
               "RelativeDocumentMoniker": "PetStore\\Pages\\Customer\\ForumDetail.cshtml",
