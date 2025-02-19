@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
+using PetStore.Pages.Common;
 using System;
 using System.Xml.Linq;
 using static PetStore.Pages.Customer.ForumModel;
@@ -8,7 +9,7 @@ using static PetStore.Pages.Customer.ForumModel;
 namespace PetStore.Pages.Customer
 {
     public class ForumDetailModel : PageModel
-    {   
+    {
         public Forum f { get; set; }
         public Infor i { get; set; }
         public List<Comment> comments { get; set; }
@@ -18,9 +19,11 @@ namespace PetStore.Pages.Customer
         private IFormFile imageFile { get; set; }
         public Infor info { get; set; }
         private readonly PetStoreContext _context;
-        public ForumDetailModel(PetStoreContext context)
+        private readonly AzureBlobService _blobService;
+        public ForumDetailModel(PetStoreContext context, AzureBlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
         public IActionResult OnGet(int? id)
         {
@@ -75,7 +78,7 @@ namespace PetStore.Pages.Customer
             }
         }
 
-        public IActionResult OnPostEdit(int id, string title, string content, IFormFile? file, string forumType)
+        public async Task<IActionResult> OnPostEdit(int id, string title, string content, IFormFile? file, string forumType)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
             var forum = _context.Forums.Find(id);
@@ -88,18 +91,11 @@ namespace PetStore.Pages.Customer
             imageFile = file;
             if (imageFile != null)
             {
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");
-                if (!Directory.Exists(uploadFolder))
+                string fileName = Path.GetFileName(imageFile.FileName);
+                using (var stream = imageFile.OpenReadStream())
                 {
-                    Directory.CreateDirectory(uploadFolder);
+                    forum.Image = await _blobService.UploadImageAsync(stream, fileName);
                 }
-                string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-                string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    imageFile.CopyTo(fileStream);
-                }
-                forum.Image = $"/Images/{uniqueFileName}";
             }
             forum.Title = title;
             forum.Content = content.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");

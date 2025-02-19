@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetStore.Models;
+using PetStore.Pages.Common;
 using PetStore.Pages.Customer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<Verify_Profile_Update>();
 builder.Services.AddDbContext<PetStoreContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("value")));
-
+builder.Services.AddScoped<AzureBlobService>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
