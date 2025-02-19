@@ -5,19 +5,22 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Security.Cryptography;
+using PetStore.Pages.Common;
 
 namespace PetStore.Pages.Customer
 {
     public class ProfileModel : PageModel
     {
         private readonly Verify_Profile_Update _emailService;
+        private readonly AzureBlobService _blobService;
         public List<Forum> lsForum { get; set; } = new List<Forum>();
-        public ProfileModel(Verify_Profile_Update emailService)
+        public ProfileModel(Verify_Profile_Update emailService, AzureBlobService blobService)
         {
             _emailService = emailService;
+            _blobService = blobService;
         }
         public Infor InformationUser { get; set; }
-        public Account UserAdditionInfo { get; set; }   
+        public Account UserAdditionInfo { get; set; }
         public IActionResult OnGet()
         {
             int? accId = HttpContext.Session.GetInt32("acc");
@@ -71,18 +74,11 @@ namespace PetStore.Pages.Customer
                     FirstOrDefault();
                     if (imageFile != null)
                     {
-                        string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Images_Profile");
-                        if (!Directory.Exists(uploadFolder))
+                        string fileName = Path.GetFileName(imageFile.FileName);
+                        using (var stream = imageFile.OpenReadStream())
                         {
-                            Directory.CreateDirectory(uploadFolder);
+                            Infors.Image = await _blobService.UploadImageAsync(stream, fileName);
                         }
-                        string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            imageFile.CopyTo(fileStream);
-                        }
-                        Infors.Image = $"/Images/Images_Profile/{uniqueFileName}";
                     }
                     Infors.Fullname = Fullname;
                     Infors.Phone = Phone;
@@ -97,18 +93,11 @@ namespace PetStore.Pages.Customer
                     var Infors = new Infor();
                     if (imageFile != null)
                     {
-                        string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Images_Profile");
-                        if (!Directory.Exists(uploadFolder))
+                        string fileName = Path.GetFileName(imageFile.FileName);
+                        using (var stream = imageFile.OpenReadStream())
                         {
-                            Directory.CreateDirectory(uploadFolder);
+                            Infors.Image = await _blobService.UploadImageAsync(stream, fileName);
                         }
-                        string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            imageFile.CopyTo(fileStream);
-                        }
-                        Infors.Image = $"/Images/Images_Profile/{uniqueFileName}";
                     }
                     Infors.Fullname = Fullname;
                     Infors.Phone = Phone;
@@ -123,7 +112,7 @@ namespace PetStore.Pages.Customer
                     FirstOrDefault();
                     //await _emailService.SendVerificationEmailAsync(UserAdditionInfo.Email);
                 }
-                
+
                 InformationUser = PetStoreContext.Ins.Infors.
                     Include(x => x.Account).
                     Where(x => x.AccountId == accId).
