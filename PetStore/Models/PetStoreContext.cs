@@ -13,7 +13,7 @@ namespace PetStore.Models
             if (Ins == null)
             {
                 Ins = this;
-            }
+        }
         }
 
         public PetStoreContext(DbContextOptions<PetStoreContext> options)
@@ -25,6 +25,7 @@ namespace PetStore.Models
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<DiscountCode> DiscountCodes { get; set; } = null!;
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Forum> Forums { get; set; } = null!;
         public virtual DbSet<ForumType> ForumTypes { get; set; } = null!;
@@ -33,8 +34,8 @@ namespace PetStore.Models
         public virtual DbSet<Messenger> Messengers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
-        public virtual DbSet<PostHashtag> PostHashtags { get; set; } = null!;
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
+        public virtual DbSet<PostHashtag> PostHashtags { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
@@ -128,6 +129,27 @@ namespace PetStore.Models
                     .HasConstraintName("FK__Comment__ForumID__412EB0B6");
             });
 
+            modelBuilder.Entity<DiscountCode>(entity =>
+            {
+                entity.HasKey(e => e.CodeId)
+                    .HasName("PK__Discount__47F8CFE461D43497");
+
+                entity.ToTable("DiscountCode");
+
+                entity.Property(e => e.CodeId).HasColumnName("codeId");
+
+                entity.Property(e => e.Code)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DiscountPercent).HasColumnName("discountPercent");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("status");
+            });
+
             modelBuilder.Entity<Feedback>(entity =>
             {
                 entity.ToTable("Feedback");
@@ -207,13 +229,13 @@ namespace PetStore.Models
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.Forums)
                     .HasForeignKey(d => d.TypeId)
-                    .HasConstraintName("FK__Forum__TypeId__02FC7413");
+                    .HasConstraintName("FK__Forum__TypeId__2FCF1A8A");
             });
 
             modelBuilder.Entity<ForumType>(entity =>
             {
                 entity.HasKey(e => e.TypeId)
-                    .HasName("PK__ForumTyp__516F03B5533A3D5D");
+                    .HasName("PK__ForumTyp__516F03B5C2E77E60");
 
                 entity.ToTable("ForumType");
 
@@ -222,7 +244,7 @@ namespace PetStore.Models
 
             modelBuilder.Entity<Hashtag>(entity =>
             {
-                entity.HasIndex(e => e.Tag, "UQ__Hashtags__C451641313BF0AD0")
+                entity.HasIndex(e => e.Tag, "UQ__Hashtags__C451641392168CAE")
                     .IsUnique();
 
                 entity.Property(e => e.HashtagId).HasColumnName("HashtagID");
@@ -285,6 +307,8 @@ namespace PetStore.Models
 
                 entity.Property(e => e.CreateAt).HasColumnType("datetime");
 
+                entity.Property(e => e.DiscountId).HasColumnName("DiscountID");
+
                 entity.Property(e => e.PaymentMethodId)
                     .HasColumnName("paymentMethodId")
                     .HasDefaultValueSql("((1))");
@@ -302,6 +326,11 @@ namespace PetStore.Models
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.AddressId)
                     .HasConstraintName("FK__Order__AddressID__32E0915F");
+
+                entity.HasOne(d => d.Discount)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.DiscountId)
+                    .HasConstraintName("FK_Order_Discount");
 
                 entity.HasOne(d => d.PaymentMethod)
                     .WithMany(p => p.Orders)
@@ -339,27 +368,6 @@ namespace PetStore.Models
                     .HasConstraintName("FK__OrderDeta__Produ__37A5467C");
             });
 
-            modelBuilder.Entity<PostHashtag>(entity =>
-            {
-                entity.HasKey(e => e.PostHashtagsId)
-                    .HasName("PK__PostHash__F25F49D92A6A2C70");
-
-                entity.Property(e => e.ForumId).HasColumnName("ForumID");
-
-                entity.Property(e => e.HashtagId).HasColumnName("HashtagID");
-
-                entity.HasOne(d => d.Forum)
-                    .WithMany(p => p.PostHashtags)
-                    .HasForeignKey(d => d.ForumId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PostHasht__Forum__5EBF139D");
-
-                entity.HasOne(d => d.Hashtag)
-                    .WithMany(p => p.PostHashtags)
-                    .HasForeignKey(d => d.HashtagId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__PostHasht__Hasht__5FB337D6");
-            });
             modelBuilder.Entity<PaymentMethod>(entity =>
             {
                 entity.HasKey(e => e.MethodId)
@@ -384,6 +392,28 @@ namespace PetStore.Models
                 entity.Property(e => e.UpdateAt)
                     .HasColumnType("datetime")
                     .HasColumnName("updateAt");
+            });
+
+            modelBuilder.Entity<PostHashtag>(entity =>
+            {
+                entity.HasKey(e => e.PostHashtagsId)
+                    .HasName("PK__PostHash__F25F49D90785C4D0");
+
+                entity.Property(e => e.ForumId).HasColumnName("ForumID");
+
+                entity.Property(e => e.HashtagId).HasColumnName("HashtagID");
+
+                entity.HasOne(d => d.Forum)
+                    .WithMany(p => p.PostHashtags)
+                    .HasForeignKey(d => d.ForumId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostHasht__Forum__2BFE89A6");
+
+                entity.HasOne(d => d.Hashtag)
+                    .WithMany(p => p.PostHashtags)
+                    .HasForeignKey(d => d.HashtagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__PostHasht__Hasht__2CF2ADDF");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -421,7 +451,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasKey(e => e.ImgId)
-                    .HasName("PK__ProductI__352F5413C133FC94");
+                    .HasName("PK__ProductI__352F54132F9D121A");
 
                 entity.ToTable("ProductImage");
 
@@ -440,7 +470,7 @@ namespace PetStore.Models
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductImages)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__ProductIm__Produ__5165187F");
+                    .HasConstraintName("FK__ProductIm__Produ__6FE99F9F");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -455,7 +485,7 @@ namespace PetStore.Models
             modelBuilder.Entity<ShoppingCart>(entity =>
             {
                 entity.HasKey(e => e.CartId)
-                    .HasName("PK__Shopping__51BCD7974D03D238");
+                    .HasName("PK__Shopping__51BCD7977BBEC1A7");
 
                 entity.ToTable("ShoppingCart");
 
@@ -481,7 +511,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StateInfor>(entity =>
             {
                 entity.HasKey(e => e.StateId)
-                    .HasName("PK__StateInf__C3BA3B3AB8876DD0");
+                    .HasName("PK__StateInf__C3BA3B3A31C67B1E");
 
                 entity.ToTable("StateInfor");
 
@@ -491,7 +521,7 @@ namespace PetStore.Models
             modelBuilder.Entity<StatusOrder>(entity =>
             {
                 entity.HasKey(e => e.StatusId)
-                    .HasName("PK__StatusOr__C8EE2043C41213CF");
+                    .HasName("PK__StatusOr__C8EE204392F1CF65");
 
                 entity.ToTable("StatusOrder");
 

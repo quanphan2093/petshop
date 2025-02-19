@@ -20,6 +20,8 @@ namespace PetStore.Pages.Customer
         public int totalPro { get; set; } = 0;
         [BindProperty]
         public List<PaymentMethod> lspayMethod { get; set; } = new List<PaymentMethod>();
+        [BindProperty]
+        public List<DiscountCode> lsDiscountCode { get; set; } = new List<DiscountCode>();
 
         public void OnGet(int? productId = null, int? quantity = null)
         {
@@ -58,8 +60,24 @@ namespace PetStore.Pages.Customer
             {
                 totalPro = totalPro + (int)p.Quantity;
             }
+            lsDiscountCode = getAllDiscount();
         }
-        public async Task<IActionResult> OnPostSubmitOrder(string email, string fullname, string phone, string address, string city, string district, string ward, string note, int payment, List<string> dataPro)
+        private List<DiscountCode> getAllDiscount()
+        {
+            int? acc = HttpContext.Session.GetInt32("acc");
+            var activeDiscounts = PetStoreContext.Ins.DiscountCodes
+                                    .Where(d => d.Status == "Active")
+                                    .ToList();
+            var userOrders = PetStoreContext.Ins.Orders
+                            .Where(o => o.AccountId == acc)
+                            .Select(o => o.DiscountId)
+                            .ToList();
+            var availableDiscounts = activeDiscounts
+                                    .Where(d => !userOrders.Contains(d.CodeId))
+                                    .ToList();
+            return availableDiscounts;
+        }
+        public async Task<IActionResult> OnPostSubmitOrder(string email, string fullname, string phone, string address, string city, string district, string ward, string note, int payment, List<string> dataPro, string discountCode)
         {
             int? acc = HttpContext.Session.GetInt32("acc");
             if (acc == null)
@@ -110,11 +128,24 @@ namespace PetStore.Pages.Customer
 
             //get first status of order
             StatusOrder stt = PetStoreContext.Ins.StatusOrders.First();
+
+            //Get Discount
+            lsDiscountCode = getAllDiscount();
+            DiscountCode discount = lsDiscountCode.Where(d => d.Code == discountCode).FirstOrDefault();
+            List<Order> ordersAccount = PetStoreContext.Ins.Orders.Where(o => o.AccountId == acc).ToList();
+            bool isDiscountUsed = true;
+            if(ordersAccount != null && discount != null)
+            {
+                isDiscountUsed = ordersAccount.Any(o => o.DiscountId != null && o.DiscountId == discount.CodeId);
+            }
+            int? discountPercent = 0;
+            if (!isDiscountUsed) { discountPercent = discount.DiscountPercent;}
             Order od = new Order();
 
             //insert order to database
             try
             {
+                if (!isDiscountUsed) od.DiscountId = discount.CodeId;
                 od.CreateAt = DateTime.Now;
                 od.Note = note;
                 od.SaleId = sale == null ? null : sale.AccountId;
@@ -149,7 +180,7 @@ namespace PetStore.Pages.Customer
                         ProductId = productId,
                         OrderId = od.OrderId,
                         UnitPrice = pro.Price,
-                        Total = pro.Price * quantity
+                        Total = (pro.Price - (pro.Price * (decimal)discountPercent / 100)) * quantity
                     };
 
                     orderDetails.Add(odd);
@@ -199,17 +230,13 @@ namespace PetStore.Pages.Customer
             {
                 totalPrice = totalPrice + (int)p.Total;
             }
-            SendMail(email, fullname, od, orderDetails, totalPrice);
+            
+            SendMail(email, fullname, od, orderDetails, totalPrice, discountPercent);
 
             return Redirect("/Order");
         }
-        private static void SendMail(string email, string cusName, Order od, List<OrderDetail> lsod, int total)
+        private static void SendMail(string email, string cusName, Order od, List<OrderDetail> lsod, int total, int? discountPercent)
         {
-            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "bankingQR", "bankingQR.jpg");
-            if (!System.IO.File.Exists(imagePath))
-            {
-                throw new FileNotFoundException("Không tìm thấy file hình ảnh!", imagePath);
-            }
             string startbody = $"" +
                 $"<p>Kính gửi <strong>{cusName}</strong>,</p>\r\n\r\n" +
                 $"<p>Cảm ơn Quý khách đã đặt hàng tại <strong>FurFriends</strong>. Chúng tôi xin xác nhận đơn hàng của Quý khách với thông tin như sau:</p>" +
@@ -222,10 +249,13 @@ namespace PetStore.Pages.Customer
             string detailOrder = "";
             foreach(var odd in lsod)
             {
-                detailOrder += $"<li>Sản phẩm: {odd.Product.ProductName} - Số lượng: {odd.Quantity} - Tổng giá: {odd.Total?.ToString("N0") ?? "0"}</li>\r\n   ";
+                decimal? price = odd.Product.Price * odd.Quantity;
+
+                detailOrder += $"<li>Sản phẩm: {odd.Product.ProductName} - Số lượng: {odd.Quantity} - Tổng giá: {((int)price).ToString("N0") ?? "0"}</li>\r\n   ";
             }
             string endBody =
                 $"</ul>\r\n\r\n<p>" +
+                $"<strong>Giảm giá:</strong> {discountPercent}%</p>\r\n\r\n" +
                 $"<strong>Tổng tiền:</strong> {total.ToString("N0")} VND</p>\r\n\r\n" +
                 $"<p>Chúng tôi sẽ sớm xử lý đơn hàng và gửi cập nhật qua email. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ <strong>0396925536</strong>.</p>\r\n\r\n" +
                 $"<p>Trân trọng,<br>\r\n<strong>FurFriends</strong><br>\r\n[Email Hỗ Trợ] | 0396925536</p>\r\n";
