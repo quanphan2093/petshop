@@ -12,6 +12,7 @@ namespace PetStore.Pages.Customer
         public List<Product> products = new List<Product>();
         public List<OrderDetail> ordersDetail = new List<OrderDetail>();
         public List<StatusOrder> statusOrders = new List<StatusOrder>();
+        public List<DiscountCode> discounts = new List<DiscountCode>();
         public PetStoreContext _context;
         public string s;
         public string Search;
@@ -30,8 +31,11 @@ namespace PetStore.Pages.Customer
             categories=_context.Categories.ToList();
             ordersDetail=_context.OrderDetails.ToList();
             statusOrders=_context.StatusOrders.ToList();
-            orders=_context.Orders.ToList();
+            discounts = _context.DiscountCodes.ToList();
+            orders =_context.Orders.ToList();
             var order = from o in orders
+                        join d in discounts on o.DiscountId equals d.CodeId into discountGroup
+                        from d in discountGroup.DefaultIfEmpty()
                         join od in ordersDetail on o.OrderId equals od.OrderId
                         join p in products on od.ProductId equals p.ProductId
                         join c in categories on p.CategoryId equals c.CategoryId
@@ -47,8 +51,10 @@ namespace PetStore.Pages.Customer
                             Quantity = od.Quantity,
                             Price = p.Price,
                             CreateAt = o.CreateAt,
-                            Total = od.Quantity * p.Price
+                            Total = od.Total,
+                            Discount = d != null ? d.DiscountPercent : 0
                         };
+
             if (!string.IsNullOrEmpty(status))
             {
                 order = order.Where(x => x.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
