@@ -98,7 +98,7 @@
                     }
                     @if (Model.notificationMessage != null)
                     {
-                        <div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
                             <span style="color: forestgreen">
                                 @Model.notificationMessage
                             </span>
@@ -150,13 +150,13 @@
                                         <!-- Cột trái -->
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
-                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="@Model.InformationUser.Fullname" required>
-                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên <span class="text-danger"> * </span></label>
+                                                <input type="text" class="form-control" id="Fullname" name="fullname" value="@(Model.InformationUser.Fullname ?? "")" required>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 6 ký tự.</small>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
-                                                <input type="text" class="form-control" id="Phone" name="phone" value="@Model.InformationUser.Phone" required>
+                                                <input type="number" class="form-control" id="Phone" name="phone" value="@(Model.InformationUser.Phone ?? "")">
                                                 <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
                                             </div>
                                             <div class="mb-3">
@@ -186,8 +186,8 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="Address" class="form-label fw-bold">Địa chỉ</label>
-                                                <input type="text" class="form-control" id="Address" name="address" value="@Model.InformationUser.Address" required>
-                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                                <input type="text" class="form-control" id="Address" name="address" value="@(Model.InformationUser.Address ?? "")">
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 10 ký tự và không được chứa ký tự đặc biệt.</small>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
@@ -218,13 +218,13 @@
                                         <!-- Cột trái -->
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="FullName" class="form-label fw-bold">Họ và tên</label>
+                                                <label for="FullName" class="form-label fw-bold">Họ và tên <span class="text-danger"> * </span></label>
                                                 <input type="text" class="form-control" id="Fullname" name="fullname" value="" required>
-                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 11 ký tự.</small>
+                                                <small id="fullnameError" style="color: red; display: none;">Tên đầy đủ không được chứa số hoặc ký tự đặc biệt và phải có ít nhất 6 ký tự.</small>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="Phone" class="form-label fw-bold">Số điện thoại</label>
-                                                <input type="text" class="form-control" id="Phone" name="phone" value="" required>
+                                                <input type="number" class="form-control" id="Phone" name="phone" value="">
                                                 <small id="phoneError" style="color: red; display: none;">Số điện thoại phải có 10 chữ số và bắt đầu bằng 09, 08, 03, 07 hoặc 05.</small>
                                             </div>
                                             <div class="mb-3">
@@ -246,8 +246,8 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="Address" class="form-label fw-bold">Địa chỉ</label>
-                                                <input type="text" class="form-control" id="Address" name="address" value="" required>
-                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 20 ký tự và không được chứa ký tự đặc biệt.</small>
+                                                <input type="text" class="form-control" id="Address" name="address" value="">
+                                                <small id="addressError" style="color: red; display: none;">Địa chỉ phải dài hơn 10 ký tự và không được chứa ký tự đặc biệt.</small>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="Image" class="form-label fw-bold">Ảnh đại diện</label>
@@ -416,7 +416,6 @@
     </script>
     
     <script>
-        // Hàm kiểm tra tính hợp lệ của các trường và ẩn/hiện nút submit
         function toggleSubmitButton() {
             var fullnameInput = document.getElementById("Fullname");
             var phoneInput = document.getElementById("Phone");
@@ -424,34 +423,31 @@
 
             var submitButton = document.getElementById("updateProfileBtn");
 
-            // Kiểm tra điều kiện hợp lệ của các trường
-            var isValidFullname = fullnameInput.value.length > 10 && /^[a-zA-Zàáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s-]+$/.test(fullnameInput.value);
-            var isValidPhone = phoneInput.value.length == 10 && /^(09|08|03|07|05)\d{8}$/.test(phoneInput.value);
-            var isValidAddress = addressInput.value.length > 20 && /^[a-zA-Z0-9àáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s\-\(\)_\+=\[\]\{\};:,\./|]+$/.test(addressInput.value);
+            var isValidFullname = fullnameInput.value.length > 6 && /^[a-zA-Zàáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s-]+$/.test(fullnameInput.value);
+            var isValidPhone = (phoneInput.value.length == 10 && /^(09|08|03|07|05)\d{8}$/.test(phoneInput.value)) || phoneInput.value.length == 0;
+            var isValidAddress = addressInput.value.length > 10 && /^[a-zA-Z0-9àáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s\-\(\)_\+=\[\]\{\};:,\./|]+$/.test(addressInput.value);
 
-            // Ẩn/hiện nút submit dựa trên tính hợp lệ của các trường
-            if (isValidFullname && isValidPhone && isValidAddress) {
-                submitButton.style.display = "inline-block"; // Hiển thị nút submit khi tất cả đều hợp lệ
+            if (isValidFullname && isValidPhone) {
+                submitButton.style.display = "inline-block";
             } else {
-                submitButton.style.display = "none"; // Ẩn nút submit nếu có lỗi
+                submitButton.style.display = "none";
             }
         }
 
-        // Gắn các sự kiện cho các input
         document.getElementById("Fullname").addEventListener("input", function () {
             var input = this.value;
             var error = document.getElementById("fullnameError");
 
             var validNamePattern = /^[a-zA-Zàáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s-]+$/;
 
-            if (input.length <= 10 || !validNamePattern.test(input)) {
-                error.style.display = "block"; // Hiển thị lỗi
-                this.style.borderColor = "red"; // Đổi màu viền input
+            if (input.length <= 6 || !validNamePattern.test(input)) {
+                error.style.display = "block";
+                this.style.borderColor = "red";
             } else {
-                error.style.display = "none"; // Ẩn lỗi
-                this.style.borderColor = ""; // Reset màu viền
+                error.style.display = "none";
+                this.style.borderColor = "";
             }
-            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
+            toggleSubmitButton();
         });
 
         document.getElementById("Phone").addEventListener("input", function () {
@@ -460,30 +456,19 @@
 
             var validPhonePattern = /^(09|08|03|07|05)\d{8}$/;
 
-            if (input.length != 10 || !validPhonePattern.test(input)) {
-                error.style.display = "block"; // Hiển thị lỗi
-                this.style.borderColor = "red"; // Đổi màu viền input
+            if (input.length != 0) {
+                if (!validPhonePattern.test(input) || input.length != 10) {
+                    error.style.display = "block";
+                    this.style.borderColor = "red";
+                }else{
+                    error.style.display = "none";
+                    this.style.borderColor = "";
+                }
             } else {
-                error.style.display = "none"; // Ẩn lỗi
-                this.style.borderColor = ""; // Reset màu viền
+                error.style.display = "none";
+                this.style.borderColor = "";
             }
-            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
-        });
-
-        document.getElementById("Address").addEventListener("input", function () {
-            var input = this.value;
-            var error = document.getElementById("addressError");
-
-            var validAddressPattern = /^[a-zA-Z0-9àáảãạăằắẳẵặâầấẩẫậêềếểễệôồốổỗộơờớỡởợưừứửữựíìỉĩịóòỏõọôồốổỗộuùúũủụyỳýỷỹỵđ\s\-\(\)_\+=\[\]\{\};:,\./|]+$/;
-
-            if (input.length <= 20 || !validAddressPattern.test(input)) {
-                error.style.display = "block"; // Hiển thị lỗi
-                this.style.borderColor = "red"; // Đổi màu viền input
-            } else {
-                error.style.display = "none"; // Ẩn lỗi
-                this.style.borderColor = ""; // Reset màu viền
-            }
-            toggleSubmitButton(); // Kiểm tra lại trạng thái nút submit
+            toggleSubmitButton();
         });
 
     </script>

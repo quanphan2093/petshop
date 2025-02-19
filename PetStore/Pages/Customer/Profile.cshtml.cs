@@ -59,10 +59,10 @@ namespace PetStore.Pages.Customer
                    FirstOrDefault();
             if (accId != null)
             {
-                Fullname = fullname;
-                Phone = phone;
+                Fullname = fullname ?? "";
+                Phone = phone ?? "";
                 Gender = gender;
-                Address = address;
+                Address = address ?? "";
                 imageFile = image;
                 if (InformationUser != null)
                 {

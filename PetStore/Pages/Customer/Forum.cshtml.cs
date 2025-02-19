@@ -149,7 +149,7 @@ namespace PetStore.Pages.Customer
             {
                 return RedirectToPage("/Common/Login");
             }
-            if (!string.IsNullOrEmpty(title) || !string.IsNullOrEmpty(content))
+            if(string.IsNullOrEmpty(title) || string.IsNullOrEmpty(content)) 
             {
                 TempData["error"] = "Vui lòng điền đầy đủ tất cả các trường";
             }
