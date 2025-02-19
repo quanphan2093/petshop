@@ -90,7 +90,7 @@
             <a class="all @(Model.s==null? " active" : "" )" href="/order">Tất cả</a>
         </div>
         <div class="wait_payment">
-            <a class="  @(Model.s == "Chờ thanh toán" ? " active" : "" )"" href="/order?status=Chờ%20thanh%20toán">Chờ thanh toán</a>
+            <a class="  @(Model.s == "Chờ xác nhận" ? " active" : "" )" " href="/order?status=Chờ%20xác%20nhận">Chờ xác nhận</a>
         </div>
         <div>
             <a class="ship @(Model.s == "Vận chuyển" ? " active" : "" )"" href="/order?status=Vận%20chuyển">Vận chuyển</a>
@@ -124,65 +124,69 @@
     </form>
     <div>
         <div>
-            @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
+            @if (ViewData["order"] != null)
+            {
+                @foreach (var i in (IEnumerable<dynamic>)ViewData["order"])
                 {
-            <div style="display: flex; justify-content: space-between;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-                    <p style="background-color: #ff7575; padding: 5px 10px; border-radius: 8px; color: #ffffff; margin: 0;">
-                        Yêu thích +
-                    </p>
-                    <p style="font-weight: bold; margin: 0;">PETSHOP</p>
-                    <button class="shadow"
-                            style="border: none; font-weight: bold; height: 30px; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 5px;">
-                        <img src="~/Images/Shopping bag.png" alt="Shopping bag" style="height: 20px;" />
-                            <a href="/product" style="color:black">Xem shop</a>
-                    </button>
-                </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                            <p style="background-color: #ff7575; padding: 5px 10px; border-radius: 8px; color: #ffffff; margin: 0;">
+                                Yêu thích +
+                            </p>
+                            <p style="font-weight: bold; margin: 0;">PETSHOP</p>
+                            <button class="shadow"
+                                    style="border: none; font-weight: bold; height: 30px; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 5px;">
+                                <img src="~/Images/Shopping bag.png" alt="Shopping bag" style="height: 20px;" />
+                                <a href="/product" style="color:black">Xem shop</a>
+                            </button>
+                        </div>
 
-                <p style="color: #085998;">
-                    Đơn vị vận chuyển lấy hàng thành công | <span class="text-uppercase"
-                                                                  style="color: #ff9a9a;">
-                        @i.Status
-                    </span>
-                </p>
-            </div>
-            <div class="mt-3">
-                
-                    <div class="shadow" style="padding: 20px; display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 8px; ">
-                        <img src="@i.Image" alt="Product Image" style="width: 200px; height: 200px; border-radius: 8px; object-fit: cover;">
-                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; height: 200px;">
-                            <h6 style="font-size: 20px; margin: 0;">@i.ProductName</h6>
-                            <p style="margin: 5px 0; font-size: 14px; color: #555;">Type: <span style="font-weight: bold; color: #000;">@i.Quantity</span></p>
-                            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px;">
-                                <p style="margin: 0; font-size: 16px; color: #000;">@(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) <span style="font-size: 14px;">VND</span></p>
-                                <p style="margin: 0; font-size: 16px; font-weight: bold; text-transform: uppercase; color: #000;">
-                                    Thành tiền:
-                                    <span style="color: #ff3d3d;">@(((int)i.Total).ToString("N0", CultureInfo.InvariantCulture))</span> VND
-                                </p>
+                        <p style="color: #085998;">
+                            <span class="text-uppercase"
+                                  style="color: #ff9a9a;">
+                                @i.Status
+                            </span>
+                        </p>
+                    </div>
+                    <div class="mt-3">
+
+                        <div class="shadow" style="padding: 20px; display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 8px; ">
+                            <img src="@i.Image" alt="Product Image" style="width: 200px; height: 200px; border-radius: 8px; object-fit: cover;">
+                            <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; height: 200px;">
+                                <h6 style="font-size: 20px; margin: 0;">@i.ProductName</h6>
+                                <p style="margin: 5px 0; font-size: 14px; color: #555;">Số lượng: <span style="font-weight: bold; color: #000;">@i.Quantity</span></p>
+                                <p style="margin: 0; font-size: 16px; color: #000;">Giá: @(((int)i.Price).ToString("N0", CultureInfo.InvariantCulture)) <span style="font-size: 14px;">VND</span></p>
+                                <p style="margin: 0; font-size: 16px; color: #000;">Giảm giá: @(((int)i.Discount).ToString("N0", CultureInfo.InvariantCulture))<span style="font-size: 14px;">%</span></p>
+                                <div style="display: flex; justify-content: end; align-items: flex-end; margin-top: 20px;">
+                                    <p style="margin: 0; font-size: 16px; font-weight: bold; text-transform: uppercase; color: #000;">
+                                        Thành tiền:
+                                        <span style="color: #ff3d3d;">@(((int)i.Total).ToString("N0", CultureInfo.InvariantCulture))</span> VND
+                                    </p>
+                                </div>
                             </div>
                         </div>
+                        <div class="mt-3" style="display: flex; justify-content: flex-end; padding: 20px; background: #fff;">
+                            @if (i.Status.Equals("Hoàn Thành"))
+                            {
+                                <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                    Đánh Giá
+                                </button>
+                                <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                    Yêu cầu hoàn trả
+                                </button>
+                                <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                    Mua lại
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
+                                    Liên Hệ Người Bán
+                                </button>
+                            }
+                        </div>
                     </div>
-                    <div class="mt-3" style="display: flex; justify-content: flex-end; padding: 20px; background: #fff;">
-                        @if (i.Status.Equals("Hoàn Thành"))
-                        {
-                            <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
-                                Đánh Giá
-                            </button>
-                            <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
-                                Yêu cầu hoàn trả
-                            </button>
-                            <button class="text-uppercase" style=" border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
-                                Mua lại
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="text-uppercase" style="background-color: #ff7575; border: none; color: #ffffff; border-radius: 8px; padding: 15px 35px; margin-left: 20px;">
-                                Liên Hệ Người Bán
-                            </button>
-                        }
-                    </div>
-            </div>
+                }
             }
 
         </div>

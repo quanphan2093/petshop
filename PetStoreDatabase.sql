@@ -263,3 +263,20 @@ VALUES
 (N'Vòng cổ');
 
 INSERT INTO ForumType VALUES (N'Câu chuyện thú cưng') ,(N'Thắc mắc & tư vấn')
+
+create table DiscountCode(
+	codeId int primary key identity(1,1),
+	Code varchar(50),
+	discountPercent int,
+	status varchar(50)
+)
+
+
+ALTER TABLE [PetStore].[dbo].[Order]
+ADD DiscountID INT;
+
+ALTER TABLE [PetStore].[dbo].[Order]
+ADD CONSTRAINT FK_Order_Discount FOREIGN KEY (DiscountID)
+REFERENCES DiscountCode(codeId);
+
+update StatusOrder set StatusName = N'Chờ xác nhận' where StatusID = 1;

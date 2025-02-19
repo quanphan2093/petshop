@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PetStore.Models;
+using PetStore.Pages.Common;
 using System.Security.Principal;
 using System.Text.Json;
 
@@ -9,6 +10,11 @@ namespace PetStore.Pages.Admin
 {
     public class productAdminModel : PageModel
     {
+        private readonly AzureBlobService _blobService;
+        public productAdminModel(AzureBlobService blobService)
+        {
+            _blobService = blobService;
+        }
         public List<Product> lsProduct { get; set; } = new List<Product>();
         public int totalPage = 0;
         private int pageSize = 10;
@@ -40,21 +46,23 @@ namespace PetStore.Pages.Admin
 
         }
 
-        public async Task<IActionResult> OnPost(IFormFile img, IFormFile productImg,string? method = "null") {
+        public async Task<IActionResult> OnPost(IFormFile img, IFormFile productImg, string? method = "null")
+        {
             string? roleName = HttpContext.Session.GetString("roleName");
             if (roleName == null || roleName != "Admin")
             {
                 return Redirect("/Home");
             }
-            if (method == "create") { 
+            if (method == "create")
+            {
                 string name = Request.Form["name"];
                 string detail = Request.Form["detail"].ToString();
-                var filePath = Path.Combine("wwwroot/tpl/img", img.FileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                string fileName = Path.GetFileName(img.FileName);
+                string pathImg = "";
+                using (var stream = img.OpenReadStream())
                 {
-                    await img.CopyToAsync(stream);
+                    pathImg = await _blobService.UploadImageAsync(stream, fileName);
                 }
-                string pathImg = pathSave + img.FileName;
                 decimal price = decimal.Parse(Request.Form["price"]);
                 double? discount;
                 string discountValue = Request.Form["discount"];
@@ -104,7 +112,8 @@ namespace PetStore.Pages.Admin
                 }
 
             }
-            else if (method == "update"){
+            else if (method == "update")
+            {
                 int productId = int.Parse(Request.Form["productId"]);
                 Product pro = PetStoreContext.Ins.Products.Where(p => p.ProductId == productId).FirstOrDefault();
                 if (pro != null)
@@ -115,12 +124,11 @@ namespace PetStore.Pages.Admin
                     string pathImg = pro.Image;
                     if (productImg != null)
                     {
-                        var filePath = Path.Combine("wwwroot/tpl/img", productImg.FileName);
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        string fileName = Path.GetFileName(productImg.FileName);
+                        using (var stream = productImg.OpenReadStream())
                         {
-                            await productImg.CopyToAsync(stream);
+                            pathImg = await _blobService.UploadImageAsync(stream, fileName);
                         }
-                        pathImg = pathSave + productImg.FileName;
                     }
                     pro.Image = pathImg;
                     pro.Price = decimal.Parse(Request.Form["proprice"]);
@@ -141,7 +149,8 @@ namespace PetStore.Pages.Admin
                     await PetStoreContext.Ins.SaveChangesAsync();
 
                     ProductImage proImg = PetStoreContext.Ins.ProductImages.Where(p => p.ProductId == pro.ProductId).FirstOrDefault();
-                    if (proImg != null) {
+                    if (proImg != null)
+                    {
                         proImg.ImgUrl = pro.Image;
                         proImg.UpdateAt = DateTime.Now;
                         PetStoreContext.Ins.ProductImages.Update(proImg);

@@ -48,8 +48,8 @@
 
             <!-- Vận chuyển và Thanh toán -->
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ps-6 pe-6 checkout-section">
-                <h4 class="mb-4">Vận Chuyển</h4>
-                <input type="text" class="form-control mb-3" placeholder="Vui lòng nhập thông tin giao hàng">
+                <h4 class="mb-4">Mã giảm giá</h4>
+                <input type="text" id="discountCodeInput" class="form-control mb-3" name="discountCode" id="discountCode" placeholder="Vui lòng nhập mã giảm giá" value="">
 
                 <h4 class="mb-4">Thanh toán</h4>
                 @if(Model.lspayMethod != null && Model.lspayMethod.Count != 0)
@@ -60,7 +60,7 @@
                         {
                             <div class="form-check border-top border-start border-end rounded-top m-0">
                                 <div class="p-3">
-                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId" checked>
+                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId">
                                     <label class="form-check-label" for="bank-transfer-2">@Model.lspayMethod[i].MethodName</label>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                         {
                             <div class="form-check border rounded-bottom m-0">
                                 <div class="p-3">
-                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId">
+                                    <input class="form-check-input" type="radio" name="payment" value="@Model.lspayMethod[i].MethodId" checked>
                                     <label class="form-check-label" for="cod">@Model.lspayMethod[i].MethodName</label>
                                 </div>
                             </div>
@@ -121,11 +121,12 @@
             <!-- Summary Section -->
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ps-6">
                 <div class="order-details">
-                    <p class="mb-1">Tạm tính: <span class="float-end">@(total == null ? "" : ((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND</span></p>
-                    <p class="mb-1">Phí vận chuyển: <span class="float-end">_ VND</span></p>
+                    <p class="mb-1">Tạm tính: <span id="subtotal" class="float-end">@((total ?? 0).ToString("N0", CultureInfo.InvariantCulture)) VND</span></p>
+                    <p class="mb-1">Phí vận chuyển: <span class="float-end">0 VND</span></p>
+                    <p class="mb-1">Giảm giá: <span id="discountAmount" class="float-end">0 VND</span></p>
                 </div>
                 <div class="summary mt-2">
-                    <p class="total-price mb-3">Tổng cộng: <span id="price" class="float-end">@(total == null ? "" : ((int)total).ToString("N0", CultureInfo.InvariantCulture)) VND </span> </p>
+                    <p class="total-price mb-3">Tổng cộng: <span id="totalPrice" class="float-end">@((total ?? 0).ToString("N0", CultureInfo.InvariantCulture)) VND</span> </p>
                     <div class="d-flex justify-content-between">
                         <a href="/Cart" class="text-decoration-none go-back">&lt; Quay về giỏ hàng</a>
                         <button type="submit" class="btn-order">ĐẶT HÀNG</button>
@@ -149,7 +150,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const radioButtons = document.querySelectorAll('input[name="payment"]');
         const qrImage = document.getElementById("bankingQR");
-        const amount = document.getElementById("price").textContent.replace(/[^0-9]/g, '');
+        let amount = document.getElementById("totalPrice").textContent.replace(/[^0-9]/g, '');
         if (amount === "") amount = 0;
         radioButtons.forEach(radio => {
             radio.addEventListener("change", function () {
@@ -158,15 +159,46 @@
 
                     qrImage.querySelector("img").src = `https://img.vietqr.io/image/tpb-00396925536-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
                     qrImage.style.display = "block";
-                    
+
                 } else {
                     qrImage.style.display = "none";
                 }
             });
         });
 
-        // Gọi sự kiện change ban đầu để kiểm tra radio đã chọn sẵn
         document.querySelector('input[name="payment"]:checked')?.dispatchEvent(new Event("change"));
-    });
 
+
+        let discountCodes = @Html.Raw(Json.Serialize(@Model.lsDiscountCode));
+        let total = parseFloat("@(total ?? 0)");
+        let originalTotal = total;
+
+        document.getElementById("discountCodeInput").addEventListener("input", function () {
+            let enteredCode = document.getElementById("discountCodeInput").value.trim();
+            let discount = discountCodes.find(d => d.code === enteredCode);
+
+            if (discount) {
+
+                let discountPercent = discount.discountPercent / 100;
+                let discountAmount = total * discountPercent;
+                let newTotal = total - discountAmount;
+                
+
+                document.getElementById("discountAmount").textContent = discountAmount.toLocaleString('vi-VN') + " VND";
+                document.getElementById("totalPrice").textContent = newTotal.toLocaleString('vi-VN') + " VND";
+
+                
+
+            } else {
+                document.getElementById("discountAmount").textContent = "0 VND";
+                document.getElementById("totalPrice").textContent = originalTotal.toLocaleString('vi-VN') + " VND";
+            }
+            amount = document.getElementById("totalPrice").textContent.replace(/[^0-9]/g, '');
+            const qrImage = document.getElementById("bankingQR");
+            const accountName = "TA DUY HAI";
+            qrImage.querySelector("img").src = `https://img.vietqr.io/image/tpb-00396925536-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
+            
+        });
+    });
+    
 </script>

@@ -78,7 +78,7 @@ namespace PetStore.Pages.Customer
             //result search by keywords
             if (!string.IsNullOrEmpty(search))
             {
-                products = products.Where(p => p.ProductName.ToLower().Contains(search));
+                products = products.Where(p => p.ProductName.ToLower().Contains(search.ToLower()));
                 Search = search;
             }
 
