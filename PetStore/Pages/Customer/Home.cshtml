@@ -9,7 +9,29 @@
 @using System.Globalization
 <div id="carouselexamplecontrols" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        @if(Model.banner != null && Model.banner.Count() != 0)
+        {
+            @for(int i=0; i < Model.banner.Count(); i++)
+            {
+                if(i == 0)
+                {
+                    <div class="carousel-item active">
+                        <a href="/goPage?id=@Model.banner[i].BannerId" target="_blank">
+                            <img src="@Model.banner[i].BannerImage" class="d-block w-100" alt="Image-Banner">
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <a href="/goPage?id=@Model.banner[i].BannerId" target="_blank">
+                            <img src="@Model.banner[i].BannerImage" class="d-block w-100" alt="Image-Banner">
+                        </a>
+                    </div>
+                }
+            }
+        }
+       @*  <div class="carousel-item active">
             <a href="/home">
                 <img src="~/images/bannerforum.jpg" class="d-block w-100" alt="home">
             </a>
@@ -23,7 +45,7 @@
             <a href="/product">
                 <img src="~/images/bannerproduct.png" class="d-block w-100" alt="product">
             </a>
-        </div>
+        </div> *@
     </div>
     <button class="carousel-control-prev ms-2" type="button" data-bs-target="#carouselexamplecontrols" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
