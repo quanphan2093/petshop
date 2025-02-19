@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PetStore.Models;
+using PetStore.Pages.Common;
 
 namespace PetStore.Pages.Customer
 {
@@ -18,12 +19,14 @@ namespace PetStore.Pages.Customer
         public List<ForumType> forumTypes { get; set; }
         public string Search;
         private readonly PetStoreContext _context;
+        private readonly AzureBlobService _blobService;
         public string Acc;
         private const int PageSize = 5;
         private IFormFile imageFile { get; set; }
-        public ForumModel(PetStoreContext context)
+        public ForumModel(PetStoreContext context, AzureBlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
         private IEnumerable<dynamic> getForum(string search, string type)
@@ -91,7 +94,7 @@ namespace PetStore.Pages.Customer
 
         public void GetData(string search, string type)
         {
-            
+
             var hashtag = _context.PostHashtags
                           .Include(ph => ph.Forum)
                           .Include(ph => ph.Hashtag)
@@ -106,7 +109,7 @@ namespace PetStore.Pages.Customer
                           .Take(3)
                           .ToList();
             var forum = getForum(search, type);
-            forum=forum.Take(PageSize).ToList();
+            forum = forum.Take(PageSize).ToList();
             ViewData["forum"] = forum;
             ViewData["hashtag"] = hashtag;
 
@@ -139,7 +142,7 @@ namespace PetStore.Pages.Customer
             }
         }
 
-        public IActionResult OnPost(string title, string content, IFormFile? file, string search, string type, string forumType)
+        public async Task<IActionResult> OnPost(string title, string content, IFormFile? file, string search, string type, string forumType)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
             if (accId == null)
@@ -164,18 +167,12 @@ namespace PetStore.Pages.Customer
             f.Content = content.Replace("\r\n", "\\r\\n").Replace("\n", "\\n");
             if (imageFile != null)
             {
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images");
-                if (!Directory.Exists(uploadFolder))
+                string fileName = Path.GetFileName(imageFile.FileName);
+                using (var stream = imageFile.OpenReadStream())
                 {
-                    Directory.CreateDirectory(uploadFolder);
+                    f.Image = await _blobService.UploadImageAsync(stream, fileName);
                 }
-                string uniqueFileName = $"{Guid.NewGuid()}_{imageFile.FileName}";
-                string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    imageFile.CopyTo(fileStream);
-                }
-                f.Image = $"/Images/{uniqueFileName}";
+
             }
             f.CreateAt = DateTime.Now;
             f.Likes = 0;
