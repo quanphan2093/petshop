@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetStore.Models;
@@ -18,16 +18,16 @@ namespace PetStore.Pages
         {
 			string user = Request.Form["email"];
 			string pass = Request.Form["pass"];
-			var account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(user)).Include(a => a.Role).FirstOrDefault();
+			var account = PetStoreContext.Ins.Accounts.Where(x => x.Email.Equals(user) && x.State != "Inactive").Include(a => a.Role).FirstOrDefault();
 			if (account == null)
 			{
-				ViewData["error"] = "Email is not correct";
+				ViewData["error"] = "Sai Email hoặc tài khoản đã bị chặn!!";
 				return Page();
 			}
 			bool password = BCrypt.Net.BCrypt.Verify(pass, account.Password);
 			if (!password)
 			{
-				ViewData["error"] = "Password is not correct";
+				ViewData["error"] = "Mật khẩu không đúng!";
 				return Page();
 			}
 			HttpContext.Session.SetInt32("role", account.Role.RoleId);
