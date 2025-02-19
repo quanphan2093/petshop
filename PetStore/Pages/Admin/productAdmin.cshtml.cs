@@ -21,10 +21,11 @@ namespace PetStore.Pages.Admin
         public int currentPage = 0;
         string pathSave = "/tpl/img/";
         public List<Category> lsCategory { get; set; } = new List<Category>();
+        public List<Shop> lsShop { get; set; } = new List<Shop>();
         public IActionResult OnGet(int? current = 1)
         {
             string? roleName = HttpContext.Session.GetString("roleName");
-            if(roleName == null || roleName != "Admin")
+            if (roleName == null || roleName != "Admin")
             {
                 return Redirect("/Home");
             }
@@ -33,7 +34,7 @@ namespace PetStore.Pages.Admin
         }
         public void LoadData(int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).Where(p => p.Status != "deleted").OrderByDescending(p => p.CreateAt).AsQueryable();
+            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Include(pi => pi.ProductImages).Include(s => s.Shop).Where(p => p.Status != "deleted").OrderByDescending(p => p.CreateAt).AsQueryable();
 
             totalPage = products.Count() / pageSize;
             if (products.Count() % pageSize != 0) totalPage += 1;
@@ -43,7 +44,7 @@ namespace PetStore.Pages.Admin
 
             lsProduct = products.ToList();
             lsCategory = PetStoreContext.Ins.Categories.ToList();
-
+            lsShop = PetStoreContext.Ins.Shops.Where(s => s.Status == "Active").ToList();
         }
 
         public async Task<IActionResult> OnPost(IFormFile img, IFormFile productImg, string? method = "null")
@@ -73,7 +74,7 @@ namespace PetStore.Pages.Admin
                 string sizeValue = Request.Form["size"];
                 size = int.TryParse(discountValue, out int resultSize) ? resultSize : null;
                 int unitInStock = int.Parse(Request.Form["unitInStock"]);
-
+                int shopId = int.Parse(Request.Form["shop"]);
                 Product product = new Product();
                 product.ProductName = name;
                 product.Details = System.Text.Json.JsonSerializer.Serialize(detail).Trim('"');
@@ -86,6 +87,7 @@ namespace PetStore.Pages.Admin
                 product.Status = "Available";
                 product.UnitOrdered = 0;
                 product.CreateAt = DateTime.Now;
+                product.ShopId = shopId;
                 try
                 {
                     PetStoreContext.Ins.Products.Add(product);
@@ -144,6 +146,8 @@ namespace PetStore.Pages.Admin
                     pro.Size = size;
                     pro.UnitInStock = int.Parse(Request.Form["prounitInStock"]);
                     pro.UpdateAt = DateTime.Now;
+                    int shopId = int.Parse(Request.Form["shop"]);
+                    pro.ShopId = shopId;
 
                     PetStoreContext.Ins.Products.Update(pro);
                     await PetStoreContext.Ins.SaveChangesAsync();

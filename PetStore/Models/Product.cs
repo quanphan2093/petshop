@@ -26,8 +26,10 @@ namespace PetStore.Models
         public int? UnitInStock { get; set; }
         public int? UnitOrdered { get; set; }
         public int? Size { get; set; }
+        public int? ShopId { get; set; }
 
         public virtual Category? Category { get; set; }
+        public virtual Shop? Shop { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
