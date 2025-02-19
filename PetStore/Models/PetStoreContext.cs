@@ -23,6 +23,7 @@ namespace PetStore.Models
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<Address> Addresses { get; set; } = null!;
+        public virtual DbSet<Banner> Banners { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<DiscountCode> DiscountCodes { get; set; } = null!;
@@ -39,6 +40,7 @@ namespace PetStore.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<Shop> Shops { get; set; } = null!;
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; } = null!;
         public virtual DbSet<StateInfor> StateInfors { get; set; } = null!;
         public virtual DbSet<StatusOrder> StatusOrders { get; set; } = null!;
@@ -93,6 +95,34 @@ namespace PetStore.Models
                 entity.Property(e => e.Gender).HasMaxLength(10);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Banner>(entity =>
+            {
+                entity.ToTable("banner");
+
+                entity.Property(e => e.BannerId).HasColumnName("bannerId");
+
+                entity.Property(e => e.BannerImage)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("bannerImage");
+
+                entity.Property(e => e.BannerUrl)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("bannerUrl");
+
+                entity.Property(e => e.ClickCount).HasColumnName("clickCount");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("createAt");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -432,6 +462,8 @@ namespace PetStore.Models
 
                 entity.Property(e => e.ProductName).HasMaxLength(255);
 
+                entity.Property(e => e.ShopId).HasColumnName("shopId");
+
                 entity.Property(e => e.Size).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Status).HasMaxLength(50);
@@ -446,6 +478,11 @@ namespace PetStore.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK__Product__Categor__2F10007B");
+
+                entity.HasOne(d => d.Shop)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.ShopId)
+                    .HasConstraintName("FK_Product_Shop");
             });
 
             modelBuilder.Entity<ProductImage>(entity =>
@@ -480,6 +517,43 @@ namespace PetStore.Models
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
                 entity.Property(e => e.RoleName).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Shop>(entity =>
+            {
+                entity.ToTable("Shop");
+
+                entity.Property(e => e.ShopId).HasColumnName("shopId");
+
+                entity.Property(e => e.Address)
+                    .HasMaxLength(255)
+                    .HasColumnName("address");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("createAt");
+
+                entity.Property(e => e.FacebookUrl)
+                    .HasMaxLength(255)
+                    .HasColumnName("facebookUrl");
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("phone");
+
+                entity.Property(e => e.ShopName)
+                    .HasMaxLength(255)
+                    .HasColumnName("shopName");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("status");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(255)
+                    .HasColumnName("website");
             });
 
             modelBuilder.Entity<ShoppingCart>(entity =>

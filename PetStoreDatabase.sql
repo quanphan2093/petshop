@@ -268,15 +268,47 @@ create table DiscountCode(
 	codeId int primary key identity(1,1),
 	Code varchar(50),
 	discountPercent int,
-	status varchar(50)
+	[status] varchar(50)
 )
 
 
-ALTER TABLE [PetStore].[dbo].[Order]
+ALTER TABLE [Order]
 ADD DiscountID INT;
 
-ALTER TABLE [PetStore].[dbo].[Order]
+ALTER TABLE [Order]
 ADD CONSTRAINT FK_Order_Discount FOREIGN KEY (DiscountID)
 REFERENCES DiscountCode(codeId);
 
 update StatusOrder set StatusName = N'Chờ xác nhận' where StatusID = 1;
+
+create table Shop(
+	shopId int primary key identity(1,1) not null,
+	shopName nvarchar(255),
+	[address] nvarchar(255),
+	phone varchar(10),
+	website nvarchar(255),
+	facebookUrl nvarchar(255),
+	createAt Datetime,
+	[status] varchar(50)
+)
+
+ALTER TABLE [Product]
+ADD shopId INT;
+
+ALTER TABLE [Product]
+ADD CONSTRAINT FK_Product_Shop FOREIGN KEY (shopId)
+REFERENCES Shop(shopId);
+
+create table banner (
+	bannerId int primary key identity (1,1),
+	bannerImage varchar(255),
+	bannerUrl varchar(255),
+	clickCount int,
+	createAt datetime,
+	[status] varchar(50) 
+)
+
+insert into banner (bannerImage, bannerUrl, clickCount, createAt, [status]) values
+('/images/bannerforum.jpg','/home',0, GETDATE(),'Active'),
+('/images/bannerfacebook.png','https://www.facebook.com/nhungnguoibanlamlongg',0, GETDATE(),'Active'),
+('/images/bannerproduct.png','/product',0, GETDATE(),'Active')
