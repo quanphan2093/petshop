@@ -15,6 +15,7 @@ editProductModal.addEventListener('show.bs.modal', function (event) {
     let unitInStock = button.getAttribute('data-unitinstock');
     let categoryId = button.getAttribute('data-categoryid');
     let status = button.getAttribute('data-status');
+    let shopId = button.getAttribute('data-shopId');
 
     discount = discount ? discount : 0;
     size = size ? size : null;
@@ -33,4 +34,5 @@ editProductModal.addEventListener('show.bs.modal', function (event) {
     let categorySelect = editProductModal.querySelector('select[name="productCate"]');
     categorySelect.value = categoryId;
     editProductModal.querySelector('select[name="prostatus"]').value = status;
+    editProductModal.querySelector('select[name="shop"]').value = shopId;
 });
