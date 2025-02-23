@@ -41,12 +41,26 @@ namespace PetStore.Pages.Customer
                               where c.ForumId == id
                               select new
                               {
+                                  commentId = c.CommentId,
                                   img = i.Image,
                                   content = c.Content,
                                   name = i.Fullname,
-                                  createAt = c.CreateAt
+                                  createAt = c.CreateAt,
+                                  accountId = c.AccountId,
                               };
-                comment= comment.OrderByDescending(x => x.createAt).ToList();
+                var commentReply = from c in comments
+                                   join i in infors on c.AccountId equals i.AccountId
+                                   where c.ForumId == id && c.ParentCommentId != null
+                                   select new
+                                   {
+                                       commentId = c.CommentId,
+                                       img = i.Image,
+                                       content = c.Content,
+                                       name = i.Fullname,
+                                       createAt = c.CreateAt,
+                                       accountId = c.AccountId,
+                                   };
+                comment = comment.OrderByDescending(x => x.createAt).ToList();
                 f.Views += 1;
                 _context.Forums.Update(f);
                 _context.SaveChanges();
