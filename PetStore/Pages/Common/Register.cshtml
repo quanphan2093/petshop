@@ -48,8 +48,13 @@
 						<img src="~/tplAdmin/images/logo-icon.png" />
 					</span>
 
+					<div class="wrap-input100 validate-input" style="margin-bottom:20px;">
+						<input class="input100" required type="text" name="fullname" id="fullname">
+						<span class="focus-input100" data-placeholder="Tên đầy đủ"></span>
+					</div>
+
 					<div class="wrap-input100 validate-input" data-validate="Email hợp lệ có dạng: a@b.c" style="margin-bottom:20px;">
-						<input class="input100" type="text" name="email" id="email">
+						<input class="input100" required type="text" name="email" id="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 
@@ -57,7 +62,7 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pass" id="password" oninput="validatePassword()">
+						<input class="input100" required type="password" name="pass" id="password" oninput="validatePassword()">
 						<span class="focus-input100" data-placeholder="Mật khẩu"></span>
 					</div>
 					<div id="password-feedback" style="color: red; margin-top: 10px; font-size:13px;"></div>
@@ -66,7 +71,7 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="comfirm">
+						<input class="input100" required type="password" name="comfirm">
 						<span class="focus-input100" data-placeholder="xác nhận mật khẩu"></span>
 					</div>
 
@@ -121,15 +126,6 @@
 			const feedback = document.getElementById("password-feedback");
 			let messages = [];
 
-			if (!/[A-Z]/.test(password)) {
-				messages.push("Mật khẩu phải chứa ít nhất 1 chữ cái viết hoa.");
-			}
-			if (!/[a-z]/.test(password)) {
-				messages.push("Mật khẩu phải chứa ít nhất 1 chữ cái viết thường.");
-			}
-			if (!/[\W_]/.test(password)) {
-				messages.push("Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.");
-			}
 			if (password.length < 8) {
 				messages.push("Mật khẩu phải có ít nhất 8 ký tự.");
 			}
