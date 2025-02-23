@@ -15,6 +15,7 @@ namespace PetStore.Pages.Common
 
         public IActionResult OnPost()
         {
+            string fullname = Request.Form["fullname"];
             string email = Request.Form["email"];
             string pass = Request.Form["pass"];
             string comfirm = Request.Form["comfirm"];
@@ -44,23 +45,6 @@ namespace PetStore.Pages.Common
                 ViewData["messageErrorRegister"] = "Mật khẩu xác nhận không khớp";
                 return Page();
             }
-            if (!Regex.IsMatch(pass, "(?=.*[A-Z])"))
-            {
-                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 chữ cái viết hoa";
-                return Page();
-            }
-
-            if (!Regex.IsMatch(pass, "(?=.*[a-z])"))
-            {
-                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 chữ cái viết thường.";
-                return Page();
-            }
-
-            if (!Regex.IsMatch(pass, "(?=.*[\\W_])"))
-            {
-                ViewData["messageErrorRegister"] = "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.";
-                return Page();
-            }
 
             if (pass.Length < 8)
             {
@@ -77,10 +61,18 @@ namespace PetStore.Pages.Common
             acc.State = "Active";
             PetStoreContext.Ins.Accounts.Add(acc);
             PetStoreContext.Ins.SaveChanges();
-            //string token = Guid.NewGuid().ToString();
-            //SendMail(email, token, pass);
-            //TempData["successRegister"] = "Register successfull. Please check email to active account";
-            return Redirect("/Login");
+
+            Infor info = new Infor();
+            info.Fullname = fullname;
+            info.StateId = 1;
+            info.AccountId = acc.AccountId;
+			PetStoreContext.Ins.Infors.Add(info);
+			PetStoreContext.Ins.SaveChanges();
+
+			//string token = Guid.NewGuid().ToString();
+			//SendMail(email, token, pass);
+			//TempData["successRegister"] = "Register successfull. Please check email to active account";
+			return Redirect("/Login");
         }
 
         private static void SendMail(string email, string token, string pass)
