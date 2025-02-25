@@ -126,6 +126,12 @@ namespace PetStore.Pages.Customer
             {
                 return RedirectToPage("/Common/Login");
             }
+            var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
+            if (info == null || info.Fullname.Trim().Count() == 0)
+            {
+                TempData["error"] = "Vui lòng điền đầy đủ thông tin của bạn trước khi comment";
+                return Redirect("/Profile");
+            }
             f = _context.Forums.Where(x => x.ForumId == id).SingleOrDefault();
             string url = "Forum/" + f.ForumId;
             if (f != null)
