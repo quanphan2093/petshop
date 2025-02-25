@@ -123,11 +123,6 @@
                                 </button>
                             </form>
                         </div>
-                      @*    <div class="col-lg-9 col-12 d-flex">
-                             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 col-3 text-center" style="margin: auto auto auto 0;padding-right: 0; width: fit-content;">@Model.f.Views views</div>
-                             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 col-3 text-center like-count" style="margin: auto;padding-right: 0; width: fit-content;">@Model.f.Likes likes</div>
-                             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3 col-3 text-center" style="margin: auto; width: fit-content;">@Model.f.Comments comments</div>
-                         </div> *@
                     </div>
                     <form method="post" asp-page-handler="Comment">
                         <div id="comment-form" style="display: none; margin-top: 10px;">
@@ -162,11 +157,6 @@
                                 <p style="padding-left: 47px; width: 80%;">
                                     @i.content
                                 </p>
-                                <p class="reply-button text-warning" onclick="toggleReplyInput(@i.commentId)" style="padding-left: 47px;">Trả lời</p>
-                                <div id="reply-input-@i.commentId" class="reply-input" style="display: none;">
-                                    <textarea class="form-control" rows="2" placeholder="Nhập câu trả lời..."></textarea>
-                                    <button class="btn btn-sm btn-primary mt-2" style="background:#ffcd16; border:none; padding: 8px 25px; border-radius:12px;">Gửi</button>
-                                </div>
                             </div>
                         }
                     </div>
@@ -267,10 +257,4 @@
         
     });
 
-</script>
-<script>
-    function toggleReplyInput(commentId) {
-        let inputBox = document.getElementById(`reply-input-${commentId}`);
-        inputBox.style.display = inputBox.style.display === "none" ? "block" : "none";
-    }
 </script>
