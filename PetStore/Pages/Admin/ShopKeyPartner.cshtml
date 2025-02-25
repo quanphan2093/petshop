@@ -1,0 +1,279 @@
+﻿@page "/Admin/Shop"
+@model PetStore.Pages.Admin.ShopKeyPartnerModel
+@{
+    Layout = "_layoutAdmin";
+}
+<style>
+    .inactive-row {
+        background-color: #ddd9d9;
+    }
+    a {
+        color: black;   
+    }
+</style>
+<div class="layout-specing">
+    <div class="row">
+        <div class="col-xl-9 col-lg-6 col-md-4">
+            <h5 class="mb-0">Pet Shop - Key Partner</h5>
+            <nav aria-label="breadcrumb" class="d-inline-block mt-2">
+                <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="index.html">FurFriends</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Key Partner</li>
+                </ul>
+            </nav>
+        </div><!--end col-->
+
+        <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+            <div class="justify-content-md-end">
+                <form>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-12 col-md-5">
+                        </div><!--end col-->
+
+                        <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
+                            <div class="d-grid">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addKeyPartner">Thêm</a>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form><!--end form-->
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="table-responsive bg-white shadow rounded">
+                <table class="table mb-0 table-center">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom p-3" style="min-width: 50px;">#</th>
+                            <th class="border-bottom p-3" style="min-width: 180px;max-width: 200px;">Tên Shop</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Địa chỉ</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Số điện thoại</th>
+                            <th class="border-bottom p-3" style="min-width: 100px; max-width: 200px;">Website</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">facebook Url</th>
+                            <th class="border-bottom p-3" style="min-width: 120px; max-width: 150px;">Trạng thái</th>
+                            <th class="border-bottom p-3" style="min-width: 150px; max-width: 150px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.lsShop != null && Model.lsShop.Count != 0)
+                        {
+                            @foreach (var s in Model.lsShop)
+                            {
+                                <tr class="@(s.Status == "Inactive" ? "inactive-row" : "")">
+                                    <th class="p-3">@s.ShopId</th>
+                                    <td class="p-3">
+                                        <a href="#" class="text-dark">
+                                            <div class="d-flex align-items-center">
+
+                                                <span class="ms-2">@s.ShopName</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="p-3" style="max-width: 200px;">@s.Address</td>
+                                    <td class="p-3">@s.Phone</td>
+                                    <td class="p-3"><a href="@s.Website">@s.Website</a></td>
+                                    <td class="p-3"><a href="@s.FacebookUrl">@s.FacebookUrl</a></td>
+                                    <td class="p-3">@s.Status</td>
+                                    <td class="text-end p-3">
+                                        <a href="#" class="btn btn-icon btn-pills btn-soft-primary"
+                                           data-bs-toggle="modal" data-bs-target="#editKeyPartner"
+                                           data-shopId = "@s.ShopId"
+                                            data-shopName = "@s.ShopName"
+                                            data-address = "@s.Address"
+                                            data-phone = "@s.Phone"
+                                            data-website = "@s.Website"
+                                            data-facebook ="@s.FacebookUrl"
+                                            data-status = "@s.Status">
+                                            <i class="uil uil-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!--end row-->
+
+    <div class="row text-center">
+        <!-- PAGINATION START -->
+        <div class="col-12 mt-4">
+            <div class="d-md-flex align-items-center text-center justify-content-between">
+                <ul class="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+                    @if (Model.totalPage != null)
+                    {
+                        @for (int i = 1; i <= Model.totalPage; i++)
+                        {
+                            <li class="page-item @(Model.currentPage == i? "active" : "")"><a class="page-link" href="/Admin/Shop?current=@i">@i</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div><!--end col-->
+        <!-- PAGINATION END -->
+    </div><!--end row-->
+</div>
+
+
+<!-- page-wrapper -->
+<!-- Modal start -->
+<!-- Add New Appointment Start -->
+<div class="modal fade" id="addKeyPartner" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm đối tác</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <form method="post" asp-page="ShopKeyPartner">
+                    <input type="hidden" name="method" value="create" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Tên Shop <span class="text-danger">*</span> : </label>
+                                <input required name="shopName" id="shopName" type="text" class="form-control" placeholder="Tên Shop:">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Địa Chỉ<span class="text-danger">*</span> : </label>
+                                <input required type="text" name="address" id="address" rows="4" class="form-control" placeholder="Địa chỉ:"/>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Số điện thoại<span class="text-danger">*</span> : </label>
+                                <input required name="phone" id="phone" type="number" class="form-control" placeholder="Số điện thoại :">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Trạng thái<span class="text-danger">*</span> : </label>
+                                <input name="status" id="status" type="text" disabled class="form-control" placeholder="Active" value="Active">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label"> Website<span class="text-danger">*</span> : </label>
+                                <input required name="website" id="website" type="text" class="form-control" placeholder="website:">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Facebook<span class="text-danger">*</span> : </label>
+                                <input name="facebookUrl" id="facebookUrl" type="text" class="form-control" placeholder="Facebook" required>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Thêm shop</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editKeyPartner" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <form method="post" asp-page="ShopKeyPartner">
+                    <input type="hidden" name="method" value="update" />
+                    <input type="hidden" name="shopId"/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Tên Shop <span class="text-danger">*</span> : </label>
+                                <input required name="shopName" id="shopName" type="text" class="form-control" placeholder="Tên Shop:">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Địa Chỉ<span class="text-danger">*</span> : </label>
+                                <input required type="text" name="address" id="address" rows="4" class="form-control" placeholder="Địa chỉ:" />
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Số điện thoại<span class="text-danger">*</span> : </label>
+                                <input required name="phone" id="phone" type="number" class="form-control" placeholder="Số điện thoại :">
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Trạng thái<span class="text-danger">*</span> : </label>
+                                <select class="form-control" name="status">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label"> Website<span class="text-danger">*</span> : </label>
+                                <input required name="website" id="website" type="text" class="form-control" placeholder="website:">
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Facebook<span class="text-danger">*</span> : </label>
+                                <input name="facebookUrl" id="facebookUrl" type="text" class="form-control" placeholder="Facebook" required>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-lg-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Lưu chỉnh sửa</button>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const editProductModal = document.getElementById('editKeyPartner');
+
+    editProductModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered the modal
+
+        // Lấy dữ liệu từ các thuộc tính data-*
+        const shopId = button.getAttribute('data-shopId');
+        const shopName = button.getAttribute('data-shopName');
+        let address = button.getAttribute('data-address');
+        const phone = button.getAttribute('data-phone');
+        const website = button.getAttribute('data-website');
+        let facebook = button.getAttribute('data-facebook');
+        let status = button.getAttribute('data-status');
+
+        // Điền dữ liệu vào các input của modal
+        editProductModal.querySelector('input[name="shopId"]').value = shopId;
+        editProductModal.querySelector('input[name="shopName"]').value = shopName;
+        editProductModal.querySelector('input[name="address"]').value = address;
+        editProductModal.querySelector('input[name="phone"]').value = phone;
+        editProductModal.querySelector('input[name="website"]').value = website;
+        editProductModal.querySelector('input[name="facebookUrl"]').value = facebook;
+        editProductModal.querySelector('select[name="status"]').value = status;
+    });
+
+</script>

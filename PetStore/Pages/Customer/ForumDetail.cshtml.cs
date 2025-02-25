@@ -41,12 +41,26 @@ namespace PetStore.Pages.Customer
                               where c.ForumId == id
                               select new
                               {
+                                  commentId = c.CommentId,
                                   img = i.Image,
                                   content = c.Content,
                                   name = i.Fullname,
-                                  createAt = c.CreateAt
+                                  createAt = c.CreateAt,
+                                  accountId = c.AccountId,
                               };
-                comment= comment.OrderByDescending(x => x.createAt).ToList();
+                var commentReply = from c in comments
+                                   join i in infors on c.AccountId equals i.AccountId
+                                   where c.ForumId == id && c.ParentCommentId != null
+                                   select new
+                                   {
+                                       commentId = c.CommentId,
+                                       img = i.Image,
+                                       content = c.Content,
+                                       name = i.Fullname,
+                                       createAt = c.CreateAt,
+                                       accountId = c.AccountId,
+                                   };
+                comment = comment.OrderByDescending(x => x.createAt).ToList();
                 f.Views += 1;
                 _context.Forums.Update(f);
                 _context.SaveChanges();
@@ -111,6 +125,12 @@ namespace PetStore.Pages.Customer
             if(accId == null)
             {
                 return RedirectToPage("/Common/Login");
+            }
+            var info = _context.Infors.Where(x => x.AccountId == accId).SingleOrDefault();
+            if (info == null || info.Fullname.Trim().Count() == 0)
+            {
+                TempData["error"] = "Vui lòng điền đầy đủ thông tin của bạn trước khi comment";
+                return Redirect("/Profile");
             }
             f = _context.Forums.Where(x => x.ForumId == id).SingleOrDefault();
             string url = "Forum/" + f.ForumId;
