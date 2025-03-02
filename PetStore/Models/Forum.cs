@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace PetStore.Models
 {
@@ -27,6 +26,7 @@ namespace PetStore.Models
         public int? Comments { get; set; }
         public string? Title { get; set; }
         public int? TypeId { get; set; }
+        public bool? IsPinned { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual ForumType? Type { get; set; }

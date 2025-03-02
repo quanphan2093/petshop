@@ -166,5 +166,42 @@ namespace PetStore.Pages.Customer
                 return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
             }
         }
+        public IActionResult OnPostPin(int? id)
+        {
+            int? accId = HttpContext.Session.GetInt32("acc");
+            if (accId == null)
+            {
+                return Redirect("/Login");
+            }
+            else
+            {
+                List<Forum> fList = PetStoreContext.Ins.Forums.Where(x => x.IsPinned == true).ToList();
+                Forum f = PetStoreContext.Ins.Forums.Where(x => x.ForumId == id).FirstOrDefault();
+                if (f == null) return Redirect("/Forum");
+                if (fList.Count >= 2)
+                {
+                    if (f.IsPinned == true) { 
+                        f.IsPinned = false;
+                        PetStoreContext.Ins.Forums.Update(f);
+                        PetStoreContext.Ins.SaveChanges();
+                    }
+                    else if (f.IsPinned == false)
+                    {
+                        notificationMessage = "Chỉ được phép ghim tối đa 2 bài viết! Hãy bỏ ghim bài viết cũ";
+                    }
+                    return Redirect("/Profile/" + accId);
+                }
+                else
+                {
+                    if (f.IsPinned == true) f.IsPinned = false;
+                    else f.IsPinned = true;
+                    PetStoreContext.Ins.Forums.Update(f);
+                    PetStoreContext.Ins.SaveChanges();
+                    return Redirect("/Profile/" + accId);
+                }
+                
+                
+            }
+        }
     }
 }
