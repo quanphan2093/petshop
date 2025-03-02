@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Security.Cryptography;
 using PetStore.Pages.Common;
+using static PetStore.Pages.Customer.ForumModel;
 
 namespace PetStore.Pages.Customer
 {
@@ -21,27 +22,48 @@ namespace PetStore.Pages.Customer
         }
         public Infor InformationUser { get; set; }
         public Account UserAdditionInfo { get; set; }
-        public IActionResult OnGet()
+        public List<Infor> infors { get; set; } = new List<Infor>();
+        public int? AccountId { get; set; } = 0;
+        private void LoadUserData(int? id, int? accId)
+        {
+            if (accId != null)
+            {
+                if (accId == id)
+                {
+                    InformationUser = PetStoreContext.Ins.Infors.
+                    Include(x => x.Account).
+                    Where(x => x.AccountId == accId).
+                    FirstOrDefault();
+                    UserAdditionInfo = PetStoreContext.Ins.Accounts.
+                        Where(x => x.AccountId == accId).
+                        FirstOrDefault();
+                    lsForum = PetStoreContext.Ins.Forums.Include(f => f.Type)
+                        .Where(f => f.AccountId == accId && f.Status == "Active").ToList();
+                }
+                else
+                {
+                    InformationUser = PetStoreContext.Ins.Infors.
+                    Include(x => x.Account).
+                    Where(x => x.AccountId == id).
+                    FirstOrDefault();
+                    UserAdditionInfo = PetStoreContext.Ins.Accounts.
+                        Where(x => x.AccountId == id).
+                        FirstOrDefault();
+                    lsForum = PetStoreContext.Ins.Forums.Include(f => f.Type)
+                        .Where(f => f.AccountId == id && f.Status == "Active").ToList();
+                    AccountId = id;
+                }
+            }
+        }
+        public IActionResult OnGet(int? id)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
             if (accId != null)
             {
-                InformationUser = PetStoreContext.Ins.Infors.
-                    Include(x => x.Account).
-                    Where(x => x.AccountId == accId).
-                    FirstOrDefault();
-                UserAdditionInfo = PetStoreContext.Ins.Accounts.
-                    Where(x => x.AccountId == accId).
-                    FirstOrDefault();
-                lsForum = PetStoreContext.Ins.Forums.Include(f => f.Type)
-                    .Where(f => f.AccountId == accId && f.Status == "Active").ToList();
-                Console.WriteLine(lsForum.Count);
+                LoadUserData(id, accId);
                 return Page();
             }
-            else
-            {
-                return RedirectToPage("/Common/Login");
-            }
+            return RedirectToPage("/Common/Login");
         }
         private string Fullname { get; set; } = "";
         private string Phone { get; set; } = "";
@@ -49,13 +71,14 @@ namespace PetStore.Pages.Customer
         private string Gender { get; set; } = "";
         private IFormFile imageFile { get; set; }
         public string notificationMessage { get; set; } = "";
-        public async Task<IActionResult> OnPost(string? fullname, string? phone, string? gender, string? address, IFormFile? image)
+        public async Task<IActionResult> OnPost(int?id, string? fullname, string? phone, string? gender, string? address, IFormFile? image)
         {
             int? accId = HttpContext.Session.GetInt32("acc");
             if (accId == null)
             {
                 return Redirect("/login");
             }
+            LoadUserData(id, accId);
             InformationUser = PetStoreContext.Ins.Infors.
                    Include(x => x.Account).
                    Where(x => x.AccountId == accId).
@@ -122,5 +145,26 @@ namespace PetStore.Pages.Customer
             return Page();
         }
 
+        public JsonResult OnPostLike([FromBody] LikeRequest request)
+        {
+            try
+            {
+                var forum = PetStoreContext.Ins.Forums.Find(request.Id);
+                if (forum == null)
+                {
+                    return new JsonResult(new { success = false, message = "Bài viết không tồn tại" });
+                }
+
+                forum.Likes += 1;
+                PetStoreContext.Ins.Forums.Update(forum);
+                PetStoreContext.Ins.SaveChanges();
+
+                return new JsonResult(new { success = true, likes = forum.Likes });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }

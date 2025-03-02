@@ -70,7 +70,8 @@ namespace PetStore.Pages.Customer
                             createAt = f.CreateAt,
                             name = i.Fullname,
                             typeId = f.TypeId,
-                            imgProfile = i.Image
+                            imgProfile = i.Image,
+                            accountId = f.AccountId
                         };
 
             forum = forum.OrderByDescending(x => x.createAt).ToList();
