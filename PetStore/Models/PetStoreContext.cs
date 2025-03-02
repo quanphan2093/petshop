@@ -239,6 +239,8 @@ namespace PetStore.Models
 
                 entity.Property(e => e.Image).HasMaxLength(255);
 
+                entity.Property(e => e.IsPinned).HasColumnName("isPinned");
+
                 entity.Property(e => e.Likes).HasColumnName("likes");
 
                 entity.Property(e => e.Status).HasMaxLength(255);

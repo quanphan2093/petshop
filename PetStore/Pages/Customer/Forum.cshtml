@@ -3,7 +3,7 @@
 @{
     Layout = "_Layout";
 }
-<link href="~/css/forum.css" rel="stylesheet">
+<link href="~/css/forum.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 <style>
     .text-blue {
         color: #085998;
@@ -104,6 +104,34 @@
                     </div>
                 }
             </form>
+            @if ((IEnumerable<dynamic>)ViewData["top2forum"] != null)
+            {
+                <h6 class="top2Forum" style="color: #085998; font-size: 20px; font-weight: 700;">Bài viết nổi bật</h6>
+                @foreach (var i in (IEnumerable<dynamic>)ViewData["top2forum"])
+                {
+                    <div class="input-group shadow p-3 mb-2 bg-white rounded-custom top2Forum">
+                        <a href="/Forum/@i.ForumId">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 7px;text-align:left;">
+                                <div style="display: flex;">
+                                    @if (i.Image != null)
+                                    {
+                                        <img src="@i.Image" width="100px" height="100px" style="margin-right: 15px;object-fit:cover" />
+                                    }
+                                    <div>
+                                        <h6 style="color: #085998;">@i.Title</h6>
+                                        <p style="color: black;display: -webkit-box;
+                                        -webkit-line-clamp: 2;
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;">@Html.Raw(i.Content.Replace("\\r\\n", "<br>"))</p>
+                                    </div>
+                                </div>
+                                <i class="bi bi-arrow-right" style="margin-right: 22px;"></i>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            
            @*  @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
             {
                 <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
