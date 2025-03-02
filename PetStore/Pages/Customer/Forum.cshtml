@@ -17,6 +17,10 @@
         height: 5rem;
     }
 
+    .h-4rem {
+        height: 4rem;
+    }
+
     .input-search {
         font-size: 0.85rem;
         border: 0;
@@ -56,12 +60,16 @@
     .hidden {
         display: none;
     }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 </style>
 <div class="container-fluid" style="margin-top:30px;">
     <div class="row text-center">
         <div class="col-md-3 text-center filter_forum" style="display: flex; flex-direction: column; align-items: center; padding-left: 30px;">
             <form style="width:100%" method="get">
-                <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
+                <div class="position-relative input-group shadow p-2 mb-2 bg-white rounded-custom h-4rem">
                     <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
                     <button type="submit"
                             class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
@@ -113,14 +121,14 @@
             } *@
         </div>
         
-        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;" >
+        <div class="col-md-6" id="forum-container" style="display: flex; flex-direction: column; align-items: center; height:100vh; overflow-y: auto;scrollbar-gutter: stable;">
             @{
                 var accId = HttpContext.Session.GetInt32("acc");
             }
-            <div class="position-relative postforum input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" data-bs-toggle="modal" data-bs-target="#postModal">
+            <div class="position-relative postforum input-group shadow p-3 mb-2 bg-white rounded-custom h-4rem" data-bs-toggle="modal" data-bs-target="#postModal">
                 <input type="text" class="form-control p-2 rounded-15 input-search"
                        placeholder="Cùng thú cưng chia sẻ">
-                <button type="submit" style="color: #ffffff; border-radius: 6px;"
+                <button type="submit" style="color: #ffffff; border-radius: 6px;height: auto"
                         class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
                     <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24"
                         viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
@@ -263,7 +271,7 @@
                             <option style="color:black" value="@i.TypeId">@i.TypeName</option>
                         }
                     </select>
-                    <input  type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    <input accept="image/*" type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
                     <button style="width: 100%; padding: 10px; margin-top: 10px; background: #3A3B3C; border: none; color: #B0B3B8; font-weight: bold; border-radius: 5px; cursor: pointer;" type="submit">
                         Đăng
                     </button>
@@ -276,14 +284,19 @@
 <script>
     let skip = 5;
     let isLoading = false;
-
-    window.addEventListener("scroll", function () {
+    const forumContainer = document.getElementById("forum-container");
+    function loadMoreItems() {
         if (isLoading) return;
 
+        // Nếu cuộn trên toàn bộ trang
         let scrollPosition = window.innerHeight + window.scrollY;
         let pageHeight = document.body.offsetHeight;
 
-        if (scrollPosition >= pageHeight - 100) {
+        // Nếu cuộn trong forumList
+        let forumScrollPosition = forumContainer.scrollTop + forumContainer.clientHeight;
+        let forumHeight = forumContainer.scrollHeight;
+
+        if (forumScrollPosition >= forumHeight - 100 || scrollPosition >= pageHeight - 100) {
             isLoading = true;
             document.getElementById("loading").style.display = "block";
 
@@ -296,6 +309,8 @@
                         data.forEach(i => {
                             let timeDisplay;
                             let timeDiff = (new Date() - new Date(i.createAt)) / 1000;
+                            let content = i.content.toString().replace(/\\r/g, "").replace(/\\n/g, "<br>");
+                            console.log(content);
 
                             if (timeDiff < 3600) {
                                 timeDisplay = `${Math.floor(timeDiff / 60)} phút trước`;
@@ -306,41 +321,41 @@
                             }
                             let imageHtml = i.image ? `<div style="padding: 22px;"><img src="${i.image}" style="width: 100%;"></div>` : "";
                             let forumItem = `
-                                            <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
-                                                <a href="/Forum/${i.id}" style="color:black">
-                                                        ${imageHtml}
-                                                   <div class="text-start" style="padding:0 22px; padding-top:10px">
-                                                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                            <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
-                                                                <div class="text-end"
-                                                                        style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                                                                    <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
-                                                                        <i class="bi bi-suit-heart-fill"></i>
-                                                                    </button>
-                                                                </div>
+                                                <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
+                                                    <a href="/Forum/${i.id}" style="color:black">
+                                                            ${imageHtml}
+                                                       <div class="text-start" style="padding:0 22px; padding-top:10px">
+                                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                                <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
+                                                                    <div class="text-end"
+                                                                            style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                                                        <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
+                                                                            <i class="bi bi-suit-heart-fill"></i>
+                                                                        </button>
+                                                                    </div>
+                                                            </div>
+                                                           <p>${content}</p>
                                                         </div>
-                                                        <p>${i.content}</p>
-                                                    </div>
-                                                        <div style="padding-bottom: 20px;">
-                                                        <div class="text-start"
-                                                             style="padding-left: 22px; display: flex; justify-content: space-between;">
-                                                            <div style="display: flex;">
-                                                                <img src="/image/Rectangle 24.png" width="30px" height="30px"
-                                                                     style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
-                                                                <div>
-                                                                    <h6 style="margin: 0;">${i.name}</h6>
-                                                                    <p style="margin: 0;">${timeDisplay}</p>
+                                                            <div style="padding-bottom: 20px;">
+                                                            <div class="text-start"
+                                                                 style="padding-left: 22px; display: flex; justify-content: space-between;">
+                                                                <div style="display: flex;">
+                                                                    <img src="/image/Rectangle 24.png" width="30px" height="30px"
+                                                                         style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                                                    <div>
+                                                                        <h6 style="margin: 0;">${i.name}</h6>
+                                                                        <p style="margin: 0;">${timeDisplay}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                                                    <div>${i.views} Views</div>
+                                                                   <div class="like-count">${i.likes} Likes</div>
+                                                                    <div>${i.comments} Comments</div>
                                                                 </div>
                                                             </div>
-                                                            <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                                                                <div>${i.views} Views</div>
-                                                               <div class="like-count">${i.likes} Likes</div>
-                                                                <div>${i.comments} Comments</div>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
-                                            </div>`;
+                                                    </a>
+                                                </div>`;
 
                             forumList.insertAdjacentHTML("beforeend", forumItem);
                         });
@@ -356,7 +371,11 @@
                     isLoading = false;
                 });
         }
-    });
+    }
+    
+    forumContainer.addEventListener("scroll", loadMoreItems);
+    window.addEventListener("scroll", loadMoreItems);
+    
 </script>
 <script>
     var isLoggedIn = @((accId.HasValue && accId.Value > 0) ? "true" : "false") === true;
