@@ -1,4 +1,4 @@
-﻿@page "/Profile"
+﻿@page "/Profile/{id}"
 @model PetStore.Pages.Customer.ProfileModel
 @{
 
@@ -60,7 +60,14 @@
     <div class="container-xxl bg-white p-0 profile-page">
 
         <div class="container profile-container col-lg-7 col-md-7 col-xs-8 col-sm-8">
-            <h1>Hồ sơ người dùng</h1>
+            @if(Model.AccountId == 0)
+            {
+                <h1>Hồ sơ người dùng</h1>
+            }
+            else
+            {
+                <h1>Trang cá nhân</h1>
+            }
             <p class="text-danger" style="text-align:center;">@TempData["error"]</p>
             @if (Model.InformationUser != null)
             {
@@ -89,7 +96,10 @@
                             <p><span>Email:</span> @Model.InformationUser.Account.Email</p>
                             <p><span>Số điện thoại:</span> @Model.InformationUser.Phone</p>
                             <p><span>Giới tính:</span> @Model.InformationUser.Gender</p>
-                            <p><span>Địa chỉ:</span> @Model.InformationUser.Address</p>
+                            @if (Model.AccountId == 0)
+                            {
+                                <p><span>Địa chỉ:</span> @Model.InformationUser.Address</p>
+                            }
                         </div>
                     }
                     else
@@ -119,7 +129,6 @@
                             <p><span>Email:</span> @Model.UserAdditionInfo.Email</p>
                             <p><span>Số điện thoại:</span> </p>
                             <p><span>Giới tính:</span></p>
-                            <p><span>Địa chỉ:</span></p>
                         </div>
                     }
                     @if (Model.notificationMessage != null)
@@ -132,10 +141,13 @@
                     }
                 </div>
             }
-            
-            <div style="text-align: right;">
-                <button id="updateProfileCloseBtn" class="btn btn-primary py-2 px-4">Cập nhật</button>
-            </div>
+
+            @if (Model.AccountId == 0)
+            {
+                <div style="text-align: right;">
+                    <button id="updateProfileCloseBtn" class="btn btn-primary py-2 px-4">Cập nhật</button>
+                </div>
+            }
 
             @if (Model.InformationUser != null)
             {
@@ -231,7 +243,7 @@
                                                 <label class="form-label fw-bold">Giới tính</label>
                                                 <div class="d-flex align-items-center">
                                                     <div class="me-3">
-                                                        <input type="radio" id="genderMale" name="gender" value="Male" checked/>
+                                                        <input type="radio" id="genderMale" name="gender" value="Male" checked />
                                                         <label for="genderMale">Male</label>
                                                     </div>
                                                     <div>
@@ -266,53 +278,89 @@
                 </div>
             }
         </div>
-        @if(Model.lsForum != null)
+        @if (Model.lsForum != null)
         {
             <div class="container profile-container  col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                <h3>Bài đăng của bạn</h3>
-                <div style="overflow: auto">
-                    <table class="table mb-0 table-center">
-                        <thead>
-                            <tr>
-                                <th class="border-bottom p-3" style="min-width: 180px;max-width: 200px;">Title</th>
-                                <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Content</th>
-                                <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Ảnh</th>
-                                <th class="border-bottom p-3" style="min-width: 150px; max-width: 200px;">Chủ đề</th>
-                                <th class="border-bottom p-3" style="min-width: 150px; max-width: 150px;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var f in Model.lsForum)
-                            {
-                                <tr>
-                                    <td class="p-3">
-                                        <a href="#" class="text-dark">
-                                            <div class="d-flex align-items-center">
+                @if (Model.AccountId == 0)
+                {
+                    <h3>Bài đăng của bạn</h3>
+                }
+                else
+                {
+                    <h3>Bài đăng của @Model.InformationUser.Fullname</h3>
+                }
+                <div>
+                    @foreach (var i in Model.lsForum)
+                    {
+                        <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
+                            <a href="/Forum/@i.ForumId" style="color:black">
+                                @if (i.Image != null)
+                                {
+                                    <div style="padding: 22px;">
+                                        <img src="@i.Image" style="width: 100%;" />
+                                    </div>
+                                }
+                                <div class="text-start" style="padding:0 22px; padding-top:10px">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h5 style="font-weight: bold; margin-bottom: 20px;">@i.Title</h5>
+                                        <div class="text-end"
+                                             style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                            <form method="post" asp-page-handler="Like" >
+                                                @Html.AntiForgeryToken()
+                                                <input name="id" hidden value="@i.ForumId" />
+                                                <button class="like-button" data-id="@i.ForumId" style="border:none; background-color:#ffbf00; border-radius:50%; width: 2rem; height: 2rem;padding-top: 8%;padding-left: 20%;">
+                                                    <i class="bi bi-suit-heart-fill fs-5"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        @Html.Raw(i.Content.Replace("\\r\\n", "<br>"))
+                                    </p>
+                                </div>
+                            </a>
+                            <div style="padding-bottom: 20px;">
+                                <div class="text-start forum_react"
+                                     style="padding-left: 22px; display: flex; justify-content: space-between;">
 
-                                                <span class="ms-2">@f.Title</span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="p-3 text-truncate" style="max-width: 200px;">@f.Content</td>
-                                    <td class="p-3">
-                                        <img src="@f.Image" class="object-fit-cover img-fluid avatar shadow" alt="">
-                                    </td>
-                                    <td class="p-3">@f.Type.TypeName</td>
-                                    <td class="text-end p-3">
-                                        <a href="/Forum/@f.ForumId" class="btn btn-icon btn-pills btn-soft-danger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
+                                    <div style="display: flex;">
+                                        <img src="@Model.InformationUser.Image" width="30px" height="30px"
+                                             style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                        <div>
+                                            <h6 style="margin: 0;">@Model.InformationUser.Fullname</h6>
+                                            @{
+                                                TimeSpan timeDiff = i.CreateAt.HasValue ? (DateTime.Now - i.CreateAt.Value) : TimeSpan.Zero;
+                                                string timeDisplay;
 
-                        </tbody>
-                    </table>
+                                                if (timeDiff.TotalMinutes < 60)
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalMinutes} phút trước";
+                                                }
+                                                else if (timeDiff.TotalHours < 24)
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalHours} giờ trước";
+                                                }
+                                                else
+                                                {
+                                                    timeDisplay = $"{(int)timeDiff.TotalDays} ngày trước";
+                                                }
+
+                                            }
+                                            <p style="margin: 0;">@timeDisplay</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="react" style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                        <div class="m-auto">@i.Views Views</div>
+                                        <div class="like-count m-auto">@i.Likes Likes</div>
+                                        <div class="m-auto">@i.Comments comments</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                
+
             </div>
         }
     </div>
@@ -359,7 +407,7 @@
             max-width: 500px;
             padding: 20px;
             text-align: left;
-           /*  margin-left: 150px; */ /* Shift to the right */
+            /*  margin-left: 150px; */ /* Shift to the right */
         }
 
             .profile-page .profile-info p {
@@ -407,14 +455,14 @@
 
                     if (elapsedTime >= duration) {
                         clearInterval(interval);
-                       var toast = new bootstrap.Toast(toastElement);
+                        var toast = new bootstrap.Toast(toastElement);
                         toast.hide();
                     }
                 }, 100);
             }
         });
     </script>
-    
+
     <script>
         function toggleSubmitButton() {
             var fullnameInput = document.getElementById("Fullname");
@@ -460,7 +508,7 @@
                 if (!validPhonePattern.test(input) || input.length != 10) {
                     error.style.display = "block";
                     this.style.borderColor = "red";
-                }else{
+                } else {
                     error.style.display = "none";
                     this.style.borderColor = "";
                 }
@@ -478,3 +526,39 @@
 
 </html>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".like-button").forEach(button => {
+            button.addEventListener("click", async function (event) {
+                event.preventDefault();
+
+                let postId = this.getAttribute("data-id");
+                let likeCountElement = this.closest(".forum-item").querySelector(".like-count");
+
+                let csrfToken = document.querySelector("input[name='__RequestVerificationToken']")?.value || "";
+
+                let response = await fetch(`/Forum?handler=Like`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "RequestVerificationToken": csrfToken
+                    },
+                    body: JSON.stringify({ id: postId })
+                });
+
+                if (response.ok) {
+                    let result = await response.json();
+                    if (result.success) {
+                        likeCountElement.innerText = `${result.likes} Likes`;
+                    } else {
+                        alert(result.message);
+                    }
+                } else {
+                    let errorText = await response.text();
+                    alert(`Lỗi: ${response.status} - ${errorText}`);
+                }
+            });
+        });
+    });
+
+</script>

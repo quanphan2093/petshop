@@ -6,55 +6,55 @@
 <link href="~/css/forum.css" rel="stylesheet">
 <style>
     .text-blue {
-        color: #085998;
+    color: #085998;
     }
 
     .rounded-custom {
-        border-radius: 10px;
+    border-radius: 10px;
     }
 
     .h-5rem {
-        height: 5rem;
+    height: 5rem;
     }
 
     .input-search {
-        font-size: 0.85rem;
-        border: 0;
+    font-size: 0.85rem;
+    border: 0;
     }
 
     .rounded-15 {
-        border-radius: 15px !important;
+    border-radius: 15px !important;
     }
 
     .icon-search-cus {
-        background-color: #085998;
-        z-index: 10;
-        margin-right: 1rem;
-        height: 3rem;
+    background-color: #085998;
+    z-index: 10;
+    margin-right: 1rem;
+    height: 3rem;
     }
 
     .color-yellow {
-        color: #ffcd16;
+    color: #ffcd16;
     }
 
     .position-relative {
-        position: relative;
+    position: relative;
     }
 
     .postion-absolute {
-        position: absolute;
+    position: absolute;
     }
 
     .right-0 {
-        right: 0;
+    right: 0;
     }
 
     .z-index-10 {
-        z-index: 10 !important;
+    z-index: 10 !important;
     }
 
     .hidden {
-        display: none;
+    display: none;
     }
 </style>
 <div class="container-fluid" style="margin-top:30px;">
@@ -64,10 +64,10 @@
                 <div class="position-relative input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem">
                     <input type="text" class="form-control p-2 rounded-15 input-search" placeholder="Tìm kiếm" name="search" value="@Model.Search">
                     <button type="submit"
-                            class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
+                    class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24"
-                             viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
-                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                        viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                             <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
                         </svg>
@@ -77,18 +77,18 @@
                 {
                     <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
                         <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
-                             class="text-start p-2">
+                        class="text-start p-2">
                             <button style="font-size: 14px; color: #085998; background-color:#ffcd16; border:none; font-weight:bold"
-                                    name="type" value="All">
+                            name="type" value="All">
                                 Tất cả
                             </button>
                         </div>
                         @foreach (var i in Model.forumTypes)
                         {
                             <div style="background-color: #ffcd16; width: 100%; border-radius: 7px; margin-top: 8px;"
-                                 class="text-start p-2">
+                            class="text-start p-2">
                                 <button style="font-size: 14px; color: #085998; background-color:#ffcd16; border:none; font-weight:bold"
-                                        name="type" value="@i.TypeId">
+                                name="type" value="@i.TypeId">
                                     @i.TypeName
                                 </button>
                             </div>
@@ -96,37 +96,37 @@
                     </div>
                 }
             </form>
-           @*  @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
+            @*  @if((IEnumerable<dynamic>)ViewData["hashtag"] != null)
             {
-                <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
-                    <div style="margin: 5px 0 20px;">
-                        <h6 class="text-start" style="margin-bottom: 20px;  color: #085998;">Tags phổ biến</h6>
-                        @foreach (var i in (IEnumerable<dynamic>)ViewData["hashtag"])
-                        {
-                            <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
-                                <h6 style="font-size: 14px;  color: #085998;">@i.HashtagName</h6>
-                                <p style="margin: 0; font-size: 12px;">Find the latest update</p>
-                            </div>
-                        }
-                    </div>
-                </div>
+            <div class="input-group shadow p-3 mb-2 bg-white rounded-custom">
+            <div style="margin: 5px 0 20px;">
+            <h6 class="text-start" style="margin-bottom: 20px;  color: #085998;">Tags phổ biến</h6>
+            @foreach (var i in (IEnumerable<dynamic>)ViewData["hashtag"])
+            {
+            <div class="text-start" style="width: 100%; border-radius: 7px; margin-top: 4px;">
+            <h6 style="font-size: 14px;  color: #085998;">@i.HashtagName</h6>
+            <p style="margin: 0; font-size: 12px;">Find the latest update</p>
+            </div>
+            }
+            </div>
+            </div>
             } *@
         </div>
-        
-        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;" >
+
+        <div class="col-md-6" style="display: flex; flex-direction: column; align-items: center;">
             @{
                 var accId = HttpContext.Session.GetInt32("acc");
             }
             <div class="position-relative postforum input-group shadow p-3 mb-2 bg-white rounded-custom h-5rem" data-bs-toggle="modal" data-bs-target="#postModal">
                 <input type="text" class="form-control p-2 rounded-15 input-search"
-                       placeholder="Cùng thú cưng chia sẻ">
+                placeholder="Cùng thú cưng chia sẻ">
                 <button type="submit" style="color: #ffffff; border-radius: 6px;"
-                        class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
+                class="btn btn-base icon-search-cus rounded-15 position-absolute right-0 z-index-10">
                     <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="#f0f8ff00" width="24" height="24"
-                        viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-                        <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
+                    viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+                    <circle cx="11" cy="11" r="8" class="color-yellow"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" class="color-yellow"></line>
                     </svg> -->
                     Tạo bài viết
                 </button>
@@ -145,19 +145,19 @@
                                 @if (i.image != null)
                                 {
                                     <div style="padding: 22px;">
-                                        <img src="@i.image" style="width: 100%;"/>
+                                        <img src="@i.image" style="width: 100%;" />
                                     </div>
                                 }
                                 <div class="text-start" style="padding:0 22px; padding-top:10px">
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
                                         <h5 style="font-weight: bold; margin-bottom: 20px;">@i.title</h5>
                                         <div class="text-end"
-                                             style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                        style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
                                             <form method="post" asp-page-handler="Like">
                                                 @Html.AntiForgeryToken()
-                                                <input name="id" hidden value="@i.id"/>
+                                                <input name="id" hidden value="@i.id" />
                                                 <button class="like-button" data-id="@i.id" style="border:none; background-color:#ffbf00; border-radius:50%; width: 2rem; height: 2rem;padding-top: 8%;padding-left: 20%;">
-                                                    <i class="bi bi-suit-heart-fill fs-5" ></i>
+                                                    <i class="bi bi-suit-heart-fill fs-5"></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -166,12 +166,15 @@
                                         @Html.Raw(i.content.Replace("\\r\\n", "<br>"))
                                     </p>
                                 </div>
-                                <div style="padding-bottom: 20px;">
-                                    <div class="text-start forum_react"
-                                         style="padding-left: 22px; display: flex; justify-content: space-between;">
-                                        <div style="display: flex;">
+                            </a>
+                            <div style="padding-bottom: 20px;">
+                                <div class="text-start forum_react"
+                                style="padding-left: 22px; display: flex; justify-content: space-between;">
+
+                                    <div style="display: flex;">
+                                        <a href="/Profile/@i.accountId" style="color: black; display: flex; align-items: center;">
                                             <img src="@i.imgProfile" width="30px" height="30px"
-                                                 style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                            style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
                                             <div>
                                                 <h6 style="margin: 0;">@i.name</h6>
                                                 @{
@@ -195,15 +198,15 @@
                                                 <p style="margin: 0;">@timeDisplay</p>
 
                                             </div>
-                                        </div>
-                                        <div class="react" style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                                            <div class="m-auto">@i.views Views</div>
-                                            <div class="like-count m-auto">@i.likes Likes</div>
-                                            <div class="m-auto">@i.comments comments</div>
-                                        </div>
+                                        </a>
+                                    </div>
+                                    <div class="react" style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                        <div class="m-auto">@i.views Views</div>
+                                        <div class="like-count m-auto">@i.likes Likes</div>
+                                        <div class="m-auto">@i.comments comments</div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     }
                 </div>
@@ -214,7 +217,7 @@
         </div>
         <div class="col-md-3 product_forum" style="padding-right: 30px;">
             <div class="shadow text-start" style="border-radius: 12px;padding-left: 22px; margin-top: 10px; ">
-                <h6 style="padding:15px 0; padding-top: 15px; color: #085998;">Sản phẩm<span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></h6>
+                <h6 style="padding:15px 0; padding-top: 15px; color: #085998;"><a href="/Product">Sản phẩm<span><i class="bi bi-arrow-right" style="margin-left:6px;"></i></span></a></h6>
                 @foreach (var i in Model.products)
                 {
                     <a href="/Product/ProductDetails?id=@i.ProductId">
@@ -256,14 +259,14 @@
                         string s = Model.Acc + " ơi, bạn đang nghĩ gì thế?";
                     }
                     <textarea name="content" placeholder="@s" required
-                              style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;"></textarea>
+                    style="width: 100%; height: 80px; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;"></textarea>
                     <select name="forumType" style="width: 100%; height: 80px; background: transparent; border: none; font-size: 16px; margin-top: 10px; outline: none;color:white">
                         @foreach (var i in Model.forumTypes)
                         {
                             <option style="color:black" value="@i.TypeId">@i.TypeName</option>
                         }
                     </select>
-                    <input  type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
+                    <input type="file" name="file" style="width: 100%; background: transparent; border: none; color: white; font-size: 16px; margin-top: 10px; outline: none;" />
                     <button style="width: 100%; padding: 10px; margin-top: 10px; background: #3A3B3C; border: none; color: #B0B3B8; font-weight: bold; border-radius: 5px; cursor: pointer;" type="submit">
                         Đăng
                     </button>
@@ -306,41 +309,43 @@
                             }
                             let imageHtml = i.image ? `<div style="padding: 22px;"><img src="${i.image}" style="width: 100%;"></div>` : "";
                             let forumItem = `
-                                            <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
-                                                <a href="/Forum/${i.id}" style="color:black">
-                                                        ${imageHtml}
-                                                   <div class="text-start" style="padding:0 22px; padding-top:10px">
-                                                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                            <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
-                                                                <div class="text-end"
-                                                                        style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
-                                                                    <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
-                                                                        <i class="bi bi-suit-heart-fill"></i>
-                                                                    </button>
-                                                                </div>
+                                                <div class="shadow forum-item" style="width: 100%;  border-radius: 12px; margin-bottom: 10px;">
+                                                    <a href="/Forum/${i.id}" style="color:black">
+                                                            ${imageHtml}
+                                                       <div class="text-start" style="padding:0 22px; padding-top:10px">
+                                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                                <h5 style="font-weight: bold; margin-bottom: 20px;">${i.title}</h5>
+                                                                    <div class="text-end"
+                                                                            style="border-radius: 50%; background-color: #ffbf00; width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; position: relative; top: -10px;">
+                                                                        <button class="like-button" data-id="${i.id}" style="border:none; background-color:#ffbf00; border-radius:50%">
+                                                                            <i class="bi bi-suit-heart-fill"></i>
+                                                                        </button>h
+                                                                    </div>
+                                                            </div>
+                                                                 <p>${i.content}</p>
+                                                            </a>
                                                         </div>
-                                                        <p>${i.content}</p>
-                                                    </div>
-                                                        <div style="padding-bottom: 20px;">
-                                                        <div class="text-start"
-                                                             style="padding-left: 22px; display: flex; justify-content: space-between;">
-                                                            <div style="display: flex;">
-                                                                <img src="/image/Rectangle 24.png" width="30px" height="30px"
-                                                                     style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
-                                                                <div>
-                                                                    <h6 style="margin: 0;">${i.name}</h6>
-                                                                    <p style="margin: 0;">${timeDisplay}</p>
+                                                            <div style="padding-bottom: 20px;">
+                                                            <div class="text-start"
+                                                                 style="padding-left: 22px; display: flex; justify-content: space-between;">
+                                                                <div style="display: flex;">
+                                                                        <a href="/Profile/${i.accountId}" style="color: black; display: flex; align-items: center;">
+                                                                        <img src="/image/Rectangle 24.png" width="30px" height="30px"
+                                                                             style="border-radius: 50%; margin-right: 10px; margin-top: 5px;" />
+                                                                        <div>
+                                                                            <h6 style="margin: 0;">${i.name}</h6>
+                                                                            <p style="margin: 0;">${timeDisplay}</p>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                                <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
+                                                                    <div>${i.views} Views</div>
+                                                                   <div class="like-count">${i.likes} Likes</div>
+                                                                    <div>${i.comments} Comments</div>
                                                                 </div>
                                                             </div>
-                                                            <div style="display: flex; justify-content: space-between; margin-right: 22px; width: 60%;">
-                                                                <div>${i.views} Views</div>
-                                                               <div class="like-count">${i.likes} Likes</div>
-                                                                <div>${i.comments} Comments</div>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
-                                            </div>`;
+                                                </div>`;
 
                             forumList.insertAdjacentHTML("beforeend", forumItem);
                         });
@@ -395,7 +400,7 @@
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "RequestVerificationToken": csrfToken 
+                        "RequestVerificationToken": csrfToken
                     },
                     body: JSON.stringify({ id: postId })
                 });
