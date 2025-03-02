@@ -9,8 +9,10 @@ builder.Services.AddTransient<Verify_Profile_Update>();
 builder.Services.AddDbContext<PetStoreContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("value")));
 builder.Services.AddScoped<AzureBlobService>();
+builder.Services.AddMemoryCache();
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
