@@ -93,8 +93,11 @@
                         <!-- Thông tin hồ sơ bên trái -->
                         <div class="profile-info col-lg-6 col-md-6 col-xs-12 col-sm-12">
                             <p><span>Họ và tên:</span> @Model.InformationUser.Fullname </p>
-                            <p><span>Email:</span> @Model.InformationUser.Account.Email</p>
-                            <p><span>Số điện thoại:</span> @Model.InformationUser.Phone</p>
+                            @if (Model.AccountId == 0)
+                            {
+                                <p><span>Email:</span> @Model.InformationUser.Account.Email</p>
+                                <p><span>Số điện thoại:</span> @Model.InformationUser.Phone</p>
+                            }
                             <p><span>Giới tính:</span> @Model.InformationUser.Gender</p>
                             @if (Model.AccountId == 0)
                             {
