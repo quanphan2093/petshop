@@ -113,26 +113,28 @@ namespace PetStore.Pages.Admin
             {
                 var worksheet = workbook.Worksheets.Add("Danh sách sản phẩm");
                 worksheet.Cell(1, 1).Value = "Tên sản phẩm";
-                worksheet.Cell(1, 2).Value = "Số lượng";
-                worksheet.Cell(1, 3).Value = "Giá";
-                worksheet.Cell(1, 4).Value = "Ngày đặt";
-                worksheet.Cell(1, 5).Value = "Người nhận";
-                worksheet.Cell(1, 6).Value = "Số điện thoại người nhận";
-                worksheet.Cell(1, 7).Value = "Địa chỉ";
-                worksheet.Cell(1, 8).Value = "trạng thái đơn hàng";
+                worksheet.Cell(1, 2).Value = "Tên Shop";
+                worksheet.Cell(1, 3).Value = "Số lượng";
+                worksheet.Cell(1, 4).Value = "Giá";
+                worksheet.Cell(1, 5).Value = "Ngày đặt";
+                worksheet.Cell(1, 6).Value = "Người nhận";
+                worksheet.Cell(1, 7).Value = "Số điện thoại người nhận";
+                worksheet.Cell(1, 8).Value = "Địa chỉ";
+                worksheet.Cell(1, 9).Value = "trạng thái đơn hàng";
 
 
                 int row = 2;
                 foreach(var item in listItem)
                 {
                     worksheet.Cell(row, 1).Value = item.Product.ProductName;
-                    worksheet.Cell(row, 2).Value = item.Quantity;
-                    worksheet.Cell(row, 3).Value = item.Total;
-                    worksheet.Cell(row, 4).Value = item.CreateAt;
-                    worksheet.Cell(row, 5).Value = item.Order.Address.FullNameCustomer;
-                    worksheet.Cell(row, 6).Value = item.Order.Address.Phone;
-                    worksheet.Cell(row, 7).Value = item.Order.Address.Address1;
-                    worksheet.Cell(row, 8).Value = item.Order.Status.StatusName;
+                    worksheet.Cell(row, 2).Value = item.Product.Shop.ShopName;
+                    worksheet.Cell(row, 3).Value = item.Quantity;
+                    worksheet.Cell(row, 4).Value = item.Total;
+                    worksheet.Cell(row, 5).Value = item.CreateAt;
+                    worksheet.Cell(row, 6).Value = item.Order.Address.FullNameCustomer;
+                    worksheet.Cell(row, 7).Value = item.Order.Address.Phone;
+                    worksheet.Cell(row, 8).Value = item.Order.Address.Address1;
+                    worksheet.Cell(row, 9).Value = item.Order.Status.StatusName;
                     row++;
                 }
                 using (var stream = new MemoryStream())
