@@ -7,6 +7,15 @@
 <link href="~/css/home.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
 <link href="~/css/productStyle.css?v=@DateTime.Now.Ticks" rel="stylesheet">
 @using System.Globalization
+<div id="videoContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); justify-content: center; align-items: center;
+            z-index: 99999;">
+    <div style="position: relative; background: white; padding: 10px; border-radius: 8px;">
+        <button onclick="closeVideo()" style="position: absolute; top: 5px; right: 5px; background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">X</button>
+        <iframe id="videoFrame" width="700" height="393" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/L0NXt5NRJRM"></iframe>
+    </div>
+</div>
+
 <div id="carouselexamplecontrols" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @if(Model.banner != null && Model.banner.Count() != 0)
@@ -75,7 +84,7 @@
         <img src="~/Images/Slice .png" alt="Example Image" />
         <div class="button-container">
             <button class="btn-view-intro">
-                <a href="#">View Intro <i class="bi bi-caret-right-fill"></i></a>
+                <a href="#" id="introLink">View Intro <i class="bi bi-caret-right-fill"></i></a>
             </button>
             <button class="btn-discover">
                 <a href="#">Khám Phá</a>
@@ -159,3 +168,21 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("introLink").addEventListener("click", function (event) {
+        event.preventDefault(); 
+
+        let videoFrame = document.getElementById("videoFrame");
+        let videoUrl = "https://www.youtube.com/embed/L0NXt5NRJRM?autoplay=1&mute=1";
+
+        videoFrame.src = videoUrl;
+        document.getElementById("videoContainer").style.display = "flex"; 
+    });
+
+    function closeVideo() {
+        document.getElementById("videoContainer").style.display = "none";
+        document.getElementById("videoFrame").src = ""; 
+    }
+</script>
+
+
