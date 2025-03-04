@@ -312,3 +312,8 @@ insert into banner (bannerImage, bannerUrl, clickCount, createAt, [status]) valu
 ('/images/bannerforum.jpg','/home',0, GETDATE(),'Active'),
 ('/images/bannerfacebook.png','https://www.facebook.com/nhungnguoibanlamlongg',0, GETDATE(),'Active'),
 ('/images/bannerproduct.png','/product',0, GETDATE(),'Active')
+
+ALTER TABLE [Forum]
+ADD isPinned  BIT;
+
+UPDATE [Forum] SET isPinned = 0;

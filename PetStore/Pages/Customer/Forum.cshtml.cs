@@ -71,10 +71,11 @@ namespace PetStore.Pages.Customer
                             name = i.Fullname,
                             typeId = f.TypeId,
                             imgProfile = i.Image,
-                            accountId = f.AccountId
+                            accountId = f.AccountId,
+                            isPinned = f.IsPinned
                         };
 
-            forum = forum.OrderByDescending(x => x.createAt).ToList();
+            forum = forum.OrderByDescending(x => x.isPinned).OrderByDescending(x => x.createAt).ToList();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -113,6 +114,9 @@ namespace PetStore.Pages.Customer
             forum = forum.Take(PageSize).ToList();
             ViewData["forum"] = forum;
             ViewData["hashtag"] = hashtag;
+            var top2Forum = PetStoreContext.Ins.Forums.Where(x => x.IsPinned == true).Take(2).ToList();
+            Console.WriteLine(top2Forum.Count);
+            ViewData["top2forum"] = top2Forum;
 
         }
         public IActionResult OnGet(string search, string type)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PetStore.Models;
@@ -96,6 +97,54 @@ namespace PetStore.Pages.Admin
             _context.Orders.Update(o);
             _context.SaveChanges();
             return RedirectToPage();
+        }
+
+        public IActionResult OnGetExport()
+        {
+            var listItem = PetStoreContext.Ins.OrderDetails
+                                            .Include(x => x.Order)
+                                                .ThenInclude(x => x.Address)
+                                            .Include(x => x.Order)
+                                                .ThenInclude(x => x.Status)
+                                            .Include(x => x.Product)
+                                                .ThenInclude(x => x.Shop)
+                                            .ToList();
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Danh sách sản phẩm");
+                worksheet.Cell(1, 1).Value = "Tên sản phẩm";
+                worksheet.Cell(1, 2).Value = "Tên Shop";
+                worksheet.Cell(1, 3).Value = "Số lượng";
+                worksheet.Cell(1, 4).Value = "Giá";
+                worksheet.Cell(1, 5).Value = "Ngày đặt";
+                worksheet.Cell(1, 6).Value = "Người nhận";
+                worksheet.Cell(1, 7).Value = "Số điện thoại người nhận";
+                worksheet.Cell(1, 8).Value = "Địa chỉ";
+                worksheet.Cell(1, 9).Value = "trạng thái đơn hàng";
+
+
+                int row = 2;
+                foreach(var item in listItem)
+                {
+                    worksheet.Cell(row, 1).Value = item.Product.ProductName;
+                    worksheet.Cell(row, 2).Value = item.Product.Shop.ShopName;
+                    worksheet.Cell(row, 3).Value = item.Quantity;
+                    worksheet.Cell(row, 4).Value = item.Total;
+                    worksheet.Cell(row, 5).Value = item.CreateAt;
+                    worksheet.Cell(row, 6).Value = item.Order.Address.FullNameCustomer;
+                    worksheet.Cell(row, 7).Value = item.Order.Address.Phone;
+                    worksheet.Cell(row, 8).Value = item.Order.Address.Address1;
+                    worksheet.Cell(row, 9).Value = item.Order.Status.StatusName;
+                    row++;
+                }
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ExportData.xlsx");
+                }
+
+            }
         }
 
         public class OrderViewModel

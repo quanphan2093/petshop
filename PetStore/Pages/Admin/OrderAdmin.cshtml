@@ -20,7 +20,7 @@
                 <div class="justify-content-md-end">
                     <form method="get">
                         <div class="row justify-content-between align-items-center">
-                            <div class="col-sm-12 col-md-9">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="mb-0 d-flex gap-3 align-items-center">
                                     <div class="col-5">
                                         <select class="form-control select2input w-100" name="status">
@@ -43,11 +43,16 @@
                                 </div>
                             </div><!--end col-->
 
-                            <div class="col-sm-12 col-md-3 mt-4 mt-sm-0">
+                            <div class="col-sm-6 col-md-3 mt-4 mt-sm-0">
                                 <div class="d-grid">
                                     <button class="btn btn-primary">Lọc</button>
                                 </div>
                             </div><!--end col-->
+                            <div class="col-sm-6 col-md-3 mt-4 mt-sm-0">
+                                <div class="d-grid">
+                                    <a href="/Admin/Order?handler=Export" class="btn btn-success">Xuất Excel</a>
+                                </div>
+                            </div>
                         </div><!--end row-->
                     </form><!--end form-->
 
@@ -67,8 +72,6 @@
                                 <th class="border-bottom p-3" style="min-width: 150px;">Địa Chỉ</th>
                                 <th class="border-bottom p-3" style="min-width:150px;">Phương thức thanh toán</th>
                                 <th class="border-bottom p-3" style="min-width:150px;">Ngày tạo</th>
-                                <th class="border-bottom p-3" style="min-width:150px;">Ngày cập nhật</th>
-                                <th class="border-bottom p-3" style="min-width: 180px;">Người bán</th>
                                 <th class="border-bottom p-3" style="min-width:150px;">Ghi chú</th>
                                 <th class="border-bottom p-3" style="min-width: 220px;">Ghi chú bời người bán</th>
                                 <th class="border-bottom p-3" style="min-width: 220px;">Trạng Thái</th>
@@ -92,15 +95,6 @@
                                     <td class="p-3">@i.Addresses</td>
                                     <td class="p-3">@i.Payment</td>
                                     <td class="p-3">@i.CreateAt</td>
-                                    <td class="p-3">@i.UpdateAt</td>
-                                    <td class="p-3">
-                                        <a href="#" class="text-dark">
-                                            <div class="d-flex align-items-center">
-                                                <img src="@i.ImageSale" class="avatar avatar-md-sm rounded-circle shadow" alt="">
-                                                <span class="ms-2">@i.NameSale</span>
-                                            </div>
-                                        </a>
-                                    </td>
                                     <td class="p-3">@i.Note</td>
                                     <td class="p-3">@i.NoteBySale</td>
                                     <td class="p-3">
