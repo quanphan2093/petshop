@@ -52,7 +52,7 @@ namespace PetStore.Pages.Admin
                         {
                             OrderId = o.OrderId,
                             Image = i.Image,
-                            Name = i.Fullname,
+                            Name = a.FullNameCustomer,
                             Status = s.StatusName,
                             CreateAt = o.CreateAt,
                             UpdateAt = o.UpdateAt,
@@ -101,14 +101,15 @@ namespace PetStore.Pages.Admin
 
         public IActionResult OnGetExport()
         {
-            var listItem = PetStoreContext.Ins.OrderDetails
-                                            .Include(x => x.Order)
-                                                .ThenInclude(x => x.Address)
-                                            .Include(x => x.Order)
-                                                .ThenInclude(x => x.Status)
-                                            .Include(x => x.Product)
-                                                .ThenInclude(x => x.Shop)
-                                            .ToList();
+            PetStoreContext context = new PetStoreContext();
+            var listItem = context.OrderDetails
+                                    .Include(x => x.Order)
+                                        .ThenInclude(x => x.Address)
+                                    .Include(x => x.Order)
+                                        .ThenInclude(x => x.Status)
+                                    .Include(x => x.Product)
+                                        .ThenInclude(x => x.Shop)
+                                    .ToList();
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Danh sách sản phẩm");
