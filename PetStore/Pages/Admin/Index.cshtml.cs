@@ -37,9 +37,9 @@ namespace PetStore.Pages.Admin
             {
                 viewBanner += b.ClickCount;
             }
-            string appId = "2c1f9d2b-96d2-4355-80ad-c588b9c5fe43";
-            string apiKey = "pcdt0jgnh6t0b5jrdc4acgjj512mfvah0ijf1ejv";
-            totalUsers = await GetTotalUsersFromInsights(appId, apiKey);
+            string appId = Environment.GetEnvironmentVariable("APP_ID");
+            string apiKey = Environment.GetEnvironmentVariable("API_KEY_APP_INSIGHT");
+			totalUsers = await GetTotalUsersFromInsights(appId, apiKey);
             userInsights = await GetUserInsights(appId, apiKey);
 
             orderList = await context.Orders.Include(x => x.Status).ToListAsync();
