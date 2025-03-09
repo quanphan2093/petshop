@@ -29,6 +29,15 @@
     <link href="https://unicons.iconscout.com/release/v3.0.6/css/line.css" rel="stylesheet">
     <!-- Css -->
     <link href="~/tplAdmin/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
+    <style>
+        .sidebar-cta-content {
+            background: #f3f3f3;
+            border-radius: .3rem;
+            color: black;
+            margin: 1.75rem;
+            padding: 1.5rem
+        }
+    </style>
 </head>
 
 <body>
@@ -54,12 +63,25 @@
                 </div>
 
                 <ul class="sidebar-menu pt-3">
+                    <li><a href="/Admin/Dashboard"><i class="uil uil-apps me-2 d-inline-block"></i>Dashboard</a></a></li>
                     <li><a href="/Admin/Product"><i class="uil uil-apps me-2 d-inline-block"></i>Sản phẩm</a></a></li>
                     <li><a href="/Admin/Order"><i class="uil uil-apps me-2 d-inline-block"></i>Đơn hàng</a></a></li>
                     <li><a href="/Admin/Shop"><i class="uil uil-apps me-2 d-inline-block"></i>Đối tác</a></a></li>
                     <li><a href="/Admin/Banner"><i class="uil uil-apps me-2 d-inline-block"></i>Banner</a></a></li>
+                    
                 </ul>
                 <!-- sidebar-menu  -->
+                @* <div class="sidebar-cta">
+                    <div class="sidebar-cta-content">
+                        <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
+                        <div class="mb-3 text-sm">
+                            Are you looking for more components? Check out our premium version.
+                        </div>
+                        <div class="d-grid">
+                            <a href="https://portal.azure.com/#view/Microsoft_Azure_Billing/SubscriptionUpgradeBlade/azureSubscriptionId/e0ddc358-31d8-43b8-aa5b-a90934a8d537/appId/HubsExtensionRemCreditNotification" class="btn btn-primary" target="_blank">Upgrade to Pro</a>
+                        </div>
+                    </div>
+                </div> *@
             </div>
             <!-- sidebar-content  -->
             <ul class="sidebar-footer list-unstyled mb-0">

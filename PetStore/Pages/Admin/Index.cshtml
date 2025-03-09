@@ -11,11 +11,13 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-bed h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">558</h5>
-                        <p class="text-muted mb-0">Patients</p>
+                        <h5 class="mb-0">@Model.totalUsers</h5>
+                        <p class="text-muted mb-0">Người dùng</p>
                     </div>
                 </div>
             </div>
@@ -25,11 +27,14 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-file-medical-alt h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                            <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">$2164</h5>
-                        <p class="text-muted mb-0">Avg. costs</p>
+                        <h5 class="mb-0">@(Model.orders != null? Model.orders.Count : "0")</h5>
+                        <p class="text-muted mb-0">SP đã bán</p>
                     </div>
                 </div>
             </div>
@@ -39,11 +44,13 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-social-distancing h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">112</h5>
-                        <p class="text-muted mb-0">Staff Members</p>
+                        <h5 class="mb-0">@(Model.forums != null? Model.forums.Count : "0")</h5>
+                        <p class="text-muted mb-0">Bài <br /> viết</p>
                     </div>
                 </div>
             </div>
@@ -53,11 +60,13 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-ambulance h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2-heart-fill" viewBox="0 0 16 16">
+                            <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4zM8.5 4h6l.5.667V5H1v-.333L1.5 4h6V1h1zM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">16</h5>
-                        <p class="text-muted mb-0">Vehicles</p>
+                        <h5 class="mb-0">@(Model.products != null? Model.products.Count : "0")</h5>
+                        <p class="text-muted mb-0">Sản phẩm</p>
                     </div>
                 </div>
 
@@ -68,11 +77,13 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-medkit h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">220</h5>
-                        <p class="text-muted mb-0">Appointment</p>
+                        <h5 class="mb-0">@(Model.shops != null? Model.shops.Count : "0")</h5>
+                        <p class="text-muted mb-0">Shop liên kết</p>
                     </div>
                 </div>
             </div>
@@ -82,11 +93,14 @@
             <div class="card features feature-primary rounded border-0 shadow p-4">
                 <div class="d-flex align-items-center">
                     <div class="icon text-center rounded-md">
-                        <i class="uil uil-medical-drip h3 mb-0"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                        </svg>
                     </div>
                     <div class="flex-1 ms-2">
-                        <h5 class="mb-0">10</h5>
-                        <p class="text-muted mb-0">Operations</p>
+                        <h5 class="mb-0">@Model.viewBanner</h5>
+                        <p class="text-muted mb-0">View banner</p>
                     </div>
                 </div>
             </div>
@@ -97,15 +111,7 @@
         <div class="col-xl-8 col-lg-7 mt-4">
             <div class="card shadow border-0 p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="align-items-center mb-0">Patients visit by Gender</h6>
-
-                    <div class="mb-0 position-relative">
-                        <select class="form-select form-control" id="yearchart">
-                            <option selected>2020</option>
-                            <option value="2019">2019</option>
-                            <option value="2018">2018</option>
-                        </select>
-                    </div>
+                    <h6 class="align-items-center mb-0">Người dùng</h6>
                 </div>
                 <div id="dashboard" class="apex-chart"></div>
             </div>
@@ -114,437 +120,148 @@
         <div class="col-xl-4 col-lg-5 mt-4">
             <div class="card shadow border-0 p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="align-items-center mb-0">Patients by Department</h6>
-
-                    <div class="mb-0 position-relative">
-                        <select class="form-select form-control" id="dailychart">
-                            <option selected>Today</option>
-                            <option value="2019">Yesterday</option>
-                        </select>
-                    </div>
+                    <h6 class="align-items-center mb-0">Đơn hàng</h6>
                 </div>
                 <div id="department" class="apex-chart"></div>
             </div>
         </div><!--end col-->
     </div><!--end row-->
-
-    <div class="row">
-        <div class="col-xl-4 col-lg-6 mt-4">
-            <div class="card border-0 shadow rounded">
-                <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
-                    <h6 class="mb-0"><i class="uil uil-calender text-primary me-1 h5"></i> Latest Appointment</h6>
-                    <h6 class="text-muted mb-0">55 Patients</h6>
-                </div>
-
-                <ul class="list-unstyled mb-0 p-4">
-                    <li>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-inline-flex">
-                                <img src="../assets/images/client/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                <div class="ms-3">
-                                    <h6 class="text-dark mb-0 d-block">Calvin Carlo</h6>
-                                    <small class="text-muted">Booking on 27th Nov, 2020</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="mt-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-inline-flex">
-                                <img src="../assets/images/client/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                <div class="ms-3">
-                                    <h6 class="text-dark mb-0 d-block">Joya Khan</h6>
-                                    <small class="text-muted">Booking on 27th Nov, 2020</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="mt-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-inline-flex">
-                                <img src="../assets/images/client/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                <div class="ms-3">
-                                    <h6 class="text-dark mb-0 d-block">Amelia Muli</h6>
-                                    <small class="text-muted">Booking on 27th Nov, 2020</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="mt-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-inline-flex">
-                                <img src="../assets/images/client/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                <div class="ms-3">
-                                    <h6 class="text-dark mb-0 d-block">Nik Ronaldo</h6>
-                                    <small class="text-muted">Booking on 27th Nov, 2020</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="mt-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-inline-flex">
-                                <img src="../assets/images/client/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                <div class="ms-3">
-                                    <h6 class="text-dark mb-0 d-block">Crista Joseph</h6>
-                                    <small class="text-muted">Booking on 27th Nov, 2020</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
-                                <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div><!--end col-->
-
-        <div class="col-xl-4 col-lg-6 mt-4">
-            <div class="card chat chat-person border-0 shadow rounded">
-                <div class="d-flex justify-content-between border-bottom p-4">
-                    <div class="d-flex">
-                        <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                        <div class="flex-1 overflow-hidden ms-3">
-                            <a href="#" class="text-dark mb-0 h6 d-block text-truncate">Cristino Murphy</a>
-                            <small class="text-muted"><i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i> Online</small>
-                        </div>
-                    </div>
-
-                    <ul class="list-unstyled mb-0">
-                        <li class="dropdown dropdown-primary list-inline-item">
-                            <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-ellipsis-h icons"></i></button>
-                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow border-0 mt-3 py-3">
-                                <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block me-1"><i class="uil uil-user align-middle h6"></i></span> Profile</a>
-                                <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block me-1"><i class="uil uil-setting align-middle h6"></i></span> Profile Settings</a>
-                                <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block me-1"><i class="uil uil-trash align-middle h6"></i></span> Delete</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <ul class="p-4 list-unstyled mb-0 chat" data-simplebar style="background: url('../assets/images/bg/bg-chat.png') center center; max-height: 295px;">
-                    <li>
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative">
-                                    <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Hey Christopher</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>59 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="chat-right">
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative chat-user-image">
-                                    <img src="../assets/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Hello Cristino</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>45 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="chat-right">
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative chat-user-image">
-                                    <img src="../assets/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">How can i help you?</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>44 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative">
-                                    <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Nice to meet you</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>42 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative">
-                                    <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Hope you are doing fine?</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>40 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="chat-right">
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative chat-user-image">
-                                    <img src="../assets/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">I'm good thanks for asking</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>45 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative">
-                                    <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">I am intrested to know more about your prices and services you offer</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>35 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="chat-right">
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative chat-user-image">
-                                    <img src="../assets/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Sure please check below link to find more useful information <a href="https://1.envato.market/landrick" target="_blank" class="text-primary">https://shreethemes.in/landrick/</a></p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>25 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative">
-                                    <img src="../assets/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Thank you 😊</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>20 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="chat-right">
-                        <div class="d-inline-block">
-                            <div class="d-flex chat-type mb-3">
-                                <div class="position-relative chat-user-image">
-                                    <img src="../assets/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
-                                    <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                                </div>
-
-                                <div class="flex-1 chat-msg" style="max-width: 500px;">
-                                    <p class="text-muted small shadow px-3 py-2 bg-white rounded mb-1">Welcome</p>
-                                    <small class="text-muted msg-time"><i class="uil uil-clock-nine me-1"></i>18 min ago</small>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="p-2 rounded-bottom shadow">
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control border" placeholder="Enter Message...">
-                        </div>
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-message icons"></i></a>
-                            <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-smile icons"></i></a>
-                            <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-paperclip icons"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--end col-->
-
-        <div class="col-xl-4 col-lg-12 mt-4">
-            <div class="card border-0 shadow rounded">
-                <div class="p-4 border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0"><i class="uil uil-user text-primary me-1 h5"></i> Patients Reviews</h6>
-
-                        <div class="mb-0 position-relative">
-                            <select class="form-select form-control" id="dailypatient">
-                                <option selected>New</option>
-                                <option value="2019">Old</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <ul class="list-unstyled mb-0 p-4" data-simplebar style="height: 355px;">
-                    <li class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <img src="../assets/images/doctors/01.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-3">
-                                <span class="d-block h6 mb-0">Dr. Calvin Carlo</span>
-                                <small class="text-muted">Orthopedic</small>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item text-muted">(45)</li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="text-muted mb-0">150 Patients</p>
-                    </li>
-
-                    <li class="d-flex align-items-center justify-content-between mt-4">
-                        <div class="d-flex align-items-center">
-                            <img src="../assets/images/doctors/02.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-3">
-                                <span class="d-block h6 mb-0">Dr. Cristino Murphy</span>
-                                <small class="text-muted">Gynecology</small>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item text-muted">(75)</li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="text-muted mb-0">350 Patients</p>
-                    </li>
-
-                    <li class="d-flex align-items-center justify-content-between mt-4">
-                        <div class="d-flex align-items-center">
-                            <img src="../assets/images/doctors/03.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-3">
-                                <span class="d-block h6 mb-0">Dr. Alia Reddy</span>
-                                <small class="text-muted">Psychotherapy</small>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item text-muted">(48)</li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="text-muted mb-0">450 Patients</p>
-                    </li>
-
-                    <li class="d-flex align-items-center justify-content-between mt-4">
-                        <div class="d-flex align-items-center">
-                            <img src="../assets/images/doctors/04.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-3">
-                                <span class="d-block h6 mb-0">Dr. Toni Kover</span>
-                                <small class="text-muted">Dentist</small>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item text-muted">(68)</li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="text-muted mb-0">484 Patients</p>
-                    </li>
-
-                    <li class="d-flex align-items-center justify-content-between mt-4">
-                        <div class="d-flex align-items-center">
-                            <img src="../assets/images/doctors/05.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
-                            <div class="flex-1 ms-3">
-                                <span class="d-block h6 mb-0">Dr. Jennifer Ballance</span>
-                                <small class="text-muted">Cardiology</small>
-
-                                <ul class="list-unstyled mb-0">
-                                    <li class="list-inline-item text-muted">(55)</li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="text-muted mb-0">476 Patients</p>
-                    </li>
-                </ul>
-            </div>
-        </div><!--end col-->
-    </div><!--end row-->
 </div>
 
-<script src="~/tplAdmin/js/apexcharts.min.js"></script>
-<script src="~/tplAdmin/js/columnchart.init.js"></script>
+<script src="~/tplAdmin/js/apexcharts.min.js?v=@DateTime.Now.Ticks"></script>
+<script src="~/tplAdmin/js/columnchart.init.js?v=@DateTime.Now.Ticks"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var userInsights = @Html.Raw(Json.Serialize(Model.userInsights));
+
+        if (!userInsights || userInsights.length === 0) {
+            console.error("Dữ liệu rỗng, biểu đồ không thể hiển thị.");
+            return;
+        }
+
+        var dates = userInsights.map(item => new Date(item.date).toISOString().split('T')[0]);
+        var users = userInsights.map(item => item.userCount);
+
+
+        var options1 = {
+            chart: {
+                height: 350,
+                type: "bar",
+                toolbar: { show: false }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: "40%",
+                    endingShape: "rounded"
+                }
+            },
+            dataLabels: { enabled: false },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ["transparent"]
+            },
+            series: [{
+                name: "Người dùng",
+                data: users
+            }],
+            xaxis: {
+                categories: dates,
+                labels: {
+                    rotate: -45
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Số lượng người dùng"
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            colors: ["#396cf0"],  // Màu của cột
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + " Người dùng";
+                    }
+                }
+            }
+        };
+
+        var chart1 = new ApexCharts(document.querySelector("#dashboard"), options1);
+        chart1.render();
+
+        var orderInsights = @Html.Raw(Json.Serialize(Model.orderInsight));
+        if (!orderInsights || orderInsights.length === 0) {
+            console.error("Dữ liệu rỗng, biểu đồ không thể hiển thị.");
+            return;
+        }
+        var total = orderInsights.reduce((sum, item) => sum + item.data, 0);
+        var orderSeries = orderInsights.map(item => (item.data / total) * 100);
+        var orderLabels = orderInsights.map(item => item.status);
+
+        // Cập nhật dữ liệu vào chart
+        var options2 = {
+            chart: {
+                height: 350,
+                type: 'radialBar',
+                dropShadow: {
+                    enabled: true,
+                    top: 10,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    blur: 2,
+                    color: '#45404a2e',
+                    opacity: 0.35
+                },
+            },
+            colors: ['#396cf0', '#53c797', '#f1b561', '#f0735a', '#735af0', '#f05aa3'],
+            plotOptions: {
+                radialBar: {
+                    track: {
+                        background: '#b9c1d4',
+                        opacity: 0.5,
+                    },
+                    dataLabels: {
+                        name: {
+                            fontSize: '22px',
+                        },
+                        value: {
+                            fontSize: '16px',
+                            color: '#8997bd',
+                            show: true
+                        },
+                        total: {
+                            show: true,
+                            label: 'Total',
+                            color: '#8997bd',
+                            formatter: function () {
+                                return total;
+                            }
+                        }
+
+                    },
+                    strokeWidth: '15%',
+                }
+            },
+            series: orderSeries,
+            labels: orderLabels,
+            tooltip: {
+                y: {
+                    formatter: function (val, { seriesIndex }) {
+                        let percentage = ((val / total) * 100).toFixed(2);
+                        return val + " (" + percentage + "%)";
+                    }
+                }
+            }
+        };
+
+        var chart2 = new ApexCharts(document.querySelector("#department"), options2);
+        chart2.render();
+    });
+
+
+</script>

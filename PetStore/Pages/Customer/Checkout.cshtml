@@ -155,9 +155,9 @@
         radioButtons.forEach(radio => {
             radio.addEventListener("change", function () {
                 if (this.nextElementSibling.textContent.trim() === "Chuyển khoản ngân hàng") {
-                    const accountName = "TA DUY HAI";
+                    const accountName = "NGUYEN VIET HOANG";
 
-                    qrImage.querySelector("img").src = `https://img.vietqr.io/image/tpb-00396925536-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
+                    qrImage.querySelector("img").src = `https://img.vietqr.io/image/vcb-1055176557-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
                     qrImage.style.display = "block";
 
                 } else {
@@ -195,8 +195,8 @@
             }
             amount = document.getElementById("totalPrice").textContent.replace(/[^0-9]/g, '');
             const qrImage = document.getElementById("bankingQR");
-            const accountName = "TA DUY HAI";
-            qrImage.querySelector("img").src = `https://img.vietqr.io/image/tpb-00396925536-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
+            const accountName = "NGUYEN VIET HOANG";
+            qrImage.querySelector("img").src = `https://img.vietqr.io/image/vcb-1055176557-compact2.png?amount=${amount}&accountName=${encodeURIComponent(accountName)}`;
             
         });
     });
