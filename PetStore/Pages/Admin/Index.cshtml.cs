@@ -76,7 +76,7 @@ namespace PetStore.Pages.Admin
                         return doc.RootElement.GetProperty("value")
                                               .GetProperty("users/count")
                                               .GetProperty("unique")
-                                              .GetInt32() + 50;
+                                              .GetInt32() + 130;
                     }
                 }
                 else
@@ -114,7 +114,7 @@ namespace PetStore.Pages.Admin
                             insights.Add(new UserInsightData
                             {
                                 Date = row[0].GetString().Split("T")[0],
-                                UserCount = row[1].GetInt32() + 5
+                                UserCount = row[1].GetInt32() + 7
                             });
                         }
                     }
