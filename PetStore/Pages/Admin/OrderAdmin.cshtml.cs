@@ -131,7 +131,7 @@ namespace PetStore.Pages.Admin
                     worksheet.Cell(row, 2).Value = item.Product.Shop.ShopName;
                     worksheet.Cell(row, 3).Value = item.Quantity;
                     worksheet.Cell(row, 4).Value = item.Total;
-                    worksheet.Cell(row, 5).Value = item.CreateAt;
+                    worksheet.Cell(row, 5).Value = item.Order.CreateAt;
                     worksheet.Cell(row, 6).Value = item.Order.Address.FullNameCustomer;
                     worksheet.Cell(row, 7).Value = item.Order.Address.Phone;
                     worksheet.Cell(row, 8).Value = item.Order.Address.Address1;
