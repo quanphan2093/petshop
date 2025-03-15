@@ -28,7 +28,7 @@ namespace PetStore.Pages.Admin
             {
                 return Redirect("/Home");
             }
-            orders = await context.OrderDetails.ToListAsync();
+            orders = await context.OrderDetails.Where(x => x.Order.StatusId != 5).ToListAsync();
             forums = await context.Forums.ToListAsync();
             products = await context.Products.Where(p => p.Status != "deleted").ToListAsync();
             shops = await context.Shops.ToListAsync();
