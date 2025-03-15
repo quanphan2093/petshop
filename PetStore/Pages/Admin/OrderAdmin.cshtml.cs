@@ -48,6 +48,7 @@ namespace PetStore.Pages.Admin
                         join s in _context.StatusOrders on o.StatusId equals s.StatusId
                         join sale in _context.Infors on o.SaleId equals sale.AccountId into saleJoin
                         from sale in saleJoin.DefaultIfEmpty()
+                        orderby o.CreateAt ascending
                         select new OrderViewModel
                         {
                             OrderId = o.OrderId,
@@ -109,6 +110,7 @@ namespace PetStore.Pages.Admin
                                         .ThenInclude(x => x.Status)
                                     .Include(x => x.Product)
                                         .ThenInclude(x => x.Shop)
+                                    .OrderBy(x => x.Order.CreateAt)
                                     .ToList();
             using (var workbook = new XLWorkbook())
             {

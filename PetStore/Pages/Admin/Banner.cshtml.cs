@@ -18,12 +18,13 @@ namespace PetStore.Pages.Admin
         public int currentPage = 0;
         public IActionResult OnGet(int? current = 1)
         {
+            PetStoreContext context = new PetStoreContext();
             string? roleName = HttpContext.Session.GetString("roleName");
             if (roleName == null || roleName != "Admin")
             {
                 return Redirect("/Home");
             }
-            var banner = PetStoreContext.Ins.Banners.OrderBy(s => s.Status).AsQueryable();
+            var banner = context.Banners.OrderBy(s => s.Status).AsQueryable();
             totalPage = banner.Count() / pageSize;
             if (banner.Count() % pageSize != 0) totalPage += 1;
 
