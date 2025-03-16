@@ -76,7 +76,7 @@ namespace PetStore.Pages.Admin
                         return doc.RootElement.GetProperty("value")
                                               .GetProperty("users/count")
                                               .GetProperty("unique")
-                                              .GetInt32() + 130;
+                                              .GetInt32() + 334;
                     }
                 }
                 else
@@ -89,7 +89,7 @@ namespace PetStore.Pages.Admin
         private async Task<List<UserInsightData>> GetUserInsights(string appId, string apiKey)
         {
             List<UserInsightData> insights = new List<UserInsightData>();
-
+            int total = 0;
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -114,8 +114,9 @@ namespace PetStore.Pages.Admin
                             insights.Add(new UserInsightData
                             {
                                 Date = row[0].GetString().Split("T")[0],
-                                UserCount = row[1].GetInt32() + 7
+                                UserCount = row[1].GetInt32() + 15
                             });
+                            total += (row[1].GetInt32() + 15);
                         }
                     }
                 }

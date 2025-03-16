@@ -36,11 +36,11 @@ namespace PetStore.Pages.Admin
         }
         public async Task<IActionResult> OnPost(string method, string url, IFormFile img)
         {
-            //string? roleName = HttpContext.Session.GetString("roleName");
-            //if (roleName == null || roleName != "Admin")
-            //{
-            //    return Redirect("/Home");
-            //}
+            string? roleName = HttpContext.Session.GetString("roleName");
+            if (roleName == null || roleName != "Admin")
+            {
+                return Redirect("/Home");
+            }
             if (method == "create")
             {
                 string fileName = Path.GetFileName(img.FileName);
