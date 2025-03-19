@@ -10,13 +10,13 @@
     const displayMessage = (sender, message) => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message", sender);
-        messageDiv.innerHTML = `<p><strong>${sender}:</strong> ${message}</p>`;
+        messageDiv.innerHTML = `<p><strong>${sender}:</strong> ${message.replace(/\n/g, '<br>')}</p>`;
         chatDisplay.appendChild(messageDiv);
         chatDisplay.scrollTop = chatDisplay.scrollHeight;
     };
 
     const fetchAIResponse = async (userMessage) => {
-        displayMessage("AI", "Loading...");
+        displayMessage("FurFriends", "Loading...");
 
         conversationHistory.push({ role: "user", content: userMessage });
 
@@ -28,14 +28,14 @@
                 },
                 body: JSON.stringify({ UserMessage: userMessage })
             });
-
+            if (!response.ok) console.log(response);
             if (!response.ok) throw new Error("Error fetching response from server");
 
             const data = await response.json();
             const aiMessage = data.choices[0].message.content.trim();
 
             chatDisplay.lastChild.remove();
-            displayMessage("AI", aiMessage);
+            displayMessage("FurFriends", aiMessage);
             conversationHistory.push({ role: "assistant", content: aiMessage });
 
         } catch (error) {
