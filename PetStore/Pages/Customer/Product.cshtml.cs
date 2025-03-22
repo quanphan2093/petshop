@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.InkML;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,8 @@ namespace PetStore.Pages.Customer
 
         public void OnGet(string? categories, int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).Where(p => p.Status == "Available").AsQueryable();
+            var context = new PetStoreContext();
+            var products = context.Products.Include(p => p.Category).Where(p => p.Status == "Available").AsQueryable();
 
             //filter by category
             if (!string.IsNullOrEmpty(categories))
@@ -52,12 +54,13 @@ namespace PetStore.Pages.Customer
             currentPage = current.Value;
 
             lsProduct = products.ToList();
-            lsCategory = PetStoreContext.Ins.Categories.ToList();
+            lsCategory = context.Categories.ToList();
         }
 
         public void OnPost(string? search, string? price, List<string> category, int? current = 1)
         {
-            var products = PetStoreContext.Ins.Products.Include(p => p.Category).AsQueryable();
+            var context = new PetStoreContext();
+            var products = context.Products.Include(p => p.Category).AsQueryable();
 
             products = Filter(products, category, search, price);
 
@@ -70,7 +73,7 @@ namespace PetStore.Pages.Customer
             currentPage = current.Value;
 
             lsProduct = products.ToList();
-            lsCategory = PetStoreContext.Ins.Categories.ToList();
+            lsCategory = context.Categories.ToList();
         }
 
         private IQueryable<Product> Filter(IQueryable<Product> products, List<string> category, string? search = "", string? price = "")
