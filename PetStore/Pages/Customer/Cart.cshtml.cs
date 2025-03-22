@@ -21,7 +21,8 @@ namespace PetStore.Pages.Customer
                 Response.Redirect("/login");
                 return;
             }
-            lsCart = PetStoreContext.Ins.ShoppingCarts.Include(p => p.Product)
+            var context = new PetStoreContext();
+            lsCart = context.ShoppingCarts.Include(p => p.Product)
                 .ThenInclude(p => p.Category).Where(c => c.AccountId == acc).ToList();
             if(lsCart == null) Response.Redirect("/Home");
             foreach (var p in lsCart)
@@ -36,6 +37,7 @@ namespace PetStore.Pages.Customer
             if (!acc.HasValue) {
                 return new JsonResult(new { success = false, message = "Vui lòng login trước!" });
             }
+            var context = new PetStoreContext();
             try
             {
                 if (productId <= 0 || quantity <= 0)
@@ -43,7 +45,7 @@ namespace PetStore.Pages.Customer
                     return new JsonResult(new { success = false, message = "Dữ liệu không hợp lệ!" });
                 }
 
-                Product product = PetStoreContext.Ins.Products.Find(productId);
+                Product product = context.Products.Find(productId);
                 if (product == null) {
                     return new JsonResult(new { success = false, message = "Không tìm thấy sản phẩm!" });
                 }
@@ -53,22 +55,22 @@ namespace PetStore.Pages.Customer
                     return new JsonResult(new { success = false, message = "Không đủ sản phẩm trong kho!" });
                 }
 
-                ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.AccountId == acc && c.ProductId == productId).FirstOrDefault();
+                ShoppingCart cart = context.ShoppingCarts.Where(c => c.AccountId == acc && c.ProductId == productId).FirstOrDefault();
                 if (cart == null) {
                     cart = new ShoppingCart();
                     cart.AccountId = acc;
                     cart.Quantity = quantity;
                     cart.ProductId  = productId;
                     cart.CreateAt = DateTime.Now;
-                    PetStoreContext.Ins.ShoppingCarts.Add(cart);
-                    PetStoreContext.Ins.SaveChanges();
+                    context.ShoppingCarts.Add(cart);
+                    context.SaveChanges();
                 }
                 else
                 {
                     cart.Quantity += quantity;
                     cart.UpdateAt = DateTime.Now;
-                    PetStoreContext.Ins.ShoppingCarts.Update(cart);
-                    PetStoreContext.Ins.SaveChanges();
+                    context.ShoppingCarts.Update(cart);
+                    context.SaveChanges();
                 }
                 return new JsonResult(new { success = true, message = "Thêm vào giỏ hàng thành công!" });
             }
@@ -86,10 +88,11 @@ namespace PetStore.Pages.Customer
             {
                 return new JsonResult(new { success = false, message = "Vui lòng login trước!" });
             }
+            var context = new PetStoreContext();
             try
             {
                 for (int i=0; i < cartIds.Length; i++) {
-                    ShoppingCart cart = PetStoreContext.Ins.ShoppingCarts.Where(c => c.CartId == cartIds[i]).Include(p => p.Product).FirstOrDefault();
+                    ShoppingCart cart = context.ShoppingCarts.Where(c => c.CartId == cartIds[i]).Include(p => p.Product).FirstOrDefault();
                     if(cart != null)
                     {
                         if(quantities[i] <= cart.Product.UnitInStock)
@@ -100,13 +103,13 @@ namespace PetStore.Pages.Customer
                                 {
                                     cart.Quantity = quantities[i];
                                     cart.UpdateAt = DateTime.Now;
-                                    PetStoreContext.Ins.ShoppingCarts.Update(cart);
-                                    PetStoreContext.Ins.SaveChanges();
+                                    context.ShoppingCarts.Update(cart);
+                                    context.SaveChanges();
                                 }
                                 else if (quantities[i] == 0)
                                 {
-                                    PetStoreContext.Ins.ShoppingCarts.Remove(cart);
-                                    PetStoreContext.Ins.SaveChanges();
+                                    context.ShoppingCarts.Remove(cart);
+                                    context.SaveChanges();
                                 }
                             
                             }
